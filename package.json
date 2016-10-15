@@ -1,0 +1,29 @@
+{
+  "name": "myo-fbd-diagram",
+  "version": "1.0.0",
+  "description": "FBD Editor for EECS 481: Software Engineering",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "Electron",
+    "myo",
+    "free",
+    "body",
+    "diagram"
+  ],
+  "author": "Alex Arnold, Andrew Chen, Jordan Ridenour, Ryan Jackson",
+  "license": "",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "devDependencies": {
+    "electron": "^1.3.4"
+  }
+}
