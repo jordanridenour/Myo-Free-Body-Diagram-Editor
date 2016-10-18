@@ -25,5 +25,8 @@
   "homepage": "",
   "devDependencies": {
     "electron": "^1.3.4"
+  },
+  "dependencies": {
+    "electron-require": "^0.3.0"
   }
 }

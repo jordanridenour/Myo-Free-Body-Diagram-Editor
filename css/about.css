@@ -2,17 +2,7 @@ body {
 	font-family: "Arial", Arial, sans-serif;
 }
 
-.screenTitle {
-
-	position: relative;
-	margin-left: 250px;
-	min-width: 400px;
-	font-weight: 100;
-	text-align: center;
-	white-space: nowrap;
-}
-
-.welcomeDesc {
+h1 {
 	position: relative;
 	margin-left: 250px;
 	min-width: 400px;
