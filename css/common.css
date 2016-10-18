@@ -1,6 +1,10 @@
 body {
 	font-family: "Arial", Arial, sans-serif;
+}
+
+#mainContent {
 	margin-left: 250px;
+	text-align: center;
 }
 
 /* Side navigation menu */

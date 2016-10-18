@@ -2,10 +2,10 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Myo Guided Free Body Diagram Creator</title>
-
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/newDiagram.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+    <title>Myo Guided Free Body Diagram Creator</title>
 
   </head>
 
@@ -18,12 +18,28 @@
   </div>
 
   <body>
-    <h1> Free Body Diagram Creator </h1>
-    <canvas id="fbdCanvas"> </canvas>
+    <div id = mainContent>
+      <h1> Free Body Diagram Creator </h1>
+      <canvas id="fbdCanvas"> </canvas>
+      <div id="controls">
+      </div>
+
+      <div id="outer-gallery">
+        <div id="inner-gallery">
+          <img src="../images/boeing.png" class="def_img">
+          <img src="../images/car.jpg" class="def_img">
+          <img src="../images/ball.png" class="def_img">
+        </div>
+      </div>
+
+    </div>
   </body>
 
   <script>
     // You can also require other files to run in this process
     require('../js/nav.js')
+    require('../js/newDiagram.js')
+    require('../js/jquery-3.1.1')
+    require('../bootstrap/js/bootstrap.min.js')
   </script>
 </html>

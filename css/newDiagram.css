@@ -1,15 +1,44 @@
 h1 {
 	position: relative;
-	min-width: 400px;
+	min-width: 600px;
 	font-weight: 100;
 	text-align: center;
 	white-space: nowrap;
 }
 
-#fbdCanvas {
-	position: relative;
-	min-width: 508px;
-	margin: 10px;
+canvas {
+	display: inline;
   border-style: inset;
-	text-align: center;
+	width: 80%;
+	max-height: 350px;
+}
+
+#outer-gallery {
+
+	height: 200px;
+	width: 160px;
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	margin: 10px;
+	border-style: solid;
+	border-radius: 2px;
+	border-width: 2px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+#inner-gallery {
+	height: auto;
+	width: auto;
+	position: relative;
+	background-color: #849eb8;
+}
+
+.def_img {
+	height: 120px;
+	width: 120px;
+	position: relative;
+	display: inline-block;
+	float: top;
 }
