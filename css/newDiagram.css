@@ -1,4 +1,4 @@
-.screenTitle {
+h1 {
 	position: relative;
 	min-width: 400px;
 	font-weight: 100;
@@ -6,10 +6,10 @@
 	white-space: nowrap;
 }
 
-.welcomeDesc {
+#fbdCanvas {
 	position: relative;
-	min-width: 400px;
-	font-weight: 100;
+	min-width: 508px;
+	margin: 10px;
+  border-style: inset;
 	text-align: center;
-	white-space: nowrap;
 }
