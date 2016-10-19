@@ -6,6 +6,16 @@ h1 {
 	white-space: nowrap;
 }
 
+#x-control {
+	width: 150px;
+	margin: 40px auto;
+}
+
+#y-control {
+	width: 150px;
+	margin: 40px auto;
+}
+
 canvas {
 	display: inline;
   border-style: inset;

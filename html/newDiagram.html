@@ -2,11 +2,17 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <script>
+      window.$ = window.jQuery = require('../bootstrap/js/jquery-3.1.1');
+    </script>
+
+    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/newDiagram.js"></script>
+
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/newDiagram.css">
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
     <title>Myo Guided Free Body Diagram Creator</title>
-
   </head>
 
   <div id="menuSideNav" class="sidenav">
@@ -21,25 +27,51 @@
     <div id = mainContent>
       <h1> Free Body Diagram Creator </h1>
       <canvas id="fbdCanvas"> </canvas>
-      <div id="controls">
+      <div id="x-control">
+
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+            <span class="glyphicon glyphicon-minus"></span>
+          </button>
+        </span>
+
+        <input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
+
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+        </span>
+      </div>
+
+      <div id="y-control">
+
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+            <span class="glyphicon glyphicon-minus"></span>
+          </button>
+        </span>
+
+        <input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
+
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+        </span>
       </div>
 
       <div id="outer-gallery">
         <div id="inner-gallery">
-          <img src="../images/boeing.png" class="def_img">
-          <img src="../images/car.jpg" class="def_img">
-          <img src="../images/ball.png" class="def_img">
+          <img src="../images/boeing.png" class="def_img" id="img_1" ondblclick="addImage(this.src)">
+          <img src="../images/car.jpg" class="def_img" id="img_2" ondblclick="addImage(this.src)">
+          <img src="../images/ball.png" class="def_img" id="img_3" ondblclick="addImage(this.src)">
         </div>
       </div>
 
     </div>
   </body>
-
-  <script>
-    // You can also require other files to run in this process
-    require('../js/nav.js')
-    require('../js/newDiagram.js')
-    require('../js/jquery-3.1.1')
-    require('../bootstrap/js/bootstrap.min.js')
-  </script>
+    <script>
+      require('../js/nav.js')
+    </script>
 </html>
