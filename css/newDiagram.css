@@ -6,13 +6,13 @@ h1 {
 	white-space: nowrap;
 }
 
-.direction-controls {
+.line-controls-coords {
 
 	position: relative;
+	float: left;
 	bottom: 0px;
-	left: 0px;
-	padding: 30px;
-	width: 150px;
+	padding: 10px;
+	width: 180px;
 }
 
 canvas {
