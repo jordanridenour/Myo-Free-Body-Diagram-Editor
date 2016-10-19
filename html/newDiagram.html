@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script>
+      window.$ = window.jQuery = require('../bootstrap/js/jquery-3.1.1');
+    </script>
+
+    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/newDiagram.js"></script>
+
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/newDiagram.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+    <title>Myo Guided Free Body Diagram Creator</title>
+  </head>
+
+  <div id="menuSideNav" class="sidenav">
+    <button id='home'> Home </button>
+    <button id='about'> About </button>
+    <button id='help'> Help </button>
+    <button id='newDiagram'> New Diagram </button>
+    <button id='loadDiagram'> Load Diagram </button>
+  </div>
+
+  <body>
+    <div id = "mainContent">
+      <h1> Free Body Diagram Creator </h1>
+      <canvas id="fbdCanvas"> </canvas>
+      <div id = "line-settings">
+        <div class="line-controls-coords">
+          <p> Line Length
+          </p><div class="input-group" id="line-length">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-danger btn-number"
+                    id="l_minus" data-type="minus" data-field="quant[1]" onclick="LineControlButtonClick('l_minus')">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </span>
+                <input type="text" name="quant[1]" class="form-control input-number" id="input-length" value="1" min="1" max="100">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-success btn-number"
+                     id="l_plus" data-type="plus" data-field="quant[1]" onclick="LineControlButtonClick('l_plus')">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </span>
+            </div>
+          <p></p>
+          <p> Insert
+             </p><div class="input-group" id="insert-line">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-warning" id="l_confirm" onclick="onConfirmClick()"> Insert </button>
+                  </span>
+                </div>
+             <p></p>
+        </div>
+
+        <div class="line-controls-coords">
+          <p> X-Position
+            </p><div class="input-group" id="x-input">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-danger btn-number"
+                    id="w_minus" data-type="minus" data-field="quant[2]" onclick="LineControlButtonClick('w_minus')">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </span>
+                <input type="text" name="quant[2]" class="form-control input-number" id="input-width" value="1" min="1" max="100">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-success btn-number"
+                    id="w_plus" data-type="plus" data-field="quant[2]" onclick="LineControlButtonClick('w_plus')">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </span>
+            </div>
+          <p></p>
+          <p> Y-Position
+            </p><div class="input-group" id="y-input">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-danger btn-number"
+                    id="h_minus" data-type="minus" data-field="quant[3]" onclick="LineControlButtonClick('h_minus')">
+                      <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </span>
+                <input type="text" name="quant[3]" class="form-control input-number" id="input-height" value="1" min="1" max="100">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-success btn-number"
+                    id="h_plus" data-type="plus" data-field="quant[3]" onclick="LineControlButtonClick('h_plus')">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </span>
+            </div>
+          <p></p>
+        </div>
+        <div class="line-controls-coords">
+          <p> Angle
+            </p><div class="input-group" id="angle-input">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-danger btn-number"
+                    id="a_minus" data-type="minus" data-field="quant[4]" onclick="LineControlButtonClick('a_minus')">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </span>
+                <input type="text" name="quant[4]" class="form-control input-number" id="input-angle" value="1" min="1" max="360">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-success btn-number"
+                    id="a_plus" data-type="plus" data-field="quant[4]" onclick="LineControlButtonClick('a_plus')">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </span>
+            </div>
+          <p></p>
+      </div>
+
+      <div id="outer-gallery">
+        <div id="inner-gallery">
+          <img src="../images/boeing.png" class="def_img" id="img_1" ondblclick="addImage(this.src)">
+          <img src="../images/car.jpg" class="def_img" id="img_2" ondblclick="addImage(this.src)">
+          <img src="../images/ball.png" class="def_img" id="img_3" ondblclick="addImage(this.src)">
+        </div>
+      </div>
+
+    </div>
+  </body>
+    <script>
+      require('../js/nav.js')
+    </script>
+</html>

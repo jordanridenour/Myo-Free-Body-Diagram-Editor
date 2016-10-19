@@ -1,0 +1,39 @@
+body {
+	font-family: "Arial", Arial, sans-serif;
+}
+
+#mainContent {
+	margin-left: 250px;
+	text-align: center;
+}
+
+/* Side navigation menu */
+.sidenav {
+	height: 100%;
+	width: 250px;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	background-color: #222233;
+	padding-top: 100px;
+}
+
+/* Navigation Links */
+.sidenav button {
+	padding: 8px 8px 8px 8px;
+	width: inherit;
+	text-decoration: none;
+	font-size: 25px;
+	align-self: center;
+	border: none;
+	color: #aaccff;
+	background-color: inherit;
+	display: block;
+	transition: 0.3s;
+}
+
+/* Hover behavior */
+.sidenav button:hover {
+	background-color: #ee8520;
+}

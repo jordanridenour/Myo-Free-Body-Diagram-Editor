@@ -1,3 +1,15 @@
-p {
-	color: blue;
+.screenTitle {
+	position: relative;
+	min-width: 400px;
+	font-weight: 100;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.welcomeDesc {
+	position: relative;
+	min-width: 400px;
+	font-weight: 100;
+	text-align: center;
+	white-space: nowrap;
 }
