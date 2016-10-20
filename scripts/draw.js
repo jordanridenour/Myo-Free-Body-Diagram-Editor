@@ -1,9 +1,11 @@
 var canvas = new fabric.Canvas("myCanvas");
 
-var addButton = document.getElementById("addButton");
+var addRectButton = document.getElementById("addRectangleButton");
+var addLineButton = document.getElementById("addLineButton");
 var deleteButton = document.getElementById("deleteButton");
 
-addButton.addEventListener("click", addRect);
+addRectButton.addEventListener("click", addRect);
+addLineButton.addEventListener("click", addLine);
 deleteButton.addEventListener("click", deleteSelected);
 
 function addRect() {
@@ -17,12 +19,21 @@ function addRect() {
    canvas.add(rect);
 }
 
+function addLine() {
+    var line = new fabric.Line([50, 100, 200, 200], {
+        left: 170,
+        top: 150,
+        stroke: 'black'
+    });
+    canvas.add(line);
+}
+
 function deleteSelected() {
-    var currentRect = canvas.getActiveObject();
-    if (currentRect) {
-        canvas.remove(currentRect);
+    var selectedObj = canvas.getActiveObject();
+    if (selectedObj) {
+        canvas.remove(selectedObj);
     }
     else {
-        alert("No rectangle selected!");
+        alert("No object selected!");
     }
 }

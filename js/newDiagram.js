@@ -1,6 +1,11 @@
 // Front-end script for canvas controls
 const {ipcRenderer} = require('electron');
 
+var w_minus = document.getElementById("w_minus");
+var w_plus  = document.getElementById("w_plus");
+var h_minus = document.getElementById("h_minus");
+var h_plus  = document.getElementById("h_plus");
+
 function addImage(src) {
   var canvas = $('#fbdCanvas')[0];
   context = canvas.getContext('2d');
