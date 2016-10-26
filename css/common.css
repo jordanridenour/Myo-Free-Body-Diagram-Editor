@@ -8,7 +8,7 @@ body {
 }
 
 /* Side navigation menu */
-.sidenav {
+#menuSideNav {
 	height: 100%;
 	width: 250px;
 	position: fixed;
@@ -20,7 +20,7 @@ body {
 }
 
 /* Navigation Links */
-.sidenav button {
+#menuSideNav button {
 	padding: 8px 8px 8px 8px;
 	width: inherit;
 	text-decoration: none;
@@ -34,6 +34,6 @@ body {
 }
 
 /* Hover behavior */
-.sidenav button:hover {
+#menuSideNav button:hover {
 	background-color: #ee8520;
 }
