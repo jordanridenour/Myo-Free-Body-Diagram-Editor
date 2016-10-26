@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/newDiagram.css">
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+
+    <script>
+      window.$ = window.jQuery = require('../bootstrap/js/jquery-3.1.1');
+    </script>
+
     <title>Myo Guided Free Body Diagram Creator</title>
 </head>
 
@@ -71,17 +76,15 @@
 
     </div>
 </body>
-<script>
-    window.$ = window.jQuery = require('../bootstrap/js/jquery-3.1.1');
-</script>
 
-<script src="../packages/fabric.min.js"></script>
+<script type="text/javascript" src="../packages/fabric.min.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../scripts/addImage.js"></script>
-<script type="text/javascript" src="../scripts/plusMinus.js"></script>
-<script type="text/javascript" src="../scripts/newDiagramDraw.js"></script>
+<script type="text/javascript" src="../js/myoMapping.js"></script>
+<script type="text/javascript" src="../js/addImage.js"></script>
+<script type="text/javascript" src="../js/plusMinus.js"></script>
+<script type="text/javascript" src="../js/newDiagramDraw.js"></script>
 
 <script>
-    require('../js/nav.js')
+  require('../js/nav.js');
 </script>
 </html>
