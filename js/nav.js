@@ -3,6 +3,10 @@ const {ipcRenderer} = require('electron');
 
 createStandardEvents();
 
+// Global variables
+var tabIdx = -1;
+var tabbedElts;
+
 // Establish Myo Connection
 var myMyo;
 var Myo = require('myo');
@@ -22,12 +26,16 @@ Myo.on('connected', function () {
 
   // Myo trigger events
   $(document).ready(function () {
-    createMyoEvents();
+    //createMyoEvents();
+    createTabbedMyoEvents();
   });
 });
 
 // Standard trigger events
 $(document).ready(function() {
+
+  tabbedElts = [];
+  tabbedElts = $('.tabbed').toArray();
   createStandardEvents();
 });
 
@@ -53,6 +61,49 @@ function createMyoEvents() {
   Myo.on('wave_in', function() {
     console.log('Wave in!');
     $('#newDiagram').trigger('click');
+  });
+}
+
+// Create tab navigation events
+function createTabbedMyoEvents() {
+
+  Myo.on('wave_out', function() {
+
+    // Iteration handling
+    if (tabIdx + 1 >= tabbedElts.length) {
+      tabIdx = 0;
+    }
+    else {
+      tabIdx++;
+    }
+
+    replaceIdx = tabIdx == 0 ? tabbedElts.length - 1 : tabIdx - 1;
+
+    $('#' + tabbedElts[replaceIdx].id).css('color', '#aaccff');
+    console.log("Tabbing to " + tabbedElts[tabIdx].id + "!");
+    $('#' + tabbedElts[tabIdx].id).css('color', 'yellow');
+  });
+
+  Myo.on('wave_in', function() {
+
+    // Iteration handling
+    if (!tabIdx) {
+      tabIdx = tabbedElts.length - 1;
+    }
+    else {
+      tabIdx--;
+    }
+
+    replaceIdx = tabIdx == tabbedElts.length - 1 ? 0 : tabIdx + 1;
+
+    $('#' + tabbedElts[replaceIdx].id).css('color', '#aaccff');
+    console.log("Tabbing to " + tabbedElts[tabIdx].id + "!");
+    $('#' + tabbedElts[tabIdx].id).css('color', 'yellow');
+  });
+
+  Myo.on('fist', function() {
+    console.log("Clicking " + tabbedElts[tabIdx].id + "!");
+    $('#' + tabbedElts[tabIdx].id).trigger('click');
   });
 }
 
