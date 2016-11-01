@@ -20,6 +20,7 @@ addRectButton.click(addRect);
 addLineButton.click(addLine);
 deleteButton.click(deleteSelected);
 
+
 // lineLengthInput.change(function() {
 //     var selectedObj = canvas.getActiveObject();
 //     if (selectedObj.customLine) {
