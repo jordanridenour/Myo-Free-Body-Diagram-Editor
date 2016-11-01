@@ -28,6 +28,21 @@
         <div id = "line-settings">
             <div class="line-controls-coords">
                 <button type="button" class="btn btn-warning tabbed" id="l_confirm"> Insert Line</button>
+                <br/>
+                <p> Length </p>
+                <div class="input-group" id="l-input">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-danger btn-number tabbed" id="l_minus" data-type="minus" data-field="quant[1]">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+                    </span>
+                    <input type="text" name="quant[1]" class="form-control input-number" id="lineLengthInput" value="100" min="5" max="1000">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-success btn-number tabbed" id="l_plus" data-type="plus" data-field="quant[1]">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </span>
+                </div>
             </div>
             <div class="line-controls-coords">
                 <button type="button" class="btn btn-success tabbed" id="r_confirm"> Insert Rectangle</button>

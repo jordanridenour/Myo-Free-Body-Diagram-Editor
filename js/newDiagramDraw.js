@@ -1,27 +1,47 @@
 var canvas = new fabric.Canvas("fbdCanvas");
 var center = getCanvasCenter(canvas);
 
-var addRectButton = document.getElementById("r_confirm");
-var addLineButton = document.getElementById("l_confirm");
-var deleteButton  = document.getElementById("deleteButton");
+var addLineButton = $("#l_confirm");
+var addRectButton = $("#r_confirm");
+var deleteButton  = $("#deleteButton");
 
-var rectWidthInput  = document.getElementById("rectWidthInput");
-var rectHeightInput = document.getElementById("rectHeightInput");
+var lineDecreaseButton = $("#l_minus");
+var lineIncreaseButton = $("#l_plus");
 
-addRectButton.addEventListener("click", addRect);
-addLineButton.addEventListener("click", addLine);
-deleteButton.addEventListener("click", deleteSelected);
+var lineLengthInput = $("#lineLengthInput");
+var rectWidthInput  = $("#rectWidthInput");
+var rectHeightInput = $("#rectHeightInput");
 
-document.addEventListener("keyup", backspaceDelete);
+var imageInput = $(".def_img");
 
-$('.def_img').dblclick(function(e) {
+$(document).keyup(backspaceDelete);
+
+addRectButton.click(addRect);
+addLineButton.click(addLine);
+deleteButton.click(deleteSelected);
+
+// lineLengthInput.change(function() {
+//     var selectedObj = canvas.getActiveObject();
+//     if (selectedObj.customLine) {
+//         var length  = parseInt(lineLengthInput.value);
+//         selectedObj.setWidth(length);
+//     }
+// });
+
+imageInput.dblclick(function(e) {
     e.preventDefault();
     addImage(this);
 });
 
+canvas.on('selection:cleared', function() {
+    lineLengthInput.val(100);
+});
+
 function addRect() {
-    var width  = parseInt(rectWidthInput.value);
-    var height = parseInt(rectHeightInput.value);
+    var width  = parseInt(rectWidthInput.val());
+    var height = parseInt(rectHeightInput.val());
+    console.log(width);
+    console.log(height);
     var rect = new fabric.Rect({
         left: center.x,
         top: center.y,
@@ -33,12 +53,31 @@ function addRect() {
 }
 
 function addLine() {
-    var line = new fabric.Line([0, 0, 150, 170], {
+    var line = new fabric.Rect({
         left: center.x,
         top: center.y,
-        stroke: 'black',
+        fill: 'black',
+        lockScalingY: true,
+        width: 100,
+        height: 20,
+        angle: 45
     });
+    line.on('selected', function() {
+        updateLineInputVal(line);
+    });
+    line.on('scaling', function() {
+        updateLineInputVal(line);
+    });
+    line.on('modified', function() {
+        line.setHeight(20);
+    });
+    line.customLine = true;
     canvas.add(line);
+}
+
+function updateLineInputVal(line) {
+    var width = line.getWidth();
+    lineLengthInput.val(width);
 }
 
 function addImage(img) {
