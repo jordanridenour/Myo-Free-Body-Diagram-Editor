@@ -2,10 +2,14 @@ var canvas = new fabric.Canvas("myCanvas");
 
 var addRectButton = document.getElementById("addRectangleButton");
 var addLineButton = document.getElementById("addLineButton");
+var addCircleButton = document.getElementById("addCircleButton");
+var addTriangleButton = document.getElementById("addTriangleButton");
 var deleteButton = document.getElementById("deleteButton");
 
 addRectButton.addEventListener("click", addRect);
 addLineButton.addEventListener("click", addLine);
+addCircleButton.addEventListener("click", addCircle);
+addTriangleButton.addEventListener("click", addTriangle);
 deleteButton.addEventListener("click", deleteSelected);
 
 function addRect() {
@@ -26,6 +30,27 @@ function addLine() {
         stroke: 'black'
     });
     canvas.add(line);
+}
+
+function addCircle() {
+    var circle = new fabric.Circle({
+        radius: 20, 
+        fill: 'green', 
+        left: 100, 
+        top: 100
+    });
+    canvas.add(circle)
+}
+
+function addTriangle() {
+    var triangle = new fabric.Triangle({
+        width: 20,
+        height: 30,
+        fill: 'blue',
+        left: 100,
+        top: 100
+    });
+    canvas.add(triangle)
 }
 
 function deleteSelected() {

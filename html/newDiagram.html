@@ -77,6 +77,24 @@
                     </span>
                 </div>
             </div>
+            <div class="line-controls-coords">
+                <button type="button" class="btn btn-warning tabbed" id="c_confirm"> Insert Circle</button>
+                <br/>
+                <p> Diameter </p>
+                <div class="input-group" id="d-input">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-danger btn-number tabbed" id="d_minus" data-type="minus" data-field="quant[4]">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+                    </span>
+                    <input type="text" name="quant[4]" class="form-control input-number" id="circleDiameterInput" value="100" min="5" max="1000">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-success btn-number tabbed" id="d_plus" data-type="plus" data-field="quant[4]">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
         </div>
 
         <button type="button" class="btn btn-danger tabbed"  id="deleteButton"> Delete</button>
