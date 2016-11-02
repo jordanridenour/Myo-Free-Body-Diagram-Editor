@@ -1,8 +1,6 @@
 // Front-end script for navigation controls
 const {ipcRenderer} = require('electron');
 
-createStandardEvents();
-
 // Global variables
 var tabIdx = -1;
 var tabbedElts;
@@ -17,8 +15,6 @@ Myo.onError = function () {
 }
 
 Myo.connect("com.MyoFBD.Editor");
-
-
 
 // Once connected, establish myMyo object and global settings
 Myo.on('connected', function () {
