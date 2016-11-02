@@ -8,12 +8,15 @@ var tabbedElts;
 // Establish Myo Connection
 var myMyo;
 var Myo = require('myo');
-Myo.connect("com.MyoFBD.Editor");
 
 // Connection error
 Myo.onError = function () {
-        alert("Couldn't connect to Myo.\n Make sure you have connected with Myo Connect.");
+  alert("Couldn't connect to Myo.\nMake sure you have connected with Myo Connect.");
 }
+
+Myo.connect("com.MyoFBD.Editor");
+
+
 
 // Once connected, establish myMyo object and global settings
 Myo.on('connected', function () {
