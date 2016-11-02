@@ -1,6 +1,8 @@
 // Front-end script for navigation controls
 const {ipcRenderer} = require('electron');
 
+createStandardEvents();
+
 // Global variables
 var tabIdx = -1;
 var tabbedElts;
@@ -112,33 +114,29 @@ function createStandardEvents() {
 
   // CLICK CONTROL
   $('#home').on('click', function () {
-    if(location.href.split("/").slice(-1) != 'index.html') {
-      ipcRenderer.send('changeWindow', 'index.html');
-    }
+    changeWindow('index.html');
   });
 
   $('#about').on('click', function () {
     console.log("clicked about");
-    if(location.href.split("/").slice(-1) != 'about.html') {
-      ipcRenderer.send('changeWindow', 'about.html');
-    }
+    changeWindow('about.html');
   });
 
   $('#help').on('click', function () {
-    if(location.href.split("/").slice(-1) != 'help.html') {
-      ipcRenderer.send('changeWindow', 'help.html');
-    }
+    changeWindow('help.html');
   });
 
   $('#loadDiagram').on('click', function () {
-    if(location.href.split("/").slice(-1) != 'loadDiagram.html') {
-      ipcRenderer.send('changeWindow', 'loadDiagram.html');
-    }
+    changeWindow('loadDiagram.html');
   });
 
   $('#newDiagram').on('click', function () {
-    if(location.href.split("/").slice(-1) != 'newDiagram.html') {
-      ipcRenderer.send('changeWindow', 'newDiagram.html');
-    }
+    changeWindow('newDiagram.html');
   });
+}
+
+function changeWindow(page_url) {
+  if(location.href.split("/").slice(-1) != page_url) {
+    ipcRenderer.send('changeWindow', page_url);
+  }
 }
