@@ -4,6 +4,7 @@ var center = getCanvasCenter(canvas);
 var addLineButton = $("#l_confirm");
 var addRectButton = $("#r_confirm");
 var addCircleButton = $("#c_confirm");
+var addTriangleButton = $("#t_confirm");
 var deleteButton  = $("#deleteButton");
 
 var lineDecreaseButton = $("#l_minus");
@@ -14,6 +15,8 @@ var circleIncreaseButton = $("#d_plus");
 var lineLengthInput = $("#lineLengthInput");
 var rectWidthInput  = $("#rectWidthInput");
 var rectHeightInput = $("#rectHeightInput");
+var triangleWidthInput = $("#triangleWidthInput");
+var triangleHeightInput = $("#triangleHeightInput");
 var circleDiameterInput = $("#circleDiameterInput");
 
 var imageInput = $(".def_img");
@@ -23,6 +26,7 @@ $(document).keyup(backspaceDelete);
 addRectButton.click(addRect);
 addLineButton.click(addLine);
 addCircleButton.click(addCircle);
+addTriangleButton.click(addTriangle);
 deleteButton.click(deleteSelected);
 
 
@@ -67,6 +71,17 @@ function addCircle() {
         top: center.y
     });
     canvas.add(circle)
+}
+
+function addTriangle() {
+    var triangle = new fabric.Triangle({
+        width: parseInt(triangleWidthInput.val()),
+        height: parseInt(triangleHeightInput.val()),
+        fill: 'blue',
+        left: center.x,
+        top: center.y
+    });
+    canvas.add(triangle)
 }
 
 function addLine() {
