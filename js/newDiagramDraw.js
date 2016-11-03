@@ -1,6 +1,7 @@
 var canvas = new fabric.Canvas("fbdCanvas");
 var center = getCanvasCenter(canvas);
 
+var selectShapeButton = $("#select_shape");
 var addLineButton = $("#l_confirm");
 var addRectButton = $("#r_confirm");
 var deleteButton  = $("#deleteButton");
@@ -16,10 +17,10 @@ var imageInput = $(".def_img");
 
 $(document).keyup(backspaceDelete);
 
+selectShapeButton.click(showObjects);
 addRectButton.click(addRect);
 addLineButton.click(addLine);
 deleteButton.click(deleteSelected);
-
 
 // lineLengthInput.change(function() {
 //     var selectedObj = canvas.getActiveObject();
@@ -37,6 +38,15 @@ imageInput.dblclick(function(e) {
 canvas.on('selection:cleared', function() {
     lineLengthInput.val(100);
 });
+
+canvas.on('object:added', function(e) {
+    console.log(e);
+});
+
+function showObjects() {
+    var objects = canvas.getObjects();
+    console.log(objects);
+}
 
 function addRect() {
     var width  = parseInt(rectWidthInput.val());
@@ -88,6 +98,21 @@ function addImage(img) {
     });
     canvas.add(imgInstance);
 }
+
+function selectNext() {
+    var objs = canvas.getObjects();
+    var selectedObj = canvas.getActiveObject();
+    var currentIndex = 0;
+    if (objs.length < 1) return;
+    if (selectedObj) currentIndex = objs.find(getSelectedIndex);
+    canvas.setActiveObject(canvas.item(currentIndex));
+}
+
+function getSelectedIndex(element, index, array) {
+    return index;
+}
+
+
 
 function backspaceDelete(event) {
     // keyCode 8 maps to backspace
