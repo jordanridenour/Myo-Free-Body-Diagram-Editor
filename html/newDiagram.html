@@ -39,7 +39,7 @@
                             <span class="glyphicon glyphicon-minus"></span>
                         </button>
                     </span>
-                    <input type="text" name="quant[1]" class="form-control input-number" id="lineLengthInput" value="100" min="5" max="1000">
+                    <input type="text" name="quant[1]" class="form-control input-number" id="lineLengthInput" value="100" min="5" max="500">
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-success btn-number tabbed" id="l_plus" data-type="plus" data-field="quant[1]">
                             <span class="glyphicon glyphicon-plus"></span>
@@ -57,7 +57,7 @@
                             <span class="glyphicon glyphicon-minus"></span>
                         </button>
                     </span>
-                    <input type="text" name="quant[2]" class="form-control input-number" id="rectWidthInput" value="50" min="5" max="100">
+                    <input type="text" name="quant[2]" class="form-control input-number" id="rectWidthInput" value="50" min="5" max="500">
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-success btn-number tabbed" id="w_plus" data-type="plus" data-field="quant[2]">
                             <span class="glyphicon glyphicon-plus"></span>
@@ -72,9 +72,60 @@
                             <span class="glyphicon glyphicon-minus"></span>
                         </button>
                     </span>
-                    <input type="text" name="quant[3]" class="form-control input-number" id="rectHeightInput" value="50" min="5" max="100">
+                    <input type="text" name="quant[3]" class="form-control input-number" id="rectHeightInput" value="50" min="5" max="500">
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-success btn-number tabbed" id="h_plus" data-type="plus" data-field="quant[3]">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="line-controls-coords">
+                <button type="button" class="btn btn-warning tabbed" id="c_confirm"> Insert Circle</button>
+                <br/>
+                <p> Diameter </p>
+                <div class="input-group" id="d-input">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-danger btn-number tabbed" id="d_minus" data-type="minus" data-field="quant[4]">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+                    </span>
+                    <input type="text" name="quant[4]" class="form-control input-number" id="circleDiameterInput" value="100" min="5" max="500">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-success btn-number tabbed" id="d_plus" data-type="plus" data-field="quant[4]">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="line-controls-coords">
+                <button type="button" class="btn btn-success tabbed" id="t_confirm"> Insert Triangle</button>
+                <br/>
+                <p> Width </p>
+                <div class="input-group" id="triangle-width-input">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-danger btn-number tabbed" id="w_minus" data-type="minus" data-field="quant[5]">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+                    </span>
+                    <input type="text" name="quant[5]" class="form-control input-number" id="triangleWidthInput" value="50" min="5" max="500">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-success btn-number tabbed" id="w_plus" data-type="plus" data-field="quant[5]">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </span>
+                </div>
+                <br/>
+                <p> Height </p>
+                <div class="input-group" id="triangle-height-input">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-danger btn-number tabbed" id="h_minus" data-type="minus" data-field="quant[6]">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+                    </span>
+                    <input type="text" name="quant[6]" class="form-control input-number" id="triangleHeightInput" value="50" min="5" max="500">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-success btn-number tabbed" id="h_plus" data-type="plus" data-field="quant[6]">
                             <span class="glyphicon glyphicon-plus"></span>
                         </button>
                     </span>
@@ -86,13 +137,11 @@
 
         <div id="outer-gallery">
             <div id="inner-gallery">
-                <img src="../images/boeing.png" class="def_img" id="img_1">
-                <img src="../images/car.jpg" class="def_img" id="img_2">
-                <img src="../images/ball.png" class="def_img" id="img_3">
             </div>
         </div>
     </div>
 </body>
+
 
 <script type="text/javascript" src="../packages/fabric.min.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
@@ -100,6 +149,7 @@
 <script type="text/javascript" src="../js/addImage.js"></script>
 <script type="text/javascript" src="../js/plusMinus.js"></script>
 <script type="text/javascript" src="../js/newDiagramDraw.js"></script>
+<script type="text/javascript" src="../js/getImages.js"></script>
 
 <script>
   require('../js/nav.js');
