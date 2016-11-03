@@ -24,7 +24,7 @@ var imageInput = $(".def_img");
 
 $(document).keyup(backspaceDelete);
 
-selectShapeButton.click(showObjects);
+selectShapeButton.click(selectNext);
 addRectButton.click(addRect);
 addLineButton.click(addLine);
 addCircleButton.click(addCircle);
@@ -132,14 +132,26 @@ function addImage(img) {
 
 function selectNext() {
     var objs = canvas.getObjects();
+    console.log(objs);
     var selectedObj = canvas.getActiveObject();
-    var currentIndex = 0;
+    var nextIndex = 0;
     if (objs.length < 1) return;
-    if (selectedObj) currentIndex = objs.find(getSelectedIndex);
-    canvas.setActiveObject(canvas.item(currentIndex));
+    if (selectedObj) {
+        //nextIndex = objs.find(getSelectedIndex) + 1;
+        nextIndex = getSelectedIndex(objs, selectedObj) + 1;
+        if (nextIndex === objs.length) {
+            canvas.deactivateAll().renderAll();
+            return;
+        }
+    }
+    console.log('Next Index: ' + nextIndex);
+    console.log('Next Object: ' + canvas.item(nextIndex));
+    canvas.setActiveObject(canvas.item(nextIndex));
 }
 
-function getSelectedIndex(element, index, array) {
+function getSelectedIndex(objs, target) {
+    var index = objs.map(function(x) { return x }).indexOf(target);
+    console.log('Selected Index: ' + index);
     return index;
 }
 
