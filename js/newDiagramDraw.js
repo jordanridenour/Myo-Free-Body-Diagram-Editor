@@ -22,7 +22,7 @@ var circleDiameterInput = $("#circleDiameterInput");
 
 var imageInput = $(".def_img");
 
-$(document).keyup(backspaceDelete);
+$(document).keyup(keyEvents);
 
 selectShapeButton.click(selectNext);
 addRectButton.click(addRect);
@@ -132,34 +132,40 @@ function addImage(img) {
 
 function selectNext() {
     var objs = canvas.getObjects();
-    console.log(objs);
     var selectedObj = canvas.getActiveObject();
     var nextIndex = 0;
     if (objs.length < 1) return;
     if (selectedObj) {
-        //nextIndex = objs.find(getSelectedIndex) + 1;
         nextIndex = getSelectedIndex(objs, selectedObj) + 1;
-        if (nextIndex === objs.length) {
-            canvas.deactivateAll().renderAll();
-            return;
-        }
+        if (nextIndex === objs.length) nextIndex = 0;
     }
-    console.log('Next Index: ' + nextIndex);
-    console.log('Next Object: ' + canvas.item(nextIndex));
     canvas.setActiveObject(canvas.item(nextIndex));
 }
 
 function getSelectedIndex(objs, target) {
     var index = objs.map(function(x) { return x }).indexOf(target);
-    console.log('Selected Index: ' + index);
     return index;
 }
 
+function clearSelections() {
+    canvas.deactivateAll().renderAll();
+}
 
-
-function backspaceDelete(event) {
-    // keyCode 8 maps to backspace
-    if (event.keyCode == 8) deleteSelected();
+function keyEvents(event) {
+    console.log(event.keyCode);
+    switch (event.keyCode) {
+        case 8:  // maps to backspace
+            console.log("deleteSelected()");
+            deleteSelected();
+            break;
+        case 67: // maps to 'c'
+            console.log("clearSelections()");
+            clearSelections();
+            break;
+        case 78: // maps to 'n'
+            console.log("selectNext()");
+            selectNext();
+    }
 }
 
 function deleteSelected() {
