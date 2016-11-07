@@ -2,8 +2,9 @@
 const {ipcRenderer} = require('electron');
 
 // Global variables
-var tabIdx = -1;
+var tabIdx = 0;
 var tabbedElts;
+var onMenu = false;
 
 // Establish Myo Connection
 var myMyo;
@@ -26,15 +27,13 @@ Myo.on('connected', function () {
   // Myo trigger events
   $(document).ready(function () {
     //createMyoEvents();
+    tabbedElts = $('.menutabbed').toArray();
     createTabbedMyoEvents();
   });
 });
 
 // Standard trigger events
 $(document).ready(function() {
-
-  tabbedElts = [];
-  tabbedElts = $('.tabbed').toArray();
   createStandardEvents();
 });
 
@@ -44,7 +43,6 @@ function createMyoEvents() {
   Myo.on('fist', function() {
      $('#home').trigger('click');
      console.log('Fist!');
-
   });
 
   Myo.on('fingers_spread', function() {
@@ -76,7 +74,12 @@ function createTabbedMyoEvents() {
       tabIdx++;
     }
 
-    replaceIdx = tabIdx == 0 ? tabbedElts.length - 1 : tabIdx - 1;
+    if (tabIdx == 0) {
+      replaceIdx = tabbedElts.length -1;
+    }
+    else {
+      replaceIdx = tabIdx - 1;
+    }
 
     $('#' + tabbedElts[replaceIdx].id).css('color', '#aaccff');
     console.log("Tabbing to " + tabbedElts[tabIdx].id + "!");
@@ -86,14 +89,19 @@ function createTabbedMyoEvents() {
   Myo.on('wave_in', function() {
 
     // Iteration handling
-    if (!tabIdx) {
+    if (tabIdx == 0) {
       tabIdx = tabbedElts.length - 1;
     }
     else {
       tabIdx--;
     }
 
-    replaceIdx = tabIdx == tabbedElts.length - 1 ? 0 : tabIdx + 1;
+    if (tabIdx == tabbedElts.length - 1) {
+      replaceIdx = 0;
+    }
+    else {
+      replaceIdx = tabIdx + 1;
+    }
 
     $('#' + tabbedElts[replaceIdx].id).css('color', '#aaccff');
     console.log("Tabbing to " + tabbedElts[tabIdx].id + "!");
@@ -103,6 +111,19 @@ function createTabbedMyoEvents() {
   Myo.on('fist', function() {
     console.log("Clicking " + tabbedElts[tabIdx].id + "!");
     $('#' + tabbedElts[tabIdx].id).trigger('click');
+    tabIdx = 0;
+  });
+
+  Myo.on('double_tap', function() {
+    console.log('Double tap!');
+    if (!onMenu) {
+      tabbedElts = $('.menutabbed').toArray();
+      onMenu = true;
+    }
+    else {
+      tabbedElts = $('.tabbed').toArray();
+      onMenu = false;
+    }
   });
 }
 
