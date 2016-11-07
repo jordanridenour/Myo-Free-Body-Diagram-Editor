@@ -37,30 +37,6 @@ $(document).ready(function() {
   createStandardEvents();
 });
 
-function createMyoEvents() {
-
-  // MYO CONTROL
-  Myo.on('fist', function() {
-     $('#home').trigger('click');
-     console.log('Fist!');
-  });
-
-  Myo.on('fingers_spread', function() {
-    console.log('Fingers spread!');
-    $('#about').trigger('click');
-  });
-
-  Myo.on('wave_out', function() {
-    console.log('Wave out!');
-    $('#help').trigger('click');
-  });
-
-  Myo.on('wave_in', function() {
-    console.log('Wave in!');
-    $('#newDiagram').trigger('click');
-  });
-}
-
 // Create tab navigation events
 function createTabbedMyoEvents() {
 
