@@ -6,6 +6,10 @@ var tabIdx = 0;
 var tabbedElts;
 var onMenu = false;
 
+$(document).ready(function() {
+  createStandardEvents();
+});
+
 // Establish Myo Connection
 var myMyo;
 var Myo = require('myo');
@@ -33,9 +37,7 @@ Myo.on('connected', function () {
 });
 
 // Standard trigger events
-$(document).ready(function() {
-  createStandardEvents();
-});
+
 
 // Create tab navigation events
 function createTabbedMyoEvents() {

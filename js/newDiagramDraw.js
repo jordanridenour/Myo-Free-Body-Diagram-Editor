@@ -57,6 +57,20 @@ function showObjects() {
     console.log(objects);
 }
 
+$('#wrapper').on('click', 'img', function(e) {
+  e.preventDefault();
+  var src = $(this).attr('src');
+  var imgElement = $(this).attr('id');
+  var imgInstance = new fabric.Image(imgElement, {
+    left: 100,
+    top: 100
+  });
+  //console.log(src);
+  console.log(imgElement);
+  console.log(imgInstance);
+  canvas.add(imgInstance);
+});
+
 function addRect() {
     var width  = parseInt(rectWidthInput.val());
     var height = parseInt(rectHeightInput.val());
