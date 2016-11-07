@@ -8,32 +8,32 @@ var onMenu = false;
 
 // Establish Myo Connection
 var myMyo;
-var Myo = require('myo');
 
-// Connection error
-Myo.onError = function () {
-  alert("Couldn't connect to Myo.\nMake sure you have connected with Myo Connect.");
-}
+$(document).ready(function () {
 
-Myo.connect("com.MyoFBD.Editor");
+    var Myo = require('myo');
 
-// Once connected, establish myMyo object and global settings
-Myo.on('connected', function () {
+    // Connection error
+    Myo.onError = function () {
+      alert("Couldn't connect to Myo.\nMake sure you have connected with Myo Connect.");
+    }
 
-  Myo.setLockingPolicy("none");
-  myMyo = Myo.create();
-  myMyo.unlock(false);
+    Myo.connect("com.MyoFBD.Editor");
 
-  // Myo trigger events
-  $(document).ready(function () {
+    // Once connected, establish myMyo object and global settings
+  Myo.on('connected', function () {
 
+    Myo.setLockingPolicy("none");
+    myMyo = Myo.create();
+    myMyo.unlock(false);
+
+    // Myo trigger events
     tabbedElts = $('.menutabbed').toArray();
     createTabbedMyoEvents();
-  });
-});
 
-// Standard trigger events
-$(document).ready(function() {
+  });
+
+  // Standard trigger events
   createStandardEvents();
 });
 
@@ -41,7 +41,7 @@ $(document).ready(function() {
 function createTabbedMyoEvents() {
 
   Myo.on('wave_out', function() {
-
+    console.log("hit wave out");
     // Iteration handling
     if (tabIdx + 1 >= tabbedElts.length) {
       tabIdx = 0;
