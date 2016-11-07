@@ -1,21 +1,21 @@
 // Front-end script for navigation controls
 const {ipcRenderer} = require('electron');
 
-createStandardEvents();
-
 // Global variables
-var tabIdx = -1;
+var tabIdx = 0;
 var tabbedElts;
+var onMenu = false;
 
 // Establish Myo Connection
 var myMyo;
 var Myo = require('myo');
-Myo.connect("com.MyoFBD.Editor");
 
 // Connection error
 Myo.onError = function () {
-        alert("Couldn't connect to Myo.\n Make sure you have connected with Myo Connect.");
+  alert("Couldn't connect to Myo.\nMake sure you have connected with Myo Connect.");
 }
+
+Myo.connect("com.MyoFBD.Editor");
 
 // Once connected, establish myMyo object and global settings
 Myo.on('connected', function () {
@@ -26,43 +26,16 @@ Myo.on('connected', function () {
 
   // Myo trigger events
   $(document).ready(function () {
-    //createMyoEvents();
+
+    tabbedElts = $('.menutabbed').toArray();
     createTabbedMyoEvents();
   });
 });
 
 // Standard trigger events
 $(document).ready(function() {
-
-  tabbedElts = [];
-  tabbedElts = $('.tabbed').toArray();
   createStandardEvents();
 });
-
-function createMyoEvents() {
-
-  // MYO CONTROL
-  Myo.on('fist', function() {
-     $('#home').trigger('click');
-     console.log('Fist!');
-
-  });
-
-  Myo.on('fingers_spread', function() {
-    console.log('Fingers spread!');
-    $('#about').trigger('click');
-  });
-
-  Myo.on('wave_out', function() {
-    console.log('Wave out!');
-    $('#help').trigger('click');
-  });
-
-  Myo.on('wave_in', function() {
-    console.log('Wave in!');
-    $('#newDiagram').trigger('click');
-  });
-}
 
 // Create tab navigation events
 function createTabbedMyoEvents() {
@@ -77,7 +50,12 @@ function createTabbedMyoEvents() {
       tabIdx++;
     }
 
-    replaceIdx = tabIdx == 0 ? tabbedElts.length - 1 : tabIdx - 1;
+    if (tabIdx == 0) {
+      replaceIdx = tabbedElts.length -1;
+    }
+    else {
+      replaceIdx = tabIdx - 1;
+    }
 
     $('#' + tabbedElts[replaceIdx].id).css('color', '#aaccff');
     console.log("Tabbing to " + tabbedElts[tabIdx].id + "!");
@@ -87,14 +65,19 @@ function createTabbedMyoEvents() {
   Myo.on('wave_in', function() {
 
     // Iteration handling
-    if (!tabIdx) {
+    if (tabIdx == 0) {
       tabIdx = tabbedElts.length - 1;
     }
     else {
       tabIdx--;
     }
 
-    replaceIdx = tabIdx == tabbedElts.length - 1 ? 0 : tabIdx + 1;
+    if (tabIdx == tabbedElts.length - 1) {
+      replaceIdx = 0;
+    }
+    else {
+      replaceIdx = tabIdx + 1;
+    }
 
     $('#' + tabbedElts[replaceIdx].id).css('color', '#aaccff');
     console.log("Tabbing to " + tabbedElts[tabIdx].id + "!");
@@ -104,6 +87,20 @@ function createTabbedMyoEvents() {
   Myo.on('fist', function() {
     console.log("Clicking " + tabbedElts[tabIdx].id + "!");
     $('#' + tabbedElts[tabIdx].id).trigger('click');
+  });
+
+  Myo.on('double_tap', function() {
+    console.log('Double tap!');
+    if (!onMenu) {
+      tabbedElts = $('.menutabbed').toArray();
+      onMenu = true;
+    }
+    else {
+      tabbedElts = $('.tabbed').toArray();
+      onMenu = false;
+    }
+
+    tabIdx = 0;
   });
 }
 
