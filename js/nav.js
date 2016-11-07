@@ -26,7 +26,7 @@ Myo.on('connected', function () {
 
   // Myo trigger events
   $(document).ready(function () {
-    //createMyoEvents();
+
     tabbedElts = $('.menutabbed').toArray();
     createTabbedMyoEvents();
   });
@@ -87,7 +87,6 @@ function createTabbedMyoEvents() {
   Myo.on('fist', function() {
     console.log("Clicking " + tabbedElts[tabIdx].id + "!");
     $('#' + tabbedElts[tabIdx].id).trigger('click');
-    tabIdx = 0;
   });
 
   Myo.on('double_tap', function() {
@@ -100,6 +99,8 @@ function createTabbedMyoEvents() {
       tabbedElts = $('.tabbed').toArray();
       onMenu = false;
     }
+
+    tabIdx = 0;
   });
 }
 
