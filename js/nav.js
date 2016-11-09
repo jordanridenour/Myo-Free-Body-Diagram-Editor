@@ -6,6 +6,10 @@ var tabIdx = 0;
 var tabbedElts;
 var onMenu = false;
 
+$(document).ready(function() {
+  createStandardEvents();
+});
+
 // Establish Myo Connection
 var myMyo;
 
@@ -32,7 +36,6 @@ $(document).ready(function () {
     createTabbedMyoEvents();
 
   });
-
   // Standard trigger events
   createStandardEvents();
 });

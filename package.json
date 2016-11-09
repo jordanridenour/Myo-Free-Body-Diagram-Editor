@@ -28,6 +28,8 @@
   },
   "dependencies": {
     "electron-require": "^0.3.0",
-    "fabric": "^1.6.6"
+    "fabric": "^1.6.6",
+    "fs": "0.0.1-security",
+    "myo": "^2.1.1"
   }
 }

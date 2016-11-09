@@ -1,16 +1,22 @@
 // Front-end script for canvas controls
 const {ipcRenderer} = require('electron');
 
-$('.def_img').dblclick(function(e) {
-    e.preventDefault();
-    var src = $(this).attr('src');
-    addImage(src);
+const fs = require('fs');
+const testFolder = './images/';
+fs.readdir(testFolder, (err, files) => {
+  if (err) {
+    console.log('Error');
+  } else {
+    var count = 0;
+    files.forEach(file => {
+        if (file[0] != '.') {
+          var photo = '<img src="../images/' + file + '" class="def_img" id="img_' + count + '">';
+          var gallery = document.getElementById('wrapper');
+          gallery.innerHTML = gallery.innerHTML + photo;
+          // var pic = document.getElementById('img_' + count);
+          // pic.addEventListener("click", addImage('../images/' + file));
+          count++;
+        }
+      })
+  }
 });
-
-function addImage(src) {
-    var canvas = $('#fbdCanvas')[0];
-    context = canvas.getContext('2d');
-    var img = new Image();
-    img.src = src
-    context.drawImage(img, canvas.width/2 - 100/2, canvas.height/2 - 100/2, 100, 100)
-}

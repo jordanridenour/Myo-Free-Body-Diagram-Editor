@@ -18,6 +18,7 @@ function createWindow () {
     'minHeight': 700
   });
 
+  mainWindow.maximize();
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/html/index.html`)
   // mainWindow.loadURL(`file://${__dirname}/views/draw.html`)
