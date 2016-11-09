@@ -6,20 +6,42 @@ h1 {
 	white-space: nowrap;
 }
 
-.line-controls-coords {
-
-	position: relative;
-	float: left;
-	bottom: 0px;
-	padding: 10px;
-	width: 180px;
-}
-
 canvas {
 	display: inline;
   border-style: inset;
-	width: 80%;
-	max-height: 350px;
+}
+
+#createSettings {
+
+	position: absolute;
+	margin-left: inherit;
+	bottom: 60px;
+	left: 0px;
+}
+
+.createSettingGroup {
+
+	float: left;
+	display: inline-block;
+	margin: 10px;
+	width: 160px;
+	padding-bottom: 20px;
+}
+
+#modifyContent {
+
+	float: left;
+	margin: 10px;
+}
+.modifyContentGroup {
+
+	width: 160px;
+	margin-bottom: 5px;
+}
+
+.canvasDiv {
+	float: left;
+	margin: 10px;
 }
 
 #outer-gallery {

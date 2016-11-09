@@ -1,12 +1,12 @@
 /* This file provides library to map Myo gestures to UI controls.
 Written by Jordan Ridenour */
+// Establish Myo Connection
+var myMyo;
 var Myo = require('myo');
 
-// Register Myo Events
+// Connection error
 Myo.onError = function () {
-        alert("Couldn't connect to Myo Connect. Make sure you have connected with Myo Connect.");
+  alert("Couldn't connect to Myo.\nMake sure you have connected with Myo Connect.");
 }
 
-
-// Actually open socket to communicate with Myo
-Myo.connect();
+Myo.connect("com.MyoFBD.Editor");
