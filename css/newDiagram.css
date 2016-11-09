@@ -25,8 +25,9 @@ canvas {
 	display: inline-block;
 	margin: 10px;
 	width: 160px;
-	padding-bottom: 20px;
+	padding: 10px;
 }
+
 
 #modifyContent {
 

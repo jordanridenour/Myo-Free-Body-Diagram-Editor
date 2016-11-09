@@ -1,7 +1,9 @@
 const electron = require('electron');
 const {ipcMain} = require('electron');
+
 // Module to control application life.
 const app = electron.app
+
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
@@ -10,12 +12,14 @@ const BrowserWindow = electron.BrowserWindow
 let mainWindow
 
 function createWindow () {
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 700,
-    'minWidth': 1000,
-    'minHeight': 700
+    width: 1300,
+    height: 760,
+    'minWidth': 1300,
+    'minHeight': 760,
+    resizable: true
   });
 
   mainWindow.maximize();
