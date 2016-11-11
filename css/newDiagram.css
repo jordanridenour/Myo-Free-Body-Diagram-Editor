@@ -14,9 +14,12 @@ canvas {
 #createSettings {
 
 	position: absolute;
-	margin-left: inherit;
-	bottom: 60px;
+	margin-left: 265px;
+	bottom: 30px;
 	left: 0px;
+	border-style: solid;
+	border-width: 2px;
+	border-color:  #0073e6;
 }
 
 .createSettingGroup {
@@ -25,23 +28,28 @@ canvas {
 	display: inline-block;
 	margin: 10px;
 	width: 160px;
-	padding-bottom: 20px;
+	padding: 10px;
 }
+
 
 #modifyContent {
 
 	float: left;
-	margin: 10px;
+	margin: 20px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #0073e6;
+	padding: 20px;
 }
 .modifyContentGroup {
 
 	width: 160px;
-	margin-bottom: 5px;
+	padding: 10px;
 }
 
 .canvasDiv {
 	float: left;
-	margin: 10px;
+	margin: 15px;
 }
 
 #outer-gallery {

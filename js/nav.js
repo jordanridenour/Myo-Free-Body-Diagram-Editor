@@ -34,8 +34,8 @@ $(document).ready(function () {
     // Myo trigger events
     tabbedElts = $('.menutabbed').toArray();
     createTabbedMyoEvents();
-
   });
+  
   // Standard trigger events
   createStandardEvents();
 });

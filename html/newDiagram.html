@@ -29,11 +29,13 @@
     </div>
 
     <div id="modifyContent">
-      <button type="button" id="upArrow" class="btn btn-primary">&#x2191</button>
-      <button type="button" id="downArrow" class="btn btn-primary">&#x2193</button>
-      <button type="button" id="leftArrow" class="btn btn-primary">&#x2190</button>
-      <button type="button" id="rightArrow" class="btn btn-primary">&#x2192</button>
-
+      <div id="directionArrows">
+        <button type="button" id="upArrow" class="btn btn-primary">&#x2191</button>
+        <button type="button" id="downArrow" class="btn btn-primary">&#x2193</button>
+        <button type="button" id="leftArrow" class="btn btn-primary">&#x2190</button>
+        <button type="button" id="rightArrow" class="btn btn-primary">&#x2192</button>
+      </div>
+      <br>
       <div class="modifyContentGroup">
         <p> Modify Width </p>
         <div class="input-group" id="mod-width">
@@ -49,7 +51,7 @@
             </button>
           </span>
         </div>
-
+        <br>
         <p> Modify Height </p>
         <div class="input-group" id="mod-height">
           <span class="input-group-btn">
@@ -64,12 +66,14 @@
             </button>
           </span>
         </div>
+
+        <br>
+        <button type="button" class="btn btn-warning tabbed" id="select_shape">Select Shape</button>
       </div>
     </div>
     <!-- End Modify Controls -->
     <div id = "createSettings">
       <div class="createSettingGroup">
-        <br/>
         <p> Length </p>
         <div class="input-group" id="l-input">
           <span class="input-group-btn">
@@ -91,7 +95,6 @@
         </div>
       </div>
       <div class="createSettingGroup">
-        <br/>
         <p> Width </p>
         <div class="input-group" id="x-input">
           <span class="input-group-btn">
@@ -124,19 +127,20 @@
         </div>
       </div>
 
-      <div class=createSettingGroup>
+      <div class="createSettingGroup">
         <button type="button" class="btn btn-primary tabbed" id="labelButton"> Insert Label</button>
-        <button type="button" class="btn btn-warning tabbed" id="l_confirm"> Insert Line</button>
-        <button type="button" class="btn btn-success tabbed" id="r_confirm"> Insert Rectangle</button>
-        <button type="button" class="btn btn-danger tabbed"  id="deleteButton"> Delete</button>
+        <br><br>
+        <button type="button" class="btn btn-warning tabbed" id="l_confirm">Insert Line</button>
+        <br><br>
+        <button type="button" class="btn btn-success tabbed" id="r_confirm">Insert Rectangle</button>
+        <br><br>
+        <button type="button" class="btn btn-danger tabbed"  id="deleteButton">Delete</button>
       </div>
     </div>
 
     <div id="outer-gallery">
       <div id="inner-gallery">
-        <img src="../images/boeing.png" class="def_img" id="img_1">
-        <img src="../images/car.jpg" class="def_img" id="img_2">
-        <img src="../images/ball.png" class="def_img" id="img_3">
+        <div id="wrapper"></div>
       </div>
     </div>
   </div>
