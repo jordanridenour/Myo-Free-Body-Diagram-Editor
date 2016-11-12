@@ -2,6 +2,7 @@ var canvas = new fabric.Canvas("fbdCanvas");
 var center = getCanvasCenter(canvas);
 
 var selectShapeButton = $("#select_shape");
+var addLabelButton = $("#labelButton");
 var addLineButton = $("#l_confirm");
 var addRectButton = $("#r_confirm");
 var addCircleButton = $("#c_confirm");
@@ -14,6 +15,7 @@ var circleDecreaseButton = $("#d_minus");
 var circleIncreaseButton = $("#d_plus");
 
 var lineLengthInput = $("#lineLengthInput");
+var labelTextInput = $("#labelInput");
 var rectWidthInput  = $("#rectWidthInput");
 var rectHeightInput = $("#rectHeightInput");
 var triangleWidthInput = $("#triangleWidthInput");
@@ -25,23 +27,32 @@ var imageInput = $(".def_img");
 $(document).keyup(keyEvents);
 
 selectShapeButton.click(selectNext);
-addRectButton.click(addRect);
-addLineButton.click(addLine);
-addCircleButton.click(addCircle);
-addTriangleButton.click(addTriangle);
-deleteButton.click(deleteSelected);
 
-// lineLengthInput.change(function() {
-//     var selectedObj = canvas.getActiveObject();
-//     if (selectedObj.customLine) {
-//         var length  = parseInt(lineLengthInput.value);
-//         selectedObj.setWidth(length);
-//     }
-// });
+addRectButton.click(function() {
+    addRect(canvas, rectWidthInput, rectHeightInput);
+});
+
+addLineButton.click(function() {
+    addLine(canvas, center);
+});
+
+addLabelButton.click(function() {
+    addLabel(canvas, labelTextInput, center);
+});
+
+addCircleButton.click(function() {
+    addCircle(canvas, circleDiameterInput);
+});
+
+addTriangleButton.click(function() {
+    addTriangle(canvas, triangleWidthInput, triangleHeightInput);
+});
+
+deleteButton.click(deleteSelected);
 
 imageInput.dblclick(function(e) {
     e.preventDefault();
-    addImage(this);
+    addImage(this, center);
 });
 
 canvas.on('selection:cleared', function() {
@@ -71,77 +82,9 @@ $('#wrapper').on('click', 'img', function(e) {
   canvas.add(imgInstance);
 });
 
-function addRect() {
-    var width  = parseInt(rectWidthInput.val());
-    var height = parseInt(rectHeightInput.val());
-    console.log(width);
-    console.log(height);
-    var rect = new fabric.Rect({
-        left: center.x,
-        top: center.y,
-        fill: 'red',
-        width: width,
-        height: height
-    });
-   canvas.add(rect);
-}
-
-function addCircle() {
-    var radius = parseInt(circleDiameterInput.val())/2;
-    var circle = new fabric.Circle({
-        radius: radius, 
-        fill: 'green', 
-        left: center.x, 
-        top: center.y
-    });
-    canvas.add(circle)
-}
-
-function addTriangle() {
-    var triangle = new fabric.Triangle({
-        width: parseInt(triangleWidthInput.val()),
-        height: parseInt(triangleHeightInput.val()),
-        fill: 'blue',
-        left: center.x,
-        top: center.y
-    });
-    canvas.add(triangle)
-}
-
-function addLine() {
-    var line = new fabric.Rect({
-        left: center.x,
-        top: center.y,
-        fill: 'black',
-        lockScalingY: true,
-        width: 100,
-        height: 20,
-        angle: 45
-    });
-    line.on('selected', function() {
-        updateLineInputVal(line);
-    });
-    line.on('scaling', function() {
-        updateLineInputVal(line);
-    });
-    line.on('modified', function() {
-        line.setHeight(20);
-    });
-    line.customLine = true;
-    canvas.add(line);
-}
-
 function updateLineInputVal(line) {
     var width = line.getWidth();
     lineLengthInput.val(width);
-}
-
-function addImage(img) {
-    var imgInstance = new fabric.Image(img, {
-        left: center.x,
-        top: center.y
-    });
-    canvas.add(imgInstance);
 }
 
 function selectNext() {
@@ -166,19 +109,21 @@ function clearSelections() {
 }
 
 function keyEvents(event) {
-    console.log(event.keyCode);
-    switch (event.keyCode) {
-        case 8:  // maps to backspace
-            console.log("deleteSelected()");
-            deleteSelected();
-            break;
-        case 67: // maps to 'c'
-            console.log("clearSelections()");
-            clearSelections();
-            break;
-        case 78: // maps to 'n'
-            console.log("selectNext()");
-            selectNext();
+    if (!labelTextInput.is(':focus')) {
+        console.log(event.keyCode);
+        switch (event.keyCode) {
+            case 8:  // maps to backspace
+                console.log("deleteSelected()");
+                deleteSelected();
+                break;
+            case 67: // maps to 'c'
+                console.log("clearSelections()");
+                clearSelections();
+                break;
+            case 78: // maps to 'n'
+                console.log("selectNext()");
+                selectNext();
+        }
     }
 }
 
@@ -195,6 +140,6 @@ function deleteSelected() {
 function getCanvasCenter(canvas) {
     var x_mid = canvas.width  / 2;
     var y_mid = canvas.height / 2;
-
+    console.log({ x: x_mid, y: y_mid });
     return { x: x_mid, y: y_mid };
 }
