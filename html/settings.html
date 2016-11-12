@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="../css/common.css">
-    <link rel="stylesheet" href="../css/newDiagram.css">
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
-
     <script>
       window.$ = window.jQuery = require('../bootstrap/js/jquery-3.1.1');
     </script>
@@ -25,16 +23,30 @@
 
   <body>
     <div id="mainContent">
-      <h2><u> About the Creators </u></h2>
-      <p>The Myo Team is composed of Alex Arnold, Jordan Ridenour, Andrew Chen, and Ryan Jackson. The team formed in Fall 2016 for the Software Engineering class at the University of Michigan.</p>
-      <h2><u> Motivation </u></h2>
-      <p>The Myo Free Body Diagram and Equation Editor was created to help Brad, a student studying Aerospace Engineering, create free body diagrams and equations for his class. Brad was left most paralyzed from a stroke save his left hand, left arm, and neck, and finds current software inefficient for his needs. We therefore decided that using a Myo Armband would be easiest for him, in order to make the best use of his able left hand and arm.
+      <h1> Settings </h1>
+      <br>
+      <div class="settingItem">
+        <label> Show Gesture Help Labels </label>
+        <button class="btn btn-success" type="radio"
+          name="options" id="gestureLabel"> On </button>
+      </div>
+      <br>
+      <div class="settingItem">
+        <label> Control Via Myo Gestures </label>
+        <button class="btn btn-success" type="radio"
+          name="options" id="gestureControl"> On </button>
+      </div>
+      <br>
+      <div class="settingItem">
+        <label> Control Via Myo as Mouse Pointer </label>
+        <button class="btn btn-success" type="radio"
+          name="options" id="mouseControl"> On </button>
+      </div>
     </div>
   </body>
 
   <script>
     // You can also require other files to run in this process
-    window.$ = window.jQuery = require('../bootstrap/js/jquery-3.1.1');
-    require('../js/nav.js')
+    require('../js/nav.js');
   </script>
 </html>

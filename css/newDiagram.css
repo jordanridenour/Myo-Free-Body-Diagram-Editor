@@ -13,7 +13,7 @@ canvas {
 
 #createSettings {
 
-	position: absolute;
+	position: fixed;
 	margin-left: 265px;
 	bottom: 30px;
 	left: 0px;
@@ -35,7 +35,14 @@ canvas {
 #modifyContent {
 
 	float: left;
-	margin: 20px;
+	width: 300px;
+	height: 350px;
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	margin-top: 84px;
+	margin-left: 20px;
+	margin-right: 20px;
 	border-style: solid;
 	border-width: 2px;
 	border-color: #0073e6;
@@ -43,6 +50,7 @@ canvas {
 }
 .modifyContentGroup {
 
+	margin: 0 auto;
 	width: 160px;
 	padding: 10px;
 }

@@ -15,16 +15,16 @@ var myMyo;
 
 $(document).ready(function () {
 
-    var Myo = require('myo');
+  var Myo = require('myo');
 
-    // Connection error
-    Myo.onError = function () {
-      alert("Couldn't connect to Myo.\nMake sure you have connected with Myo Connect.");
-    }
+  // Connection error
+  Myo.onError = function () {
+    console.log("Couldn't connect to Myo.\nMake sure you have connected with Myo Connect.");
+  }
 
-    Myo.connect("com.MyoFBD.Editor");
+  Myo.connect("com.MyoFBD.Editor");
 
-    // Once connected, establish myMyo object and global settings
+  // Once connected, establish myMyo object and global settings
   Myo.on('connected', function () {
 
     Myo.setLockingPolicy("none");
@@ -35,14 +35,14 @@ $(document).ready(function () {
     tabbedElts = $('.menutabbed').toArray();
     createTabbedMyoEvents();
   });
-  
+
   // Standard trigger events
   createStandardEvents();
 });
 
 // Create tab navigation events
 function createTabbedMyoEvents() {
-
+  console.log("attaching events");
   Myo.on('wave_out', function() {
     console.log("hit wave out");
     // Iteration handling
@@ -123,6 +123,10 @@ function createStandardEvents() {
     changeWindow('help.html');
   });
 
+  $('#settings').on('click', function() {
+    changeWindow('settings.html');
+  });
+
   $('#loadDiagram').on('click', function () {
     changeWindow('loadDiagram.html');
   });
@@ -137,3 +141,5 @@ function changeWindow(page_url) {
     ipcRenderer.send('changeWindow', page_url);
   }
 }
+
+module.exports = nav;
