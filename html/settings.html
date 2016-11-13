@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/settings.css">
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
     <script>
       window.$ = window.jQuery = require('../bootstrap/js/jquery-3.1.1');
@@ -25,26 +26,29 @@
     <div id="mainContent">
       <h1> Settings </h1>
       <br>
-      <div class="settingItem">
-        <label> Show Gesture Help Labels </label>
-        <button class="btn btn-success" type="radio"
-          name="options" id="gestureLabel"> On </button>
-      </div>
-      <br>
-      <div class="settingItem">
-        <label> Control Via Myo Gestures </label>
-        <button class="btn btn-success" type="radio"
-          name="options" id="gestureControl"> On </button>
-      </div>
-      <br>
-      <div class="settingItem">
-        <label> Control Via Myo as Mouse Pointer </label>
-        <button class="btn btn-success" type="radio"
-          name="options" id="mouseControl"> On </button>
+      <div id=settingPanel>
+        <div class="settingItem">
+          <label class="settingLabel"> Show Gesture Help Labels </label>
+          <button class="btn btn-success settingButt" type="radio"
+            name="options" id="gestureLabel"> On </button>
+        </div>
+        <br>
+        <div class="settingItem">
+          <label class="settingLabel"> Control Via Myo Gestures </label>
+          <button class="btn btn-success settingButt" type="radio"
+            name="options" id="gestureControl"> On </button>
+        </div>
+        <br>
+        <div class="settingItem">
+          <label class="settingLabel"> Control Via Myo as Mouse Pointer </label>
+          <button class="btn btn-success settingButt" type="radio"
+            name="options" id="mouseControl"> On </button>
+        </div>
       </div>
     </div>
   </body>
 
+  <script type="text/javascript" src="../js/settings.js"></script>
   <script>
     // You can also require other files to run in this process
     require('../js/nav.js');

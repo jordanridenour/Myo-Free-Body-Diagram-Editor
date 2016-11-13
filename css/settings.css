@@ -1,5 +1,18 @@
+
+
 .settingItem {
-  float: left;
-  align-items: flex-start;
   padding: 20px;
+  margin: 10px;
+}
+
+.settingLabel {
+  font-size: 20px;
+  float: left;
+  margin-left: 160px;
+}
+
+.settingButt {
+  float: right;
+  width: 70px;
+  margin-right: 160px;
 }

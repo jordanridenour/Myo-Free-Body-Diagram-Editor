@@ -7,6 +7,11 @@ const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
+// Other global variables
+global.gestureLabelsOn = false;
+global.gestureControlOn = true;
+global.mouseControlOn = false;
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
@@ -67,4 +72,20 @@ app.on('activate', function () {
 // Loads new url clicked from sidebar navigation
 ipcMain.on('changeWindow', function(event, arg) {
   mainWindow.loadURL(`file://${__dirname}/html/` + arg)
+});
+
+// Change global variables
+ipcMain.on('changeGlobal', function(event, varName, setting) {
+
+  if(varName.localeCompare("gestureLabelsOn") == 0) {
+    global.gestureLabelsOn = setting;
+  }
+
+  if(varName.localeCompare("gestureControlOn") == 0) {
+    global.gestureControlOn = setting;
+  }
+
+  if(varName.localeCompare("mouseControlOn") == 0) {
+    global.mouseControlOn = setting;
+  }
 });

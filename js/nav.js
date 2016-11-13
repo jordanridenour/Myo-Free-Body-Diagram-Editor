@@ -6,10 +6,6 @@ var tabIdx = 0;
 var tabbedElts;
 var onMenu = false;
 
-$(document).ready(function() {
-  createStandardEvents();
-});
-
 // Establish Myo Connection
 var myMyo;
 
@@ -115,7 +111,6 @@ function createStandardEvents() {
   });
 
   $('#about').on('click', function () {
-    console.log("clicked about");
     changeWindow('about.html');
   });
 
