@@ -4,7 +4,7 @@ const {ipcRenderer} = require('electron');
 // Global variables
 var tabIdx = 0;
 var tabbedElts;
-var onMenu = false;
+var onMenu = true;
 
 // Establish Myo Connection
 var myMyo;
@@ -32,7 +32,7 @@ $(document).ready(function () {
     createTabbedMyoEvents();
 
     // Set first highlighted button
-    $('#' + tabbedElts[tabIdx].id).css('background-color', 'yellow');
+    makeButtonOnFocus();
   });
 
   // Standard trigger events
@@ -41,9 +41,10 @@ $(document).ready(function () {
 
 // Create tab navigation events
 function createTabbedMyoEvents() {
-  console.log("attaching events");
+
   Myo.on('wave_out', function() {
     console.log("hit wave out");
+
     // Iteration handling
     if (tabIdx + 1 >= tabbedElts.length) {
       tabIdx = 0;
@@ -59,9 +60,9 @@ function createTabbedMyoEvents() {
       replaceIdx = tabIdx - 1;
     }
 
-    $('#' + tabbedElts[replaceIdx].id).css('background-color', '#222233');
+    $('#' + tabbedElts[replaceIdx].id).css('border-style', 'none');
     console.log("Tabbing to " + tabbedElts[tabIdx].id + "!");
-    $('#' + tabbedElts[tabIdx].id).css('background-color', 'yellow');
+    makeButtonOnFocus();
   });
 
   Myo.on('wave_in', function() {
@@ -81,9 +82,9 @@ function createTabbedMyoEvents() {
       replaceIdx = tabIdx + 1;
     }
 
-    $('#' + tabbedElts[replaceIdx].id).css('background-color', '#222233');
+    $('#' + tabbedElts[replaceIdx].id).css('border-style', 'none');
     console.log("Tabbing to " + tabbedElts[tabIdx].id + "!");
-    $('#' + tabbedElts[tabIdx].id).css('background-color', 'yellow');
+    makeButtonOnFocus();
   });
 
   Myo.on('fist', function() {
@@ -93,16 +94,26 @@ function createTabbedMyoEvents() {
 
   Myo.on('double_tap', function() {
     console.log('Double tap!');
-    if (!onMenu) {
-      tabbedElts = $('.menutabbed').toArray();
-      onMenu = true;
-    }
-    else {
-      tabbedElts = $('.tabbed').toArray();
-      onMenu = false;
-    }
 
-    tabIdx = 0;
+    // Ensure this is a page with other buttons
+    var page = String(location.href.split("/").slice(-1));
+    var valid = page.localeCompare("settings.html") == 0
+                || page.localeCompare("newDiagram.html") == 0;
+
+    if(valid) {
+      $('#' + tabbedElts[tabIdx].id).css('border-style', 'none');
+      if (!onMenu) {
+        tabbedElts = $('.menutabbed').toArray();
+        onMenu = true;
+      }
+      else {
+        tabbedElts = $('.tabbed').toArray();
+        onMenu = false;
+      }
+
+      tabIdx = 0;
+      makeButtonOnFocus();
+    }
   });
 }
 
@@ -132,6 +143,14 @@ function createStandardEvents() {
   $('#newDiagram').on('click', function () {
     changeWindow('newDiagram.html');
   });
+}
+
+function makeButtonOnFocus() {
+
+  $('#' + tabbedElts[tabIdx].id).css('border-style', 'solid');
+  $('#' + tabbedElts[tabIdx].id).css('border-width', '4px');
+  $('#' + tabbedElts[tabIdx].id).css('border-radius', '2px');
+  $('#' + tabbedElts[tabIdx].id).css('border-color', 'pink');
 }
 
 function changeWindow(page_url) {
