@@ -30,6 +30,9 @@ $(document).ready(function () {
     // Myo trigger events
     tabbedElts = $('.menutabbed').toArray();
     createTabbedMyoEvents();
+
+    // Set first highlighted button
+    $('#' + tabbedElts[tabIdx].id).css('background-color', 'yellow');
   });
 
   // Standard trigger events
@@ -56,9 +59,9 @@ function createTabbedMyoEvents() {
       replaceIdx = tabIdx - 1;
     }
 
-    $('#' + tabbedElts[replaceIdx].id).css('color', '#aaccff');
+    $('#' + tabbedElts[replaceIdx].id).css('background-color', '#222233');
     console.log("Tabbing to " + tabbedElts[tabIdx].id + "!");
-    $('#' + tabbedElts[tabIdx].id).css('color', 'yellow');
+    $('#' + tabbedElts[tabIdx].id).css('background-color', 'yellow');
   });
 
   Myo.on('wave_in', function() {
@@ -78,9 +81,9 @@ function createTabbedMyoEvents() {
       replaceIdx = tabIdx + 1;
     }
 
-    $('#' + tabbedElts[replaceIdx].id).css('color', '#aaccff');
+    $('#' + tabbedElts[replaceIdx].id).css('background-color', '#222233');
     console.log("Tabbing to " + tabbedElts[tabIdx].id + "!");
-    $('#' + tabbedElts[tabIdx].id).css('color', 'yellow');
+    $('#' + tabbedElts[tabIdx].id).css('background-color', 'yellow');
   });
 
   Myo.on('fist', function() {
@@ -136,5 +139,3 @@ function changeWindow(page_url) {
     ipcRenderer.send('changeWindow', page_url);
   }
 }
-
-module.exports = nav;
