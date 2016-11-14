@@ -1,9 +1,15 @@
 var canvas = new fabric.Canvas("fbdCanvas");
 var center = getCanvasCenter(canvas);
 
+var moveUpButton = $("#upArrow");
+var moveDownButton = $("#downArrow");
+var moveLeftButton = $("#leftArrow");
+var moveRightButton = $("#rightArrow");
+
 var selectShapeButton = $("#select_shape");
 var rotateShapeClockwiseButton = $("#rotate_shape_clockwise");
 var rotateShapeCounterclockwiseButton = $("#rotate_shape_counter_clockwise");
+
 var addLabelButton = $("#labelButton");
 var addArrowButton = $("#l_confirm");
 var addRectButton = $("#r_confirm");
@@ -31,11 +37,33 @@ var saveButton = $("#saveBtn");
 
 $(document).keyup(keyEvents);
 
-selectShapeButton.click(selectNext);
+selectShapeButton.click(function() {
+    selectNext(canvas);
+});
 
-rotateShapeClockwiseButton.click(rotateClockwise);
+moveUpButton.click(function() {
+    moveUp(canvas);
+});
 
-rotateShapeCounterclockwiseButton.click(rotateCounterClockwise);
+moveDownButton.click(function() {
+    moveDown(canvas);
+});
+
+moveLeftButton.click(function() {
+    moveLeft(canvas);
+});
+
+moveRightButton.click(function() {
+    moveRight(canvas);
+});
+
+rotateShapeClockwiseButton.click(function() {
+    rotateClockwise(canvas);
+});
+
+rotateShapeCounterclockwiseButton.click(function() {
+    rotateCounterClockwise(canvas);
+});
 
 saveButton.click(function() {
     writeDiagramToJson(canvas);
@@ -61,7 +89,9 @@ addTriangleButton.click(function() {
     addTriangle(canvas, triangleWidthInput, triangleHeightInput);
 });
 
-deleteButton.click(deleteSelected);
+deleteButton.click(function() {
+    deleteSelected(canvas);
+});
 
 imageInput.dblclick(function(e) {
     e.preventDefault();
@@ -75,11 +105,6 @@ canvas.on('selection:cleared', function() {
 canvas.on('object:added', function(e) {
     console.log(e);
 });
-
-function showObjects() {
-    var objects = canvas.getObjects();
-    console.log(objects);
-}
 
 $('#wrapper').on('click', 'img', function(e) {
   e.preventDefault();
@@ -140,26 +165,16 @@ function keyEvents(event) {
         switch (event.keyCode) {
             case 8:  // maps to backspace
                 console.log("deleteSelected()");
-                deleteSelected();
+                deleteSelected(canvas);
                 break;
             case 67: // maps to 'c'
                 console.log("clearSelections()");
-                clearSelections();
+                clearSelections(canvas);
                 break;
             case 78: // maps to 'n'
                 console.log("selectNext()");
-                selectNext();
+                selectNext(canvas);
         }
-    }
-}
-
-function deleteSelected() {
-    var selectedObj = canvas.getActiveObject();
-    if (selectedObj) {
-        canvas.remove(selectedObj);
-    }
-    else {
-        alert("No object selected!");
     }
 }
 
