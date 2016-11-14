@@ -32,6 +32,9 @@ var circleDiameterInput = $("#circleDiameterInput");
 
 var imageInput = $(".def_img");
 
+var saveButton = $("#saveBtn");
+
+
 $(document).keyup(keyEvents);
 
 selectShapeButton.click(function() {
@@ -60,6 +63,10 @@ rotateShapeClockwiseButton.click(function() {
 
 rotateShapeCounterclockwiseButton.click(function() {
     rotateCounterClockwise(canvas);
+});
+
+saveButton.click(function() {
+    writeDiagramToJson(canvas);
 });
 
 addRectButton.click(function() {
@@ -107,9 +114,6 @@ $('#wrapper').on('click', 'img', function(e) {
     left: 100,
     top: 100
   });
-  //console.log(src);
-  console.log(imgElement);
-  console.log(imgInstance);
   canvas.add(imgInstance);
 });
 
