@@ -1,8 +1,6 @@
 function addRect(canvas, widthInput, heightInput) {
     var width  = parseInt(widthInput.val());
     var height = parseInt(heightInput.val());
-    console.log(width);
-    console.log(height);
     var rect = new fabric.Rect({
         left: center.x,
         top: center.y,

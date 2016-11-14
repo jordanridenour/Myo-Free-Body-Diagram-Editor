@@ -13,8 +13,6 @@ fs.readdir(testFolder, (err, files) => {
           var photo = '<img src="../images/' + file + '" class="def_img" id="img_' + count + '">';
           var gallery = document.getElementById('wrapper');
           gallery.innerHTML = gallery.innerHTML + photo;
-          // var pic = document.getElementById('img_' + count);
-          // pic.addEventListener("click", addImage('../images/' + file));
           count++;
         }
       })
