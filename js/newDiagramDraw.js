@@ -2,6 +2,8 @@ var canvas = new fabric.Canvas("fbdCanvas");
 var center = getCanvasCenter(canvas);
 
 var selectShapeButton = $("#select_shape");
+var rotateShapeClockwiseButton = $("#rotate_shape_clockwise");
+var rotateShapeCounterclockwiseButton = $("#rotate_shape_counter_clockwise");
 var addLabelButton = $("#labelButton");
 var addLineButton = $("#l_confirm");
 var addRectButton = $("#r_confirm");
@@ -27,6 +29,10 @@ var imageInput = $(".def_img");
 $(document).keyup(keyEvents);
 
 selectShapeButton.click(selectNext);
+
+rotateShapeClockwiseButton.click(rotateClockwise);
+
+rotateShapeCounterclockwiseButton.click(rotateCounterClockwise);
 
 addRectButton.click(function() {
     addRect(canvas, rectWidthInput, rectHeightInput);
@@ -85,6 +91,22 @@ $('#wrapper').on('click', 'img', function(e) {
 function updateLineInputVal(line) {
     var width = line.getWidth();
     lineLengthInput.val(width);
+}
+
+function rotateClockwise() {
+    rotate(5);
+}
+
+function rotateCounterClockwise() {
+    rotate(-5);
+}
+
+function rotate(degree) {
+    var selectedObj = canvas.getActiveObject();
+    var curAngle = selectedObj.getAngle();
+    console.log(curAngle);
+    selectedObj.setAngle(curAngle+degree); 
+    canvas.renderAll();
 }
 
 function selectNext() {

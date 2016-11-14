@@ -60,6 +60,7 @@ function addLine(canvas, center) {
 
 function addLabel(canvas, textInput, center) {
     var text = textInput.val();
+    if (text == '') return;
     var label = new fabric.Text(text, {
         fontFamily: 'Helvetica',
         fontSize: 18,
