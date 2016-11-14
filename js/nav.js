@@ -92,6 +92,7 @@ function createTabbedMyoEvents() {
   });
 }
 
+// Allows clickable navigation between pages
 function createStandardEvents() {
 
   // CLICK CONTROL
@@ -116,6 +117,9 @@ function createStandardEvents() {
   });
 }
 
+// Moves focus of Myo Control
+// Moves tooltip controls
+// Moves highlighted button along with current focus
 function moveFocus(mode) {
 
   var replaceIdx, prevIdx, nextIdx;
@@ -190,6 +194,7 @@ function moveFocus(mode) {
   }
 }
 
+// Changes CSS and Tooltip styling for in-focus button
 function makeButtonOnFocus(prevIdx, nextIdx) {
 
   $('#' + tabbedElts[tabIdx].id).css('border-style', 'solid');
@@ -219,6 +224,7 @@ function makeButtonOnFocus(prevIdx, nextIdx) {
   }
 }
 
+// Calls main process to change window
 function changeWindow(page_url) {
   if(location.href.split("/").slice(-1) != page_url) {
     ipcRenderer.send('changeWindow', page_url);
