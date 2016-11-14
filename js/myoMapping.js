@@ -4,4 +4,3 @@ Written by Jordan Ridenour */
 // Register Myo Events
 
 // Actually open socket to communicate with Myo
-Myo.connect();

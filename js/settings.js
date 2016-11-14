@@ -7,13 +7,11 @@ $(document).ready(function() {
   // Set button current settings
   changeButtonCSS("gestureLabel", !remote.getGlobal('gestureLabelsOn'));
   changeButtonCSS("gestureControl", !remote.getGlobal('gestureControlOn'));
-  changeButtonCSS("mouseControl", !remote.getGlobal('mouseControlOn'));
 
   // Gesture Labels Setting
   $('#gestureLabel').on('click', function() {
 
     var currSet = remote.getGlobal('gestureLabelsOn');
-    console.log(currSet);
     changeButtonCSS("gestureLabel", currSet);
     ipcRenderer.send('changeGlobal', "gestureLabelsOn", !currSet);
   });
@@ -25,13 +23,6 @@ $(document).ready(function() {
     changeButtonCSS("gestureControl", currSet);
     ipcRenderer.send('changeGlobal', "gestureControlOn", !currSet);
   });
-
-  $('#mouseControl').on('click', function() {
-
-    var currSet = remote.getGlobal('mouseControlOn');
-    changeButtonCSS("mouseControl", currSet);
-    ipcRenderer.send('changeGlobal', "mouseControlOn", !currSet);
-  })
 });
 
 function changeButtonCSS(id, currSet) {

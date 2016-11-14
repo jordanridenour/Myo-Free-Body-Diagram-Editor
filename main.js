@@ -9,8 +9,7 @@ const BrowserWindow = electron.BrowserWindow
 
 // Other global variables
 global.gestureLabelsOn = false;
-global.gestureControlOn = true;
-global.mouseControlOn = false;
+global.gestureControlOn = false;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -83,9 +82,5 @@ ipcMain.on('changeGlobal', function(event, varName, setting) {
 
   if(varName.localeCompare("gestureControlOn") == 0) {
     global.gestureControlOn = setting;
-  }
-
-  if(varName.localeCompare("mouseControlOn") == 0) {
-    global.mouseControlOn = setting;
   }
 });

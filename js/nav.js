@@ -1,5 +1,6 @@
 // Front-end script for navigation controls
 const {ipcRenderer} = require('electron');
+var remote = require('electron').remote;
 
 // Global variables
 var tabIdx = 0;
@@ -43,76 +44,85 @@ $(document).ready(function () {
 function createTabbedMyoEvents() {
 
   Myo.on('wave_out', function() {
-    console.log("hit wave out");
 
-    // Iteration handling
-    if (tabIdx + 1 >= tabbedElts.length) {
-      tabIdx = 0;
-    }
-    else {
-      tabIdx++;
-    }
+    if (remote.getGlobal('gestureControlOn')) {
+      console.log("hit wave out");
 
-    if (tabIdx == 0) {
-      replaceIdx = tabbedElts.length -1;
-    }
-    else {
-      replaceIdx = tabIdx - 1;
-    }
+      // Iteration handling
+      if (tabIdx + 1 >= tabbedElts.length) {
+        tabIdx = 0;
+      }
+      else {
+        tabIdx++;
+      }
 
-    $('#' + tabbedElts[replaceIdx].id).css('border-style', 'none');
-    console.log("Tabbing to " + tabbedElts[tabIdx].id + "!");
-    makeButtonOnFocus();
+      if (tabIdx == 0) {
+        replaceIdx = tabbedElts.length -1;
+      }
+      else {
+        replaceIdx = tabIdx - 1;
+      }
+
+      $('#' + tabbedElts[replaceIdx].id).css('border-style', 'none');
+      console.log("Tabbing to " + tabbedElts[tabIdx].id + "!");
+      makeButtonOnFocus();
+    }
   });
 
   Myo.on('wave_in', function() {
 
-    // Iteration handling
-    if (tabIdx == 0) {
-      tabIdx = tabbedElts.length - 1;
-    }
-    else {
-      tabIdx--;
-    }
+    if(remote.getGlobal('gestureControlOn')) {
+      // Iteration handling
+      if (tabIdx == 0) {
+        tabIdx = tabbedElts.length - 1;
+      }
+      else {
+        tabIdx--;
+      }
 
-    if (tabIdx == tabbedElts.length - 1) {
-      replaceIdx = 0;
-    }
-    else {
-      replaceIdx = tabIdx + 1;
-    }
+      if (tabIdx == tabbedElts.length - 1) {
+        replaceIdx = 0;
+      }
+      else {
+        replaceIdx = tabIdx + 1;
+      }
 
-    $('#' + tabbedElts[replaceIdx].id).css('border-style', 'none');
-    console.log("Tabbing to " + tabbedElts[tabIdx].id + "!");
-    makeButtonOnFocus();
+      $('#' + tabbedElts[replaceIdx].id).css('border-style', 'none');
+      console.log("Tabbing to " + tabbedElts[tabIdx].id + "!");
+      makeButtonOnFocus();
+    }
   });
 
   Myo.on('fist', function() {
-    console.log("Clicking " + tabbedElts[tabIdx].id + "!");
-    $('#' + tabbedElts[tabIdx].id).trigger('click');
+    if(remote.getGlobal('gestureControlOn')) {
+      console.log("Clicking " + tabbedElts[tabIdx].id + "!");
+      $('#' + tabbedElts[tabIdx].id).trigger('click');
+    }
   });
 
   Myo.on('double_tap', function() {
-    console.log('Double tap!');
 
-    // Ensure this is a page with other buttons
-    var page = String(location.href.split("/").slice(-1));
-    var valid = page.localeCompare("settings.html") == 0
-                || page.localeCompare("newDiagram.html") == 0;
+    if(remote.getGlobal('gestureControlOn')) {
+      console.log('Double tap!');
+      // Ensure this is a page with other buttons
+      var page = String(location.href.split("/").slice(-1));
+      var valid = page.localeCompare("settings.html") == 0
+                  || page.localeCompare("newDiagram.html") == 0;
 
-    if(valid) {
-      $('#' + tabbedElts[tabIdx].id).css('border-style', 'none');
-      if (!onMenu) {
-        tabbedElts = $('.menutabbed').toArray();
-        onMenu = true;
+      if(valid) {
+        $('#' + tabbedElts[tabIdx].id).css('border-style', 'none');
+        if (!onMenu) {
+          tabbedElts = $('.menutabbed').toArray();
+          onMenu = true;
+        }
+        else {
+          tabbedElts = $('.tabbed').toArray();
+          onMenu = false;
+        }
+
+        tabIdx = 0;
+        makeButtonOnFocus();
       }
-      else {
-        tabbedElts = $('.tabbed').toArray();
-        onMenu = false;
-      }
-
-      tabIdx = 0;
-      makeButtonOnFocus();
     }
   });
 }
