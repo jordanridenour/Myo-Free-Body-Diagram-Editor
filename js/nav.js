@@ -146,10 +146,6 @@ function createStandardEvents() {
     changeWindow('settings.html');
   });
 
-  $('#loadDiagram').on('click', function () {
-    changeWindow('loadDiagram.html');
-  });
-
   $('#newDiagram').on('click', function () {
     changeWindow('newDiagram.html');
   });

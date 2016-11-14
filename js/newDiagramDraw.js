@@ -5,7 +5,7 @@ var selectShapeButton = $("#select_shape");
 var rotateShapeClockwiseButton = $("#rotate_shape_clockwise");
 var rotateShapeCounterclockwiseButton = $("#rotate_shape_counter_clockwise");
 var addLabelButton = $("#labelButton");
-var addLineButton = $("#l_confirm");
+var addArrowButton = $("#l_confirm");
 var addRectButton = $("#r_confirm");
 var addCircleButton = $("#c_confirm");
 var addTriangleButton = $("#t_confirm");
@@ -45,8 +45,8 @@ addRectButton.click(function() {
     addRect(canvas, rectWidthInput, rectHeightInput);
 });
 
-addLineButton.click(function() {
-    addLine(canvas, center);
+addArrowButton.click(function() {
+    addArrow(canvas, center);
 });
 
 addLabelButton.click(function() {
@@ -109,7 +109,7 @@ function rotate(degree) {
     var selectedObj = canvas.getActiveObject();
     var curAngle = selectedObj.getAngle();
     console.log(curAngle);
-    selectedObj.setAngle(curAngle+degree); 
+    selectedObj.setAngle(curAngle+degree);
     canvas.renderAll();
 }
 

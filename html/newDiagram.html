@@ -19,7 +19,6 @@
   <button id='help' class="menutabbed"> Help </button>
   <button id='settings' class="menutabbed"> Settings </button>
   <button id='newDiagram' class="menutabbed"> New Diagram </button>
-  <button id='loadDiagram' class="menutabbed"> Load Diagram </button>
 </div>
 
 <body>
@@ -75,10 +74,11 @@
           <br>
           <button type="button" class="btn btn-primary tabbed" id="rotate_shape_counter_clockwise">Rotate Counterclockwise</button>
         </div>
-        <button type="button" class="btn btn-warning tabbed" id="select_shape">Select Shape</button>
-        
+
         <br>
-        <button type="button" id="saveBtn">Save Diagram</button><br><a id="downloadAnchor" href="../js/downloads/download.txt" download="diagram.json"><button id="link">Download</button></a>
+        <button type="button" id="saveBtn">Save Diagram</button><br>
+        <a id="downloadAnchor" href="../js/downloads/download.txt" download="diagram.json">
+        <button id="link" style="display:none;">Download</button></a>
       </div>
     </div>
     <!-- End Modify Controls -->
@@ -140,7 +140,7 @@
       <div class="createSettingGroup">
         <button type="button" class="btn btn-primary tabbed" id="labelButton"> Insert Label</button>
         <br><br>
-        <button type="button" class="btn btn-warning tabbed" id="l_confirm">Insert Line</button>
+        <button type="button" class="btn btn-warning tabbed" id="l_confirm">Insert Arrow</button>
         <br><br>
         <button type="button" class="btn btn-success tabbed" id="r_confirm">Insert Rectangle</button>
         <br><br>
