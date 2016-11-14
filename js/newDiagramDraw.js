@@ -161,7 +161,6 @@ function clearSelections() {
 
 function keyEvents(event) {
     if (!labelTextInput.is(':focus')) {
-        console.log(event.keyCode);
         switch (event.keyCode) {
             case 8:  // maps to backspace
                 console.log("deleteSelected()");
