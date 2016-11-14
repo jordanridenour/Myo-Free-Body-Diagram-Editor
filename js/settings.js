@@ -30,6 +30,17 @@ function changeButtonCSS(id, currSet) {
   if (currSet) {
     $('#' + id).css('background-color', '#d9534f');
     $('#' + id).html('Off');
+
+    // Destroy tooltips
+    if (id.localeCompare("gestureLabel") == 0) {
+      $(".menutabbed").each(function() {
+        $(this).tooltip('disable');
+      });
+
+      $(".tabbed").each(function() {
+        $(this).tooltip('disable');
+      });
+    }
   }
   else {
     $('#' + id).css('background-color', '#5cb85c');

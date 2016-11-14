@@ -156,6 +156,12 @@ function addArrow(canvas, center) {
     });
   }
 
+  function deleteArrow() {
+    canvas.remove(line);
+    canvas.remove(arrow);
+    canvas.remove(circle);
+  }
+
   arrow.on('moving', function() {
     moveEnd(arrow);
   });

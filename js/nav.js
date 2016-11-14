@@ -38,8 +38,22 @@ $(document).ready(function () {
 
   // Standard trigger events
   createStandardEvents();
+  addGestureLabels();
 });
 
+// Function to add tooltips (Gesture Labels)
+function addGestureLabels() {
+
+  if (remote.getGlobal('gestureLabelsOn')) {
+    $(".menutabbed").each(function() {
+      $(this).tooltip({title: "Wave In or Out", trigger: "focus"});
+    });
+
+    $(".tabbed").each(function() {
+      $(this).tooltip({title: "Wave In or Out", trigger: "focus"});
+    });
+  }
+}
 // Create tab navigation events
 function createTabbedMyoEvents() {
 

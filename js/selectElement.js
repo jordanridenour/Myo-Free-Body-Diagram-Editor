@@ -4,6 +4,7 @@ function selectNext(canvas) {
     var nextIndex = 0;
     if (objs.length < 1) return;
     if (selectedObj) {
+      console.log(Object.prototype.toString.call(selectedObj));
         nextIndex = getSelectedIndex(objs, selectedObj) + 1;
         if (nextIndex === objs.length) nextIndex = 0;
     }
