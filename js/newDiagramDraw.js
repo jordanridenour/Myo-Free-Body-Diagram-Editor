@@ -6,6 +6,11 @@ var moveDownButton = $("#downArrow");
 var moveLeftButton = $("#leftArrow");
 var moveRightButton = $("#rightArrow");
 
+var decreaseWidthButton = $("#width_minus");
+var increaseWidthButton = $("#width_plus");
+var decreaseHeightButton = $("#height_minus");
+var increaseHeightButton = $("#height_plus");
+
 var selectShapeButton = $("#select_shape");
 var rotateShapeClockwiseButton = $("#rotate_shape_clockwise");
 var rotateShapeCounterclockwiseButton = $("#rotate_shape_counter_clockwise");
@@ -39,6 +44,22 @@ $(document).keyup(keyEvents);
 
 selectShapeButton.click(function() {
     selectNext(canvas);
+});
+
+decreaseWidthButton.click(function() {
+    decreaseWidth(canvas);
+});
+
+increaseWidthButton.click(function() {
+    increaseWidth(canvas);
+});
+
+decreaseHeightButton.click(function() {
+    decreaseHeight(canvas);
+});
+
+increaseHeightButton.click(function() {
+    increaseHeight(canvas);
 });
 
 moveUpButton.click(function() {
