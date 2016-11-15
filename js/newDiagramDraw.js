@@ -162,11 +162,22 @@ function rotate(degree) {
 function selectNext() {
     var objs = canvas.getObjects();
     var selectedObj = canvas.getActiveObject();
-    var nextIndex = 0;
+    var nextIndex;
     if (objs.length < 1) return;
-    if (selectedObj) {
+
+    // Special Handling for arrows
+    if (selectedObj && selectedObj['customType']
+        && selectedObj['customType'].localeCompare("arrow") == 0) {
+      console.log(selectedObj.get('type'));
+      nextIndex = getSelectedIndex(objs, selectedObj) + 3;
+      if (nextIndex === objs.length) nextIndex = 0;
+    }
+    else if (selectedObj) {
         nextIndex = getSelectedIndex(objs, selectedObj) + 1;
         if (nextIndex === objs.length) nextIndex = 0;
+    }
+    else {
+      nextIndex = 0;
     }
     canvas.setActiveObject(canvas.item(nextIndex));
 }

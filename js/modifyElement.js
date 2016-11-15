@@ -16,16 +16,37 @@ function increaseHeight(canvas) {
 }
 
 function changeWidth(canvas, val) {
+
+   if (!canvas.getActiveObject()) {
+     return;
+   }
    var selectedObj = canvas.getActiveObject();
    var curWidth = selectedObj.getWidth();
    selectedObj.setWidth(curWidth+val);
+
+   // Special handling for arrows
+   if (selectedObj.get('type').localeCompare("line") == 0) {
+     return;
+   }
+
    canvas.renderAll();
 }
 
 function changeHeight(canvas, val) {
+
+   if (!canvas.getActiveObject()) {
+     return;
+   }
+
    var selectedObj = canvas.getActiveObject();
    var curHeight = selectedObj.getHeight();
    selectedObj.setHeight(curHeight+val);
+
+   // Special handling for arrows
+   if (selectedObj.get('type').localeCompare("line") == 0) {
+     return;
+   }
+
    canvas.renderAll();
 }
 
@@ -38,9 +59,20 @@ function rotateCounterClockwise(canvas) {
 }
 
 function rotate(canvas, degree) {
+
+   if (!canvas.getActiveObject()) {
+     return;
+   }
+
    var selectedObj = canvas.getActiveObject();
    var curAngle = selectedObj.getAngle();
-   selectedObj.setAngle(curAngle+degree);
+   selectedObj.setAngle(curAngle + degree);
+
+   // Special handling for arrows
+   if (selectedObj.get('type').localeCompare("line") == 0) {
+
+    return;
+   }
    canvas.renderAll();
 }
 
@@ -61,15 +93,58 @@ function moveDown(canvas) {
 }
 
 function moveHorizontal(canvas, val) {
+
+   if (!canvas.getActiveObject()) {
+     return;
+   }
+
    var selectedObj = canvas.getActiveObject();
    var curLeft = selectedObj.getLeft();
    selectedObj.setLeft(curLeft+val);
+
+   // Special handling for arrows
+   if (selectedObj.get('type').localeCompare("line") == 0) {
+
+     // Move triangle and circle too.
+     var arrowIdx = getSelectedIndex(canvas.getObjects(), selectedObj) + 1;
+     var circleIdx = arrowIdx + 1;
+
+     var arrowObj = canvas.item(arrowIdx);
+     var circleObj = canvas.item(circleIdx);
+
+     arrowObj.setLeft(arrowObj.getLeft() + val);
+     circleObj.setLeft(circleObj.getLeft() + val);
+   }
    canvas.renderAll();
 }
 
 function moveVertical(canvas, val) {
+
+   if (!canvas.getActiveObject()) {
+     return;
+   }
+   
    var selectedObj = canvas.getActiveObject();
    var curTop = selectedObj.getTop();
-   selectedObj.setTop(curTop+val);
+   selectedObj.setTop(curTop + val);
+
+   // Special handling for arrows
+   if (selectedObj.get('type').localeCompare("line") == 0) {
+
+     // Move triangle and circle too.
+     var arrowIdx = getSelectedIndex(canvas.getObjects(), selectedObj) + 1;
+     var circleIdx = arrowIdx + 1;
+
+     var arrowObj = canvas.item(arrowIdx);
+     var circleObj = canvas.item(circleIdx);
+
+     arrowObj.setTop(arrowObj.getTop() + val);
+     circleObj.setTop(circleObj.getTop() + val);
+   }
    canvas.renderAll();
+}
+
+function getSelectedIndex(objs, target) {
+    var index = objs.map(function(x) { return x }).indexOf(target);
+    return index;
 }
