@@ -38,9 +38,14 @@ var circleDiameterInput = $("#circleDiameterInput");
 var imageInput = $(".def_img");
 
 var saveButton = $("#saveBtn");
+var loadJSONButton = $("#submitLoad");
 
 
 $(document).keyup(keyEvents);
+
+loadJSONButton.click(function() {
+    JSONTextToCanvas(canvas);
+});
 
 selectShapeButton.click(function() {
     selectNext(canvas);
