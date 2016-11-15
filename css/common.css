@@ -2,6 +2,10 @@ body {
 	font-family: "Arial", Arial, sans-serif;
 }
 
+.tooltip .tooltip-inner {
+	font-size: 20px;
+}
+
 #mainContent {
 	margin-left: 250px;
 	text-align: center;

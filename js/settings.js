@@ -46,6 +46,15 @@ $(document).ready(function() {
   // Gesture Control Activated
   $('#gestureControl').on('click', function() {
     changeButtonCSS("gestureControl", remote.getGlobal("gestureControlOn"));
+
+    // Change labels to false if also turning of gesture control
+    if (remote.getGlobal("gestureControlOn")
+        && remote.getGlobal("gestureLabelsOn")) {
+      ipcRenderer.send('changeGlobal', "gestureLabelsOn",
+                        !remote.getGlobal("gestureLabelsOn"));
+      $('#gestureLabel').tooltip('destroy');
+    }
+
     ipcRenderer.send('changeGlobal', "gestureControlOn",
                       !remote.getGlobal("gestureControlOn"));
   });
@@ -63,6 +72,8 @@ function changeButtonCSS(id, currSet) {
       $('#gestureLabel').toggleClass("disabled");
       $('#gestureLabel').css('background-color', '#d9534f');
       $('#gestureLabel').html('Off');
+      $('#gestureLabel').tooltip('destroy');
+      $('#gestureControl').tooltip('destroy');
     }
   }
   else {

@@ -32,7 +32,7 @@ $(document).ready(function () {
     tabbedElts = $('.menutabbed').toArray();
     createTabbedMyoEvents();
     // Set first highlighted button
-    makeButtonOnFocus();
+    makeButtonOnFocus(4,1);
   });
 
   // Standard trigger events
@@ -73,6 +73,7 @@ function createTabbedMyoEvents() {
       var valid = page.localeCompare("settings.html") == 0
                   || page.localeCompare("newDiagram.html") == 0;
 
+      // If this is a page with other menu zones
       if(valid) {
         $('#' + tabbedElts[tabIdx].id).css('border-style', 'none');
 
@@ -85,8 +86,10 @@ function createTabbedMyoEvents() {
           onMenu = false;
         }
 
+        // Refocus buttons
         tabIdx = 0;
-        makeButtonOnFocus();
+        var nextIdx = tabbedElts.length == 1 ? 0 : 1;
+        makeButtonOnFocus(tabbedElts.length - 1, nextIdx);
       }
     }
   });
@@ -166,7 +169,7 @@ function moveFocus(mode) {
   }
 
   $('#' + tabbedElts[replaceIdx].id).css('border-style', 'none');
-  $('#' + tabbedElts[replaceIdx].id).tooltip('disable');
+  $('#' + tabbedElts[replaceIdx].id).tooltip('destroy');
   console.log("Tabbing to " + tabbedElts[tabIdx].id + "!");
 
   // Take care of changing focus
@@ -210,17 +213,20 @@ function makeButtonOnFocus(prevIdx, nextIdx) {
     // Tooltips for custom gestures
     if(currElt.localeCompare("rotate_shape_clockwise") == 0) {
       $("#" + tabbedElts[tabIdx].id).tooltip(
-        {title: "Rotate wrist CW", trigger: "focus"});
+        {title: "Rotate Wrist CW", trigger: "focus"});
     }
-    else if(currElt.localeCompare("rotate_shape_counter_clockwise")) {
+    else if(currElt.localeCompare("rotate_shape_counter_clockwise") == 0) {
       $("#" + tabbedElts[tabIdx].id).tooltip(
-        {title: "Rotate wrist CCW", trigger: "focus"});
+        {title: "Rotate Wrist CCW", trigger: "focus"});
     }
     // Tooltips for regular gestures
     else {
       $("#" + tabbedElts[tabIdx].id).tooltip(
-      {title: "Wave out: " + tabbedElts[tabIdx + 1].innerHTML, trigger: "focus"});
+        {title: "Wave In: " + $('#' + tabbedElts[prevIdx].id).attr('placeholder') +
+          " | Wave Out: " + $('#' + tabbedElts[nextIdx].id).attr('placeholder'),  trigger: "focus"});
     }
+
+    $("#" + tabbedElts[tabIdx].id).trigger('focus');
   }
 }
 

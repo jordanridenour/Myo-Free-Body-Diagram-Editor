@@ -14,11 +14,11 @@
 </head>
 
 <div id="menuSideNav">
-  <button id='home' class="menutabbed"> Home </button>
-  <button id='about' class="menutabbed"> About </button>
-  <button id='help' class="menutabbed"> Help </button>
-  <button id='settings' class="menutabbed"> Settings </button>
-  <button id='newDiagram' class="menutabbed"> New Diagram </button>
+  <button id='home' class="menutabbed" placeholder="Home"> Home </button>
+  <button id='about' class="menutabbed" placeholder="About"> About </button>
+  <button id='help' class="menutabbed" placeholder="Help"> Help </button>
+  <button id='settings' class="menutabbed" placeholder="Settings"> Settings </button>
+  <button id='newDiagram' class="menutabbed" placeholder="New Diagram"> New Diagram </button>
 </div>
 
 <body>
@@ -30,23 +30,29 @@
 
     <div id="modifyContent">
       <div id="directionArrows">
-        <button type="button" id="upArrow" class="btn btn-primary tabbed">&#x2191;</button>
-        <button type="button" id="downArrow" class="btn btn-primary tabbed">&#x2193;</button>
-        <button type="button" id="leftArrow" class="btn btn-primary tabbed">&#x2190;</button>
-        <button type="button" id="rightArrow" class="btn btn-primary tabbed">&#x2192;</button>
+        <button type="button" id="upArrow" class="btn btn-primary tabbed"
+          placeholder="Move Up">&#x2191;</button>
+        <button type="button" id="downArrow" class="btn btn-primary tabbed"
+          placeholder="Move Down">&#x2193;</button>
+        <button type="button" id="leftArrow" class="btn btn-primary tabbed"
+          placeholder="Move Left">&#x2190;</button>
+        <button type="button" id="rightArrow" class="btn btn-primary tabbed"
+          placeholder="Move Right">&#x2192;</button>
       </div>
       <br>
       <div class="modifyContentGroup">
         <p> Modify Width </p>
         <div class="input-group" id="mod-width">
           <span class="input-group-btn">
-            <button type="button" class="btn btn-danger btn-number tabbed" id="width_minus" data-type="minus" data-field="quant[5]">
+            <button type="button" class="btn btn-danger btn-number tabbed"
+              placeholder="Decrease Width" id="width_minus" data-type="minus" data-field="quant[5]">
               <span class="glyphicon glyphicon-minus"></span>
             </button>
           </span>
           <input type="hidden" name="quant[5]" class="form-control input-number" id="modWidthVal" value="50" min="5" max="100">
           <span class="input-group-btn">
-            <button type="button" class="btn btn-success btn-number tabbed" id="width_plus" data-type="plus" data-field="quant[5]">
+            <button type="button" class="btn btn-success btn-number tabbed"
+              placeholder="Increase Width" id="width_plus" data-type="plus" data-field="quant[5]">
               <span class="glyphicon glyphicon-plus"></span>
             </button>
           </span>
@@ -55,28 +61,34 @@
         <p> Modify Height </p>
         <div class="input-group" id="mod-height">
           <span class="input-group-btn">
-            <button type="button" class="btn btn-danger btn-number tabbed" id="height_minus" data-type="minus" data-field="quant[6]">
+            <button type="button" class="btn btn-danger btn-number tabbed"
+              placeholder="Decrease Height" id="height_minus" data-type="minus" data-field="quant[6]">
               <span class="glyphicon glyphicon-minus"></span>
             </button>
           </span>
           <input type="hidden" name="quant[6]" class="form-control input-number" id="modHeightVal" value="50" min="5" max="100">
           <span class="input-group-btn">
-            <button type="button" class="btn btn-success btn-number tabbed" id="height_plus" data-type="plus" data-field="quant[6]">
+            <button type="button" class="btn btn-success btn-number tabbed"
+              placeholder="Increase Height" id="height_plus" data-type="plus" data-field="quant[6]">
               <span class="glyphicon glyphicon-plus"></span>
             </button>
           </span>
         </div>
         <br>
         <div style="text-align: center;" id="mod-select">
-          <button type="button" class="btn btn-warning tabbed" id="select_shape">Select Shape</button>
+          <button type="button" class="btn btn-warning tabbed"
+            placeholder="Select Shape" id="select_shape">Select Shape</button>
           <br>
-          <button type="button" class="btn btn-primary tabbed" id="rotate_shape_clockwise">Rotate Clockwise</button>
+          <button type="button" class="btn btn-primary tabbed"
+            placeholder="Rotate CW" id="rotate_shape_clockwise">Rotate Clockwise</button>
           <br>
-          <button type="button" class="btn btn-primary tabbed" id="rotate_shape_counter_clockwise">Rotate Counterclockwise</button>
+          <button type="button" class="btn btn-primary tabbed"
+            placeholder="Rotate CCW" id="rotate_shape_counter_clockwise">Rotate Counterclockwise</button>
         </div>
 
         <br>
-        <button type="button" id="saveBtn">Save Diagram</button><br>
+        <button type="button" class="tabbed btn btn btn-primary"
+          placeholder="Save Canvas" id="saveBtn">Save Diagram</button><br>
         <a id="downloadAnchor" href="../js/downloads/download.txt" download="diagram.json">
         <button id="link" style="display:none;">Download</button></a>
       </div>
@@ -101,7 +113,8 @@
         <br/>
         <p> Text </p>
         <div class="input-group" id="label-input">
-          <input type="text" class="form-control input-number" id="labelInput">
+          <input type="text" class="form-control input-number tabbed"
+            placeholder="Label Textbox" id="labelInput">
         </div>
       </div>
       <div class="createSettingGroup">
@@ -138,13 +151,17 @@
       </div>
 
       <div class="createSettingGroup">
-        <button type="button" class="btn btn-primary tabbed" id="labelButton"> Insert Label</button>
+        <button type="button" class="btn btn-primary tabbed"
+          placeholder="Add Label" id="labelButton"> Insert Label</button>
         <br><br>
-        <button type="button" class="btn btn-warning tabbed" id="l_confirm">Insert Arrow</button>
+        <button type="button" class="btn btn-warning tabbed"
+          placeholder="Insert Arrow" id="l_confirm">Insert Arrow</button>
         <br><br>
-        <button type="button" class="btn btn-success tabbed" id="r_confirm">Insert Rectangle</button>
+        <button type="button" class="btn btn-success tabbed"
+          placeholder="Insert Rectangle" id="r_confirm">Insert Rectangle</button>
         <br><br>
-        <button type="button" class="btn btn-danger tabbed"  id="deleteButton">Delete</button>
+        <button type="button" class="btn btn-danger tabbed"
+          placeholder="Delete" id="deleteButton">Delete</button>
       </div>
     </div>
 
