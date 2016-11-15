@@ -164,6 +164,10 @@ function addArrow(canvas, center) {
 
   arrow.on('moving', function() {
     moveEnd(arrow);
+    console.log(line.arrow.left);
+    console.log(line.arrow.top);
+    console.log(line.left);
+    console.log(line.top);
   });
 
   circle.on('moving', function() {

@@ -13,3 +13,9 @@
 	text-align: center;
 	white-space: nowrap;
 }
+
+#mainContent h4 {
+	text-align: left;
+	margin-left: 160px;
+	margin-right: 160px;
+}

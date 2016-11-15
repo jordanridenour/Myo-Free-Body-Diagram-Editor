@@ -222,8 +222,8 @@ function makeButtonOnFocus(prevIdx, nextIdx) {
     // Tooltips for regular gestures
     else {
       $("#" + tabbedElts[tabIdx].id).tooltip(
-        {title: "Wave In: " + $('#' + tabbedElts[prevIdx].id).attr('placeholder') +
-          " | Wave Out: " + $('#' + tabbedElts[nextIdx].id).attr('placeholder'),  trigger: "focus"});
+        {title: "Wave In: " + $('#' + tabbedElts[prevIdx].id).attr('placeholder')
+         + "\nWave Out: " + $('#' + tabbedElts[nextIdx].id).attr('placeholder'),  trigger: "focus"});
     }
 
     $("#" + tabbedElts[tabIdx].id).trigger('focus');
