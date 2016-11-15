@@ -18,19 +18,9 @@ function JSONTextToCanvas(canvas) {
 		return;
 	}
 	var json = JSON.parse(text);
-	canvas.loadFromDatalessJSON(json, function(e) {
+	canvas.loadFromDatalessJSON(json, canvas.renderAll.bind(canvas), function(e) {
 		if(e) {
 			console.log("error exists");
 		}
 	});
-	
-	// var objectArray = json['objects'];
-	// var objectLength = objectArray.length;
-	// for (var i = 0; i < objectLength; i = i + 1) {
-	// 	var currentObject = objectArray[i];
-	// 	console.log(currentObject);
-	// }
-	
-	
-
 }
