@@ -38,6 +38,7 @@ var circleDiameterInput = $("#circleDiameterInput");
 var imageInput = $(".def_img");
 
 var saveButton = $("#saveBtn");
+var saveSVGButton = $("#saveSVG");
 var loadJSONButton = $("#submitLoad");
 
 
@@ -89,6 +90,10 @@ rotateShapeClockwiseButton.click(function() {
 
 rotateShapeCounterclockwiseButton.click(function() {
     rotateCounterClockwise(canvas);
+});
+
+saveSVG.click(function() {
+    downloadCanvasAsSVG(canvas);
 });
 
 saveButton.click(function() {
@@ -143,58 +148,6 @@ $('#wrapper').on('click', 'img', function(e) {
   canvas.add(imgInstance);
 });
 
-function updateLineInputVal(line) {
-    var width = line.getWidth();
-    lineLengthInput.val(width);
-}
-
-function rotateClockwise() {
-    rotate(5);
-}
-
-function rotateCounterClockwise() {
-    rotate(-5);
-}
-
-function rotate(degree) {
-    var selectedObj = canvas.getActiveObject();
-    var curAngle = selectedObj.getAngle();
-    console.log(curAngle);
-    selectedObj.setAngle(curAngle+degree);
-    canvas.renderAll();
-}
-
-function selectNext() {
-    var objs = canvas.getObjects();
-    var selectedObj = canvas.getActiveObject();
-    var nextIndex;
-    if (objs.length < 1) return;
-
-    // Special Handling for arrows
-    if (selectedObj && selectedObj['customType']
-        && selectedObj['customType'].localeCompare("arrow") == 0) {
-      console.log(selectedObj.get('type'));
-      nextIndex = getSelectedIndex(objs, selectedObj) + 3;
-      if (nextIndex === objs.length) nextIndex = 0;
-    }
-    else if (selectedObj) {
-        nextIndex = getSelectedIndex(objs, selectedObj) + 1;
-        if (nextIndex === objs.length) nextIndex = 0;
-    }
-    else {
-      nextIndex = 0;
-    }
-    canvas.setActiveObject(canvas.item(nextIndex));
-}
-
-function getSelectedIndex(objs, target) {
-    var index = objs.map(function(x) { return x }).indexOf(target);
-    return index;
-}
-
-function clearSelections() {
-    canvas.deactivateAll().renderAll();
-}
 
 function keyEvents(event) {
     if (!labelTextInput.is(':focus')) {
