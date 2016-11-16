@@ -64,15 +64,29 @@ function rotate(canvas, degree) {
      return;
    }
 
-   var selectedObj = canvas.getActiveObject();
-   var curAngle = selectedObj.getAngle();
-   selectedObj.setAngle(curAngle + degree);
-
    // Special handling for arrows
    if (selectedObj.get('type').localeCompare("line") == 0) {
 
-    return;
+     // Move triangle and circle too.
+     var arrowIdx = getSelectedIndex(canvas.getObjects(), selectedObj) + 1;
+     var circleIdx = arrowIdx + 1;
+
+     var arrowObj = canvas.item(arrowIdx);
+     var circleObj = canvas.item(circleIdx);
+
+     var newArrowX = arrowObj.getLeft()*Math.cos(degree) + arrowObj.getTop()*Math.sin(degree);
+     var newArrowY = -1*arrowObj.getLeft()*Math.sin(degree) + arrowObj.getTop()*Math.cos(degree);
+     console.log(newArrowX);
+     arrowObj.setLeft(newArrowX);
+     arrowObj.setTop(newArrowY);
    }
+   else {
+
+     var selectedObj = canvas.getActiveObject();
+     var curAngle = selectedObj.getAngle();
+     selectedObj.setAngle(curAngle + degree);
+   }
+
    canvas.renderAll();
 }
 
@@ -123,7 +137,7 @@ function moveVertical(canvas, val) {
    if (!canvas.getActiveObject()) {
      return;
    }
-   
+
    var selectedObj = canvas.getActiveObject();
    var curTop = selectedObj.getTop();
    selectedObj.setTop(curTop + val);

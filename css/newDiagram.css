@@ -39,7 +39,7 @@ canvas {
 	padding: 10px;
 }
 
-#addButtons button {
+.createSettingGroup button {
 	width: 138px;
 }
 

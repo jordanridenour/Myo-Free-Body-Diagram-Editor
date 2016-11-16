@@ -112,60 +112,17 @@
     <!-- End Modify Controls -->
     <div id = "createSettings">
       <div class="createSettingGroup">
-        <p> Length </p>
-        <div class="input-group" id="l-input">
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-danger btn-number tabbed" id="l_minus" data-type="minus" data-field="quant[1]">
-              <span class="glyphicon glyphicon-minus"></span>
-            </button>
-          </span>
-          <input type="text" name="quant[1]" class="form-control input-number" id="lineLengthInput" value="100" min="5" max="1000">
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-success btn-number tabbed" id="l_plus" data-type="plus" data-field="quant[1]">
-              <span class="glyphicon glyphicon-plus"></span>
-            </button>
-          </span>
-        </div>
-        <br/>
         <p> Text </p>
         <div class="input-group" id="label-input">
           <input type="text" class="form-control input-number tabbed"
             placeholder="Label Textbox" id="labelInput">
         </div>
+        <br>
+        <button type="button" class="btn btn-danger tabbed"
+          placeholder="Clear Canvas" id="clearButton">
+          <span>Clear Canvas</span>
+        </button>
       </div>
-      <div class="createSettingGroup">
-        <p> Width </p>
-        <div class="input-group" id="x-input">
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-danger btn-number tabbed" id="w_minus" data-type="minus" data-field="quant[2]">
-              <span class="glyphicon glyphicon-minus"></span>
-            </button>
-          </span>
-          <input type="text" name="quant[2]" class="form-control input-number" id="rectWidthInput" value="50" min="5" max="100">
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-success btn-number tabbed" id="w_plus" data-type="plus" data-field="quant[2]">
-              <span class="glyphicon glyphicon-plus"></span>
-            </button>
-          </span>
-        </div>
-
-        <br/>
-        <p> Height </p>
-        <div class="input-group" id="y-input">
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-danger btn-number tabbed" id="h_minus" data-type="minus" data-field="quant[3]">
-              <span class="glyphicon glyphicon-minus"></span>
-            </button>
-          </span>
-          <input type="text" name="quant[3]" class="form-control input-number" id="rectHeightInput" value="50" min="5" max="100">
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-success btn-number tabbed" id="h_plus" data-type="plus" data-field="quant[3]">
-              <span class="glyphicon glyphicon-plus"></span>
-            </button>
-          </span>
-        </div>
-      </div>
-
       <div class="createSettingGroup" id="addButtons">
         <button type="button" class="btn btn-primary tabbed"
           placeholder="Add Label" id="labelButton">

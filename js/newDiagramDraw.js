@@ -159,7 +159,6 @@ function rotateCounterClockwise() {
 function rotate(degree) {
     var selectedObj = canvas.getActiveObject();
     var curAngle = selectedObj.getAngle();
-    console.log(curAngle);
     selectedObj.setAngle(curAngle+degree);
     canvas.renderAll();
 }
