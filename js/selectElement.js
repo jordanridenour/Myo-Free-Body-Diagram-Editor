@@ -23,7 +23,22 @@ function clearSelections(canvas) {
 function deleteSelected(canvas) {
     var selectedObj = canvas.getActiveObject();
     if (selectedObj) {
-        canvas.remove(selectedObj);
+
+      // Special handling for arrows
+      if (selectedObj.get('type').localeCompare("line") == 0) {
+
+        // Move triangle and circle too.
+        var arrowIdx = getSelectedIndex(canvas.getObjects(), selectedObj) + 1;
+        var circleIdx = arrowIdx + 1;
+
+        var arrowObj = canvas.item(arrowIdx);
+        var circleObj = canvas.item(circleIdx);
+
+        canvas.remove(arrowObj);
+        canvas.remove(circleObj);
+      }
+
+      canvas.remove(selectedObj);
     }
     else {
         alert("No object selected!");

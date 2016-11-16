@@ -199,10 +199,6 @@ function clearSelections() {
 function keyEvents(event) {
     if (!labelTextInput.is(':focus')) {
         switch (event.keyCode) {
-            case 8:  // maps to backspace
-                console.log("deleteSelected()");
-                deleteSelected(canvas);
-                break;
             case 67: // maps to 'c'
                 console.log("clearSelections()");
                 clearSelections(canvas);

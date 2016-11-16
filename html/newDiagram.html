@@ -25,7 +25,7 @@
   <div id = "mainContent">
     <h1> Free Body Diagram Creator </h1>
     <div class="canvasDiv">
-      <canvas id="fbdCanvas" width="700" height="350"></canvas>
+      <canvas id="fbdCanvas" width="760" height="350"></canvas>
     </div>
 
     <div id="modifyContent">
@@ -41,63 +41,72 @@
       </div>
       <br>
       <div class="modifyContentGroup">
-        <p> Modify Width </p>
-        <div class="input-group" id="mod-width">
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-danger btn-number tabbed"
-              placeholder="Decrease Width" id="width_minus" data-type="minus" data-field="quant[5]">
-              <span class="glyphicon glyphicon-minus"></span>
-            </button>
-          </span>
-          <input type="hidden" name="quant[5]" class="form-control input-number" id="modWidthVal" value="50" min="5" max="100">
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-success btn-number tabbed"
-              placeholder="Increase Width" id="width_plus" data-type="plus" data-field="quant[5]">
-              <span class="glyphicon glyphicon-plus"></span>
-            </button>
-          </span>
+        <div class="modifyElt" id="mod-width">
+          <label class="buttonLabel"> Change Width </label>
+          <button type="button" class="btn btn-danger btn-number tabbed"
+            placeholder="Decrease Width" id="width_minus" data-type="minus">
+            <span class="glyphicon glyphicon-minus"></span>
+          </button>
+          <button type="button" class="btn btn-success btn-number tabbed"
+            placeholder="Increase Width" id="width_plus" data-type="plus">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
         </div>
         <br>
-        <p> Modify Height </p>
-        <div class="input-group" id="mod-height">
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-danger btn-number tabbed"
-              placeholder="Decrease Height" id="height_minus" data-type="minus" data-field="quant[6]">
-              <span class="glyphicon glyphicon-minus"></span>
-            </button>
-          </span>
-          <input type="hidden" name="quant[6]" class="form-control input-number" id="modHeightVal" value="50" min="5" max="100">
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-success btn-number tabbed"
-              placeholder="Increase Height" id="height_plus" data-type="plus" data-field="quant[6]">
-              <span class="glyphicon glyphicon-plus"></span>
-            </button>
-          </span>
+        <div class="modifyElt" id="mod-height">
+          <label class="buttonLabel"> Change Height </label>
+          <button type="button" class="btn btn-danger btn-number tabbed"
+            placeholder="Decrease Height" id="height_minus" data-type="minus">
+            <span class="glyphicon glyphicon-minus"></span>
+          </button>
+          <button type="button" class="btn btn-success btn-number tabbed"
+            placeholder="Increase Height" id="height_plus" data-type="plus">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
         </div>
         <br>
-        <div style="text-align: center;" id="mod-select">
+        <div class="modifyElt">
+          <button type="button" class="btn btn-primary tabbed"
+            placeholder="Rotate CW" id="rotate_shape_clockwise">
+            <span>Rotate CW</span>
+          </button>
+          <button type="button" class="btn btn-primary tabbed"
+            placeholder="Rotate CCW" id="rotate_shape_counter_clockwise">
+            <span>Rotate CCW</span>
+          </button>
+        </div>
+        <div style="text-align: center;" id="modSelect">
           <button type="button" class="btn btn-warning tabbed"
-            placeholder="Select Shape" id="select_shape">Select Shape</button>
-          <br>
-          <button type="button" class="btn btn-primary tabbed"
-            placeholder="Rotate CW" id="rotate_shape_clockwise">Rotate Clockwise</button>
-          <br>
-          <button type="button" class="btn btn-primary tabbed"
-            placeholder="Rotate CCW" id="rotate_shape_counter_clockwise">Rotate Counterclockwise</button>
+            placeholder="Select Shape" id="select_shape">
+            <span>Select Shape</span>
+          </button>
         </div>
-
-        <div>
-        <br>
-        <button type="button" class="tabbed btn btn btn-primary"
-          placeholder="Save Canvas" id="saveBtn">Save Diagram</button><br>
+      </div>
+    </div>
+    <div id="loadSaveGroup">
+      <div class="loadSaveElt">
+        <button type="button" id="loadPic" placeholder="Load Picture" class="tabbed btn btn-primary">
+          <span>Load Picture</span>
+        </button>
+      </div>
+      <div class="loadSaveElt">
+        <button type="button" id="saveAsJPG" placeholder="Save as JPG" class="tabbed btn btn-primary">
+          <span>Save as JPG</span>
+        </button>
+      </div>
+      <div class="loadSaveElt">
+        <button type="button" class="tabbed btn btn-warning"
+          placeholder="Save Canvas" id="saveBtn">
+          <span>Save Diagram</span>
+        </button>
         <a id="downloadAnchor" href="../js/downloads/download.txt" download="diagram.json">
         <button id="link" style="display:none;">Download</button></a>
-        <br>
-        <input type="text" id="loadInput">
-        <br>
-        <button type="button" id="submitLoad">JSON to Canvas</button>
-        </div>
-        
+      </div>
+      <div class="loadSaveElt">
+        <input type="text" id="loadInput"><br>
+        <button type="button" id="submitLoad" placeholder="Load file" class="tabbed btn btn-success">
+          <span>JSON to Canvas</span>
+        </button>
       </div>
     </div>
     <!-- End Modify Controls -->
@@ -157,18 +166,26 @@
         </div>
       </div>
 
-      <div class="createSettingGroup">
+      <div class="createSettingGroup" id="addButtons">
         <button type="button" class="btn btn-primary tabbed"
-          placeholder="Add Label" id="labelButton"> Insert Label</button>
+          placeholder="Add Label" id="labelButton">
+          <span>Insert Label</span>
+        </button>
         <br><br>
         <button type="button" class="btn btn-warning tabbed"
-          placeholder="Insert Arrow" id="l_confirm">Insert Arrow</button>
+          placeholder="Insert Arrow" id="l_confirm">
+          <span>Insert Arrow</span>
+        </button>
         <br><br>
         <button type="button" class="btn btn-success tabbed"
-          placeholder="Insert Rectangle" id="r_confirm">Insert Rectangle</button>
+          placeholder="Insert Rectangle" id="r_confirm">
+          <span>Insert Rectangle</span>
+        </button>
         <br><br>
         <button type="button" class="btn btn-danger tabbed"
-          placeholder="Delete" id="deleteButton">Delete</button>
+          placeholder="Delete" id="deleteButton">
+          <span>Delete</span>
+        </button>
       </div>
     </div>
 

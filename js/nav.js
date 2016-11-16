@@ -7,6 +7,15 @@ var tabIdx = 0;
 var tabbedElts;
 var onMenu = true;
 
+// Global Position variables
+var myoX = null;
+var myoY = null;
+var deltaX = null;
+var deltaY = null;
+
+// Sensitivity Threshold
+var sensThresh = 0.01;
+
 // Establish Myo Connection
 var myMyo;
 
@@ -31,6 +40,7 @@ $(document).ready(function () {
     // Myo trigger events
     tabbedElts = $('.menutabbed').toArray();
     createTabbedMyoEvents();
+    AddCustomGestures();
     // Set first highlighted button
     makeButtonOnFocus(4,1);
   });
@@ -94,6 +104,60 @@ function createTabbedMyoEvents() {
     }
   });
 }
+
+//-----CUSTOM MYO GESTURES-----//
+function AddCustomGestures() {
+
+  /*Myo.on('fist', function() {
+
+    if (remote.getGlobal('gestureControlOn')) {
+
+      var rotateCW = $('#rotate_shape_clockwise');
+      if (rotateCW && rotateCW.is(":focus")) {
+
+        // Listen for change in rotation over a
+        // period of ten seconds.
+        //setTimeout( ,10000);
+      }
+    }
+  })*/
+
+  // Fires literally whenever you move
+  Myo.on('orientation', function(data) {
+
+    // If gesture control is even active
+    if (remote.getGlobal("gestureControlOn")
+          && $('#select_shape').is(':focus')) {
+
+      // Assign current positioning data
+      if (myoX == null || myoY == null) {
+        myoX = data.x;
+        myoY = data.y;
+        deltaX = 0;
+        deltaY = 0;
+      }
+      // If we have moved bigger than the minimum threshold
+      else if (Math.abs(myoX - data.x) > sensThresh
+                || Math.abs(myoY - data.y)) {
+
+        deltaX = myoX - data.x;
+        deltaY = myoY - data.y;
+        myoX = data.x;
+        myoY = data.y;
+
+        selectedObj = canvas.getActiveObject();
+        var currX = selectedObj.getLeft();
+        var currY = selectedObj.getTop();
+        selectedObj.setLeft(currX + ((deltaX/1.2)*400)%740);
+        selectedObj.setTop(currY + ((deltaY/1.2)*400)%740);
+        canvas.renderAll();
+      }
+
+    }
+
+  });
+}
+//-----END CUSTOM Myo Gestures-----//
 
 // Allows clickable navigation between pages
 function createStandardEvents() {
