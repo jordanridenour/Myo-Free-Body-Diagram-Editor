@@ -1,5 +1,11 @@
 function selectNext(canvas) {
     var objs = canvas.getObjects();
+
+    // If there are no objects
+    if (!objs) {
+      return;
+    }
+
     var selectedObj = canvas.getActiveObject();
     var nextIndex = 0;
     if (objs.length < 1) return;
