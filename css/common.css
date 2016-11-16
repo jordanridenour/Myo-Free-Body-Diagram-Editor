@@ -25,12 +25,13 @@ body {
 	bottom: 0;
 	left: 0;
 	background-color: #222233;
-	padding-top: 100px;
+	padding-top: 50px;
 }
 
 /* Navigation Links */
 #menuSideNav button {
 	padding: 8px 8px 8px 8px;
+	height: 120px;
 	width: inherit;
 	text-decoration: none;
 	font-size: 25px;
