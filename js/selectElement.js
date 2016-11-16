@@ -7,7 +7,7 @@ function selectNext(canvas) {
   // Special Handling for arrows
   if (selectedObj && selectedObj['customType']
       && selectedObj['customType'].localeCompare("arrow") == 0) {
-    console.log(selectedObj.get('type'));
+        
     nextIndex = getSelectedIndex(objs, selectedObj) + 3;
     if (nextIndex === objs.length) nextIndex = 0;
   }

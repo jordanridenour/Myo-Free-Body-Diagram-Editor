@@ -1,6 +1,6 @@
 function addRect(canvas, widthInput, heightInput) {
-    var width  = parseInt(widthInput.val());
-    var height = parseInt(heightInput.val());
+    var width  = widthInput;
+    var height = heightInput;
     var rect = new fabric.Rect({
         left: center.x,
         top: center.y,
@@ -12,7 +12,7 @@ function addRect(canvas, widthInput, heightInput) {
 }
 
 function addCircle(canvas, diameterInput) {
-    var radius = parseInt(diameterInput.val())/2;
+    var radius = diameterInput;
     var circle = new fabric.Circle({
         radius: radius,
         fill: 'green',
@@ -24,8 +24,8 @@ function addCircle(canvas, diameterInput) {
 
 function addTriangle(canvas, widthInput, heightInput) {
     var triangle = new fabric.Triangle({
-        width: parseInt(widthInput.val()),
-        height: parseInt(heightInput.val()),
+        width: widthInput,
+        height: heightInput,
         fill: 'blue',
         left: center.x,
         top: center.y

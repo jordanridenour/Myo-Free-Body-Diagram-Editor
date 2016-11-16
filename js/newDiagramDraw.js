@@ -22,19 +22,7 @@ var addCircleButton = $("#c_confirm");
 var addTriangleButton = $("#t_confirm");
 var deleteButton  = $("#deleteButton");
 
-var lineDecreaseButton = $("#l_minus");
-var lineIncreaseButton = $("#l_plus");
-var circleDecreaseButton = $("#d_minus");
-var circleIncreaseButton = $("#d_plus");
-
-var lineLengthInput = $("#lineLengthInput");
 var labelTextInput = $("#labelInput");
-var rectWidthInput  = $("#rectWidthInput");
-var rectHeightInput = $("#rectHeightInput");
-var triangleWidthInput = $("#triangleWidthInput");
-var triangleHeightInput = $("#triangleHeightInput");
-var circleDiameterInput = $("#circleDiameterInput");
-
 var imageInput = $(".def_img");
 
 var saveButton = $("#saveBtn");
@@ -101,7 +89,7 @@ saveButton.click(function() {
 });
 
 addRectButton.click(function() {
-    addRect(canvas, rectWidthInput, rectHeightInput);
+    addRect(canvas, 50, 50);
 });
 
 addArrowButton.click(function() {
@@ -113,11 +101,11 @@ addLabelButton.click(function() {
 });
 
 addCircleButton.click(function() {
-    addCircle(canvas, circleDiameterInput);
+    addCircle(canvas, 50);
 });
 
 addTriangleButton.click(function() {
-    addTriangle(canvas, triangleWidthInput, triangleHeightInput);
+    addTriangle(canvas, 50, 50);
 });
 
 deleteButton.click(function() {
