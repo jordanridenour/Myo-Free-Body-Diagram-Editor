@@ -24,3 +24,7 @@ function JSONTextToCanvas(canvas) {
 		}
 	});
 }
+
+function downloadCanvas(canvas) {
+   
+}
