@@ -57,30 +57,6 @@ $('.input-number').focusin(function() {
     $(this).data('oldValue', $(this).val());
 });
 
-/*
-$('.input-number').change(function() {
-    var minVal = parseInt($(this).attr('min'));
-    var maxVal = parseInt($(this).attr('max'));
-    var curVal = parseInt($(this).val());
-    var name   = $(this).attr('name');
-
-    if (curVal >= minVal) {
-        $("btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled');
-    }
-    else {
-        $(this).val($(this).data('oldValue'));
-    }
-
-    if (curVal <= maxVal) {
-        $("btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled');
-    }
-    else {
-        $(this).val($(this).data('oldValue'));
-    }
-});
-*/
-
-
 
 
 

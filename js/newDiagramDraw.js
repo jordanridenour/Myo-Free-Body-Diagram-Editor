@@ -26,7 +26,8 @@ var labelTextInput = $("#labelInput");
 var imageInput = $(".def_img");
 
 var saveButton = $("#saveBtn");
-var saveSVGButton = $("#saveSVG");
+var savePNGLink = $("#savePNGLink");
+var savePNGButton = $("#savePNGButton");
 var loadJSONButton = $("#submitLoad");
 
 
@@ -80,8 +81,9 @@ rotateShapeCounterclockwiseButton.click(function() {
     rotateCounterClockwise(canvas);
 });
 
-saveSVG.click(function() {
-    downloadCanvasAsSVG(canvas);
+savePNGLink.click(function() {
+    canvas.deactivateAll().renderAll();
+    downloadCanvasAsPNG(this);
 });
 
 saveButton.click(function() {

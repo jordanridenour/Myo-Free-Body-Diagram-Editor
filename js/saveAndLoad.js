@@ -25,6 +25,7 @@ function JSONTextToCanvas(canvas) {
 	});
 }
 
-function downloadCanvas(canvas) {
-   
+function downloadCanvasAsPNG(link) {
+   link.href = document.getElementById("fbdCanvas").toDataURL();
+   link.download = "canvas_image";
 }
