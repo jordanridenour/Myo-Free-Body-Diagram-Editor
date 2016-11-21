@@ -12,6 +12,7 @@ var decreaseHeightButton = $("#height_minus");
 var increaseHeightButton = $("#height_plus");
 
 var selectShapeButton = $("#select_shape");
+var undoButton = $("#undo_action");
 var rotateShapeClockwiseButton = $("#rotate_shape_clockwise");
 var rotateShapeCounterclockwiseButton = $("#rotate_shape_counter_clockwise");
 
@@ -21,6 +22,7 @@ var addRectButton = $("#r_confirm");
 var addCircleButton = $("#c_confirm");
 var addTriangleButton = $("#t_confirm");
 var deleteButton  = $("#deleteButton");
+var clearButton = $("#clearButton");
 
 var labelTextInput = $("#labelInput");
 var imageInput = $(".def_img");
@@ -33,6 +35,9 @@ var loadJSONButton = $("#submitLoad");
 
 $(document).keyup(keyEvents);
 
+undoButton.click(function() {
+  undo(canvas);
+});
 loadJSONButton.click(function() {
     JSONTextToCanvas(canvas);
 });
@@ -112,6 +117,10 @@ addTriangleButton.click(function() {
 
 deleteButton.click(function() {
     deleteSelected(canvas);
+});
+
+clearButton.click(function() {
+  canvas.clear();
 });
 
 imageInput.dblclick(function(e) {

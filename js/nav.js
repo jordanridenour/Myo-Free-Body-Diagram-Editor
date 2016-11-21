@@ -6,6 +6,7 @@ var remote = require('electron').remote;
 var tabIdx = 0;
 var tabbedElts;
 var onMenu = true;
+var onLock = false;
 
 // Global Position variables
 var myoZ = null;
@@ -54,21 +55,21 @@ function createTabbedMyoEvents() {
 
   Myo.on('wave_out', function() {
 
-    if (remote.getGlobal('gestureControlOn')) {
+    if (remote.getGlobal('gestureControlOn') && !onLock) {
       moveFocus("forward");
     }
   });
 
   Myo.on('wave_in', function() {
 
-    if(remote.getGlobal('gestureControlOn')) {
+    if(remote.getGlobal('gestureControlOn') && !onLock) {
       moveFocus("backward");
     }
   });
 
   Myo.on('fist', function() {
 
-    if(remote.getGlobal('gestureControlOn')) {
+    if(remote.getGlobal('gestureControlOn') && !onLock) {
       console.log("Clicking " + tabbedElts[tabIdx].id + "!");
       $('#' + tabbedElts[tabIdx].id).trigger('click');
     }
@@ -76,7 +77,7 @@ function createTabbedMyoEvents() {
 
   Myo.on('double_tap', function() {
 
-    if(remote.getGlobal('gestureControlOn')) {
+    if(remote.getGlobal('gestureControlOn') && !onLock) {
 
       // Ensure this is a page with other buttons
       var page = String(location.href.split("/").slice(-1));
@@ -122,12 +123,31 @@ function AddCustomGestures() {
     }
   })*/
 
+  // This function registers double fist action
+  // to set the custom gesture lock.
+  Myo.on('fingers_spread', function() {
+
+    if (tabbedElts[tabIdx].id.localeCompare("select_shape") == 0) {
+      console.log("ready to lock");
+      if (!onLock) {
+        // Indicate lock on this button
+        $('#select_shape').css('border-color', 'red');
+        onLock = true;
+      }
+      else {
+        $('#select_shape').css('border-color', 'pink');
+        onLock = false;
+      }
+    }
+  });
+
   // Fires literally whenever you move
   Myo.on('orientation', function(data) {
 
     // If gesture control is even active
     if (remote.getGlobal("gestureControlOn")
-        && $('#select_shape').is(':focus') && canvas.getActiveObject()) {
+        && tabbedElts[tabIdx].id.localeCompare("select_shape") == 0
+        && canvas.getActiveObject() && onLock) {
 
       moveObjWithMotionTrack(data);
     }

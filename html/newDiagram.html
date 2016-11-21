@@ -75,11 +75,17 @@
             <span>Rotate CCW</span>
           </button>
         </div>
-        <div style="text-align: center;" id="modSelect">
+        <div style="text-align: center;" class="modSelect">
           <button type="button" class="btn btn-warning tabbed"
             placeholder="Select Shape" id="select_shape">
             <span>Select Shape</span>
           </button>
+        </div>
+        <div style="text-align: center;" class="modSelect">
+          <button type="button" class="btn btn-danger tabbed"
+            placeholder="select Shape" id="undo_action">
+            <span> Undo </span>
+        </button>
         </div>
       </div>
     </div>
@@ -91,7 +97,10 @@
       </div>
       <div class="loadSaveElt">
         <a id="savePNGLink">
-        <button type="button" id="savePNGButton" placeholder="Save as PNG" class="tabbed btn btn-primary">Save as PNG</button></a>
+          <button type="button" id="savePNGButton" placeholder="Save as PNG" class="tabbed btn btn-primary">
+            <span>Save as PNG</span>
+          </button>
+        </a>
       </div>
       <div class="loadSaveElt">
         <button type="button" class="tabbed btn btn-warning"
