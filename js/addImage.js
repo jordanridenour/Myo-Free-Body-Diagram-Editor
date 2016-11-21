@@ -18,3 +18,18 @@ fs.readdir(testFolder, (err, files) => {
       })
   }
 });
+
+function addImage(file) {
+  const fs = require('fs');
+  const testFolder = './images/';
+  fs.readdir(testFolder, (err, files) => {
+    if (err) {
+      console.log('Error');
+    } else {
+      var count = files.length - 1;
+      var photo = '<img src="../images/' + file + '" class="def_img tabbed" placeholder="Image" id="img_' + count + '">';
+      var gallery = document.getElementById('wrapper');
+      gallery.innerHTML = gallery.innerHTML + photo;
+    }
+  });
+}

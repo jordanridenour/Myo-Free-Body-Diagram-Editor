@@ -27,6 +27,7 @@ var clearButton = $("#clearButton");
 var labelTextInput = $("#labelInput");
 var imageInput = $(".def_img");
 
+var loadButton = $("#loadPic");
 var saveButton = $("#saveBtn");
 var savePNGLink = $("#savePNGLink");
 var savePNGButton = $("#savePNGButton");
@@ -84,6 +85,10 @@ rotateShapeClockwiseButton.click(function() {
 
 rotateShapeCounterclockwiseButton.click(function() {
     rotateCounterClockwise(canvas);
+});
+
+loadButton.click(function() {
+    uploadImage();
 });
 
 savePNGLink.click(function() {
