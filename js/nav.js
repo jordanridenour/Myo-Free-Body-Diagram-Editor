@@ -8,9 +8,9 @@ var tabbedElts;
 var onMenu = true;
 
 // Global Position variables
-var myoX = null;
+var myoZ = null;
 var myoY = null;
-var deltaX = null;
+var deltaZ = null;
 var deltaY = null;
 
 // Sensitivity Threshold
@@ -129,36 +129,82 @@ function AddCustomGestures() {
     if (remote.getGlobal("gestureControlOn")
         && $('#select_shape').is(':focus') && canvas.getActiveObject()) {
 
-      // Assign current positioning data
-      if (myoX == null || myoY == null) {
-        myoX = -1*data.z;
-        myoY = -1*data.y;
-        deltaX = 0;
-        deltaY = 0;
-      }
-      // If we have moved bigger than the minimum threshold
-      else if (Math.abs(myoX - data.z) > sensThresh ||
-                Math.abs(myoY - data.y) > sensThresh) {
-
-        var coordZ = -1*data.z;
-        var coordY = -1*data.y;
-
-        deltaX = +(myoX - coordZ).toFixed(2);
-        deltaY = +(myoY - coordY).toFixed(2);
-        myoX = +coordZ.toFixed(2);
-        myoY = +coordY.toFixed(2);
-
-        selectedObj = canvas.getActiveObject();
-        var currX = selectedObj.getLeft();
-        var currY = selectedObj.getTop();
-
-        // Scale Myo movement to the dimensions of this canvas.
-        selectedObj.setLeft(currX + ((deltaX/1.2)*740) % 740);
-        selectedObj.setTop(currY + ((deltaY/1.2)*740) % 740);
-        canvas.renderAll();
-      }
+      moveObjWithMotionTrack(data);
     }
   });
+}
+
+function moveObjWithMotionTrack(data) {
+
+  // Assign current positioning data
+  if (myoZ == null || myoY == null) {
+    myoZ = -1*data.z;
+    myoY = -1*data.y;
+    deltaZ = 0;
+    deltaY = 0;
+  }
+  // If we have moved bigger than the minimum threshold
+  else if (Math.abs(myoZ - data.z) > sensThresh ||
+            Math.abs(myoY - data.y) > sensThresh) {
+
+    var coordZ = (-1*data.z).toFixed(2);
+    var coordY = (-1*data.y).toFixed(2);
+
+    deltaZ = +(myoZ - coordZ);
+    deltaY = +(myoY - coordY);
+    myoZ = +coordZ
+    myoY = +coordY
+
+    selectedObj = canvas.getActiveObject();
+    var currZ = selectedObj.getLeft();
+    var currY = selectedObj.getTop();
+
+    // Scale Myo movement to the dimensions of this canvas.
+    selectedObj.setLeft(currZ + ((deltaZ/1.2)*740) % 740);
+    selectedObj.setTop(currY + ((deltaY/1.2)*740) % 740);
+    canvas.renderAll();
+  }
+}
+
+function moveObjWithArrowKey(direction) {
+
+  // Assign current positioning data
+  if (myoZ == null || myoY == null) {
+    myoZ = -1*data.z;
+    myoY = -1*data.y;
+    deltaZ = 0;
+    deltaY = 0;
+  }
+  // If we have moved bigger than the minimum threshold
+  else if (Math.abs(myoZ - data.z) > sensThresh ||
+            Math.abs(myoY - data.y) > sensThresh) {
+
+    var coordZ = (-1*data.z).toFixed(2);
+    var coordY = (-1*data.y).toFixed(2);
+
+    deltaZ = +(myoZ - coordZ);
+    deltaY = +(myoY - coordY);
+    myoZ = +coordZ
+    myoY = +coordY
+
+    selectedObj = canvas.getActiveObject();
+
+    switch(direction) {
+      case "Up":
+      break;
+      case "Down":
+      break;
+      case "Right":
+      break;
+      case "Left":
+      break;
+    }
+
+    // Scale Myo movement to the dimensions of this canvas.
+    selectedObj.setLeft(currZ + ((deltaZ/1.2)*740) % 740);
+    selectedObj.setTop(currY + ((deltaY/1.2)*740) % 740);
+    canvas.renderAll();
+  }
 }
 //-----END CUSTOM Myo Gestures-----//
 

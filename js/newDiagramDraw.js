@@ -117,10 +117,6 @@ imageInput.dblclick(function(e) {
     addImage(this, center);
 });
 
-canvas.on('selection:cleared', function() {
-    lineLengthInput.val(100);
-});
-
 canvas.on('object:added', function(e) {
     console.log(e);
 });

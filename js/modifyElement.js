@@ -64,6 +64,9 @@ function rotate(canvas, degree) {
      return;
    }
 
+   var selectedObj = canvas.getActiveObject();
+   var curAngle = selectedObj.getAngle();
+
    // Special handling for arrows
    if (selectedObj.get('type').localeCompare("line") == 0) {
 
@@ -81,9 +84,6 @@ function rotate(canvas, degree) {
      arrowObj.setTop(newArrowY);
    }
    else {
-
-     var selectedObj = canvas.getActiveObject();
-     var curAngle = selectedObj.getAngle();
      selectedObj.setAngle(curAngle + degree);
    }
 
