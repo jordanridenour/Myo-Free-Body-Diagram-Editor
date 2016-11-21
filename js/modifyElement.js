@@ -17,10 +17,10 @@ function increaseHeight(canvas) {
 
 function changeWidth(canvas, val) {
 
-   if (!canvas.getActiveObject()) {
+   var selectedObj = canvas.getActiveObject();
+   if (!selectedObj) {
      return;
    }
-   var selectedObj = canvas.getActiveObject();
    var curWidth = selectedObj.getWidth();
    selectedObj.setWidth(curWidth+val);
 
@@ -34,11 +34,11 @@ function changeWidth(canvas, val) {
 
 function changeHeight(canvas, val) {
 
-   if (!canvas.getActiveObject()) {
+   var selectedObj = canvas.getActiveObject();
+   if (!selectedObj) {
      return;
    }
 
-   var selectedObj = canvas.getActiveObject();
    var curHeight = selectedObj.getHeight();
    selectedObj.setHeight(curHeight+val);
 
@@ -60,7 +60,8 @@ function rotateCounterClockwise(canvas) {
 
 function rotate(canvas, degree) {
 
-   if (!canvas.getActiveObject()) {
+   var selectedObj = canvas.getActiveObject();
+   if (!selectedObj) {
      return;
    }
 
@@ -84,6 +85,8 @@ function rotate(canvas, degree) {
      arrowObj.setTop(newArrowY);
    }
    else {
+
+     var curAngle = selectedObj.getAngle();
      selectedObj.setAngle(curAngle + degree);
    }
 
@@ -108,11 +111,11 @@ function moveDown(canvas) {
 
 function moveHorizontal(canvas, val) {
 
-   if (!canvas.getActiveObject()) {
+   var selectedObj = canvas.getActiveObject();
+   if (!selectedObj) {
      return;
    }
 
-   var selectedObj = canvas.getActiveObject();
    var curLeft = selectedObj.getLeft();
    selectedObj.setLeft(curLeft+val);
 
@@ -134,11 +137,11 @@ function moveHorizontal(canvas, val) {
 
 function moveVertical(canvas, val) {
 
-   if (!canvas.getActiveObject()) {
+   var selectedObj = canvas.getActiveObject();
+   if (!selectedObj) {
      return;
    }
 
-   var selectedObj = canvas.getActiveObject();
    var curTop = selectedObj.getTop();
    selectedObj.setTop(curTop + val);
 
