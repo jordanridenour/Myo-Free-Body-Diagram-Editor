@@ -6,12 +6,18 @@ var remote = require('electron').remote;
 var tabIdx = 0;
 var tabbedElts;
 var onMenu = true;
+var onLock = false;
 
 // Global Position variables
-var myoX = null;
+var myoZ = null;
+var myoW = null;
 var myoY = null;
-var deltaX = null;
+var myoX = null;
+var myoRoll = null;
+var deltaZ = null;
+var deltaW = null;
 var deltaY = null;
+var deltaX = null;
 
 // Sensitivity Threshold
 var sensThresh = 0.01;
@@ -54,21 +60,21 @@ function createTabbedMyoEvents() {
 
   Myo.on('wave_out', function() {
 
-    if (remote.getGlobal('gestureControlOn')) {
+    if (remote.getGlobal('gestureControlOn') && !onLock) {
       moveFocus("forward");
     }
   });
 
   Myo.on('wave_in', function() {
 
-    if(remote.getGlobal('gestureControlOn')) {
+    if(remote.getGlobal('gestureControlOn') && !onLock) {
       moveFocus("backward");
     }
   });
 
   Myo.on('fist', function() {
 
-    if(remote.getGlobal('gestureControlOn')) {
+    if(remote.getGlobal('gestureControlOn') && !onLock) {
       console.log("Clicking " + tabbedElts[tabIdx].id + "!");
       $('#' + tabbedElts[tabIdx].id).trigger('click');
     }
@@ -76,7 +82,7 @@ function createTabbedMyoEvents() {
 
   Myo.on('double_tap', function() {
 
-    if(remote.getGlobal('gestureControlOn')) {
+    if(remote.getGlobal('gestureControlOn') && !onLock) {
 
       // Ensure this is a page with other buttons
       var page = String(location.href.split("/").slice(-1));
@@ -108,57 +114,189 @@ function createTabbedMyoEvents() {
 //-----CUSTOM MYO GESTURES-----//
 function AddCustomGestures() {
 
-  /*Myo.on('fist', function() {
+  // This function registers double fist action
+  // to set the custom gesture lock.
+  Myo.on('fingers_spread', function() {
 
-    if (remote.getGlobal('gestureControlOn')) {
+    // Make sure focus is on valid custom gesture key
+    if (tabbedElts[tabIdx].id.localeCompare("select_shape") == 0
+        || checkIsArrowKey(tabbedElts[tabIdx].id)
+        || tabbedElts[tabIdx].id.localeCompare("rotate_shape_clockwise") == 0
+        || tabbedElts[tabIdx].id.localeCompare("rotate_shape_counter_clockwise") == 0) {
 
-      var rotateCW = $('#rotate_shape_clockwise');
-      if (rotateCW && rotateCW.is(":focus")) {
-
-        // Listen for change in rotation over a
-        // period of ten seconds.
-        //setTimeout( ,10000);
+      console.log("ready to lock");
+      if (!onLock) {
+        // Indicate lock on this button
+        $('#' + tabbedElts[tabIdx].id).css('border-color', 'red');
+        onLock = true;
+      }
+      else {
+        $('#' + tabbedElts[tabIdx].id).css('border-color', 'pink');
+        onLock = false;
       }
     }
-  })*/
+  });
 
   // Fires literally whenever you move
   Myo.on('orientation', function(data) {
 
-    // If gesture control is even active
+    // Motion track object
     if (remote.getGlobal("gestureControlOn")
-        && $('#select_shape').is(':focus') && canvas.getActiveObject()) {
+        && tabbedElts[tabIdx].id.localeCompare("select_shape") == 0
+        && canvas.getActiveObject() && onLock) {
 
-      // Assign current positioning data
-      if (myoX == null || myoY == null) {
-        myoX = -1*data.z;
-        myoY = -1*data.y;
-        deltaX = 0;
-        deltaY = 0;
-      }
-      // If we have moved bigger than the minimum threshold
-      else if (Math.abs(myoX - data.z) > sensThresh ||
-                Math.abs(myoY - data.y) > sensThresh) {
+      moveObjWithMotionTrack(data);
+    }
 
-        var coordZ = -1*data.z;
-        var coordY = -1*data.y;
+    // Gesture with arrow keys
+    if (remote.getGlobal("gestureControlOn")
+        && checkIsArrowKey(tabbedElts[tabIdx].id)
+        && canvas.getActiveObject() && onLock) {
 
-        deltaX = +(myoX - coordZ).toFixed(2);
-        deltaY = +(myoY - coordY).toFixed(2);
-        myoX = +coordZ.toFixed(2);
-        myoY = +coordY.toFixed(2);
+      moveObjWithArrowKey(tabbedElts[tabIdx].id, data);
+    }
 
-        selectedObj = canvas.getActiveObject();
-        var currX = selectedObj.getLeft();
-        var currY = selectedObj.getTop();
+    // Angle with rotational keys
+    if (remote.getGlobal("gestureControlOn")
+        && (tabbedElts[tabIdx].id.localeCompare("rotate_shape_clockwise") == 0
+        || tabbedElts[tabIdx].id.localeCompare("rotate_shape_counter_clockwise") == 0)
+        && canvas.getActiveObject() && onLock) {
 
-        // Scale Myo movement to the dimensions of this canvas.
-        selectedObj.setLeft(currX + ((deltaX/1.2)*740) % 740);
-        selectedObj.setTop(currY + ((deltaY/1.2)*740) % 740);
-        canvas.renderAll();
-      }
+      moveObjWithRotation(data);
     }
   });
+}
+// NOT WORKING WITH ARROWS
+function moveObjWithMotionTrack(data) {
+
+  // Assign current positioning data
+  if (myoZ == null || myoY == null) {
+    myoZ = -1*data.z;
+    myoY = -1*data.y;
+    deltaZ = 0;
+    deltaY = 0;
+  }
+  // If we have moved bigger than the minimum threshold
+  else if (Math.abs(myoZ - data.z) > sensThresh ||
+            Math.abs(myoY - data.y) > sensThresh) {
+
+    var coordZ = (-1*data.z).toFixed(2);
+    var coordY = (-1*data.y).toFixed(2);
+
+    deltaZ = +(myoZ - coordZ);
+    deltaY = +(myoY - coordY);
+    myoZ = +coordZ;
+    myoY = +coordY;
+
+    selectedObj = canvas.getActiveObject();
+    var currZ = selectedObj.getLeft();
+    var currY = selectedObj.getTop();
+
+    // Scale Myo movement to the dimensions of this canvas.
+    selectedObj.setLeft(currZ + ((deltaZ/1.2)*740) % 740);
+    selectedObj.setTop(currY + ((deltaY/1.2)*740) % 740);
+    canvas.renderAll();
+  }
+}
+
+// NOT WORKING WITH ARROWS
+function moveObjWithArrowKey(direction, data) {
+
+  // Assign current positioning data
+  if (myoZ == null || myoY == null) {
+    myoZ = -1*data.z;
+    myoY = -1*data.y;
+    deltaZ = 0;
+    deltaY = 0;
+  }
+  // If we have moved bigger than the minimum threshold
+  else if (Math.abs(myoZ - data.z) > sensThresh ||
+            Math.abs(myoY - data.y) > sensThresh) {
+
+    var coordZ = (-1*data.z).toFixed(2);
+    var coordY = (-1*data.y).toFixed(2);
+
+    deltaZ = +(myoZ - coordZ);
+    deltaY = +(myoY - coordY);
+    myoZ = +coordZ;
+    myoY = +coordY;
+
+    selectedObj = canvas.getActiveObject();
+    var currZ = selectedObj.getLeft();
+    var currY = selectedObj.getTop();
+
+    // UP & DOWN
+    if (direction.localeCompare("upArrow") == 0
+        || direction.localeCompare("upArrow") == 0) {
+
+        selectedObj.setTop(currY + ((deltaY/1.2)*740) % 740);
+    }
+
+    // RIGHT & LEFT
+    if (direction.localeCompare("rightArrow") == 0
+        || direction.localeCompare("leftArrow") == 0) {
+
+      selectedObj.setLeft(currZ + ((deltaZ/1.2)*740) % 740);
+    }
+
+    canvas.renderAll();
+  }
+}
+
+// NOT WORKING WITH ARROWS
+function moveObjWithRotation(data) {
+
+  // Assign current positioning data
+  if (myoZ == null || myoW == null || myoY == null || myoX == null) {
+    myoZ = data.z;
+    myoW = data.w;
+    myoY = data.y;
+    myoX = data.x;
+    deltaZ = 0;
+    deltaW = 0;
+    deltaY = 0;
+    deltaX = 0;
+  }
+  // If we have moved bigger than the minimum threshold
+  else if (Math.abs(myoZ - data.z) > 0
+           || Math.abs(myoW - data.w) > 0
+           || Math.abs(myoY - data.y) > 0
+           || Math.abs(myoX - data.x) > 0) {
+
+    var coordZ = (data.z).toFixed(2);
+    var coordW = (data.w).toFixed(2);
+    var coordY = (data.y).toFixed(2);
+    var coordX = (data.x).toFixed(2);
+
+    deltaZ = +(myoZ - coordZ);
+    deltaW = +(myoW - coordW);
+    deltaY = +(myoY - coordY);
+    deltaX = +(myoX - coordX);
+    myoZ = +coordZ;
+    myoW = +coordW;
+    myoY = +coordY;
+    myoX = +coordX;
+
+    // Get roll
+    var roll = Math.atan2(2.0 * (data.w * data.x + data.y * data.z),
+                          1.0 - 2.0 * (data.x * data.x + data.y * data.y));
+
+    selectedObj = canvas.getActiveObject();
+    var currAng = selectedObj.getAngle();
+    selectedObj.setAngle(currAng + roll);
+    canvas.renderAll();
+  }
+}
+
+function checkIsArrowKey(id) {
+
+  if (id.localeCompare("upArrow") == 0
+      || id.localeCompare("downArrow") == 0
+      || id.localeCompare("leftArrow") == 0
+      || id.localeCompare("rightArrow") == 0) {
+
+    return true;
+  }
 }
 //-----END CUSTOM Myo Gestures-----//
 

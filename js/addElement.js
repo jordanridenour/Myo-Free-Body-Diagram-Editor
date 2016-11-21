@@ -33,6 +33,7 @@ function addTriangle(canvas, widthInput, heightInput) {
     canvas.add(triangle)
 }
 
+// ARROW
 function addArrow(canvas, center) {
 
   var line = new fabric.Line([50, 50, 100, 100], {
@@ -56,6 +57,7 @@ function addArrow(canvas, center) {
   var arrow = new fabric.Triangle({
                 left: line.get('x1') + deltaX,
                 top: line.get('y1') + deltaY,
+                stroke: '#000',
                 originX: 'center',
                 originY: 'center',
                 hasBorders: false,

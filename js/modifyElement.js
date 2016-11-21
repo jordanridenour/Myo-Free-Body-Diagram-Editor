@@ -1,3 +1,5 @@
+// Global array of undo/redo states
+canvasStates = [];
 
 function decreaseWidth(canvas) {
    changeWidth(canvas, -5);
@@ -65,7 +67,10 @@ function rotate(canvas, degree) {
      return;
    }
 
-   // Special handling for arrows
+   var selectedObj = canvas.getActiveObject();
+   var curAngle = selectedObj.getAngle();
+
+   // ARROW: Special handling for arrows
    if (selectedObj.get('type').localeCompare("line") == 0) {
 
      // Move triangle and circle too.
@@ -116,7 +121,7 @@ function moveHorizontal(canvas, val) {
    var curLeft = selectedObj.getLeft();
    selectedObj.setLeft(curLeft+val);
 
-   // Special handling for arrows
+   // ARROW: Special handling for arrows
    if (selectedObj.get('type').localeCompare("line") == 0) {
 
      // Move triangle and circle too.
@@ -142,7 +147,7 @@ function moveVertical(canvas, val) {
    var curTop = selectedObj.getTop();
    selectedObj.setTop(curTop + val);
 
-   // Special handling for arrows
+   // ARROW: Special handling for arrows
    if (selectedObj.get('type').localeCompare("line") == 0) {
 
      // Move triangle and circle too.
@@ -157,6 +162,30 @@ function moveVertical(canvas, val) {
    }
    canvas.renderAll();
 }
+
+$(document).ready(function () {
+  // Adds a copy of canvas on any click
+  $('button').on('click', function(evt) {
+
+    return; // Still buggy
+    if (canvasStates.length < 5 &&
+      evt.target.id.localeCompare("undo_action") != 0) {
+      canvasStates.unshift(canvas.toJSON());
+    }
+  });
+});
+
+function undo(canvas) {
+
+  return; // Still buggy
+  if (canvasStates.length > 0) {
+
+    console.log(canvasStates);
+    var json = canvasStates[0];
+    canvas.loadFromJSON(json, canvas.renderAll());
+    canvasStates.shift();
+  }
+};
 
 function getSelectedIndex(objs, target) {
     var index = objs.map(function(x) { return x }).indexOf(target);
