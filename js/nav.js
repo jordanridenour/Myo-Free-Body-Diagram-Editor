@@ -7,6 +7,8 @@ var tabIdx = 0;
 var tabbedElts;
 var onMenu = true;
 var onLock = false;
+// 1 for load/save/create, 2 for modify
+var currentMenu = 1;
 
 // Global Position variables
 var myoZ = null;
@@ -18,16 +20,18 @@ var deltaZ = null;
 var deltaW = null;
 var deltaY = null;
 var deltaX = null;
+var origAngle = null;
 
 // Sensitivity Threshold
 var sensThresh = 0.01;
 
 // Establish Myo Connection
-var myMyo;
+var Myo; // Global
+var myMyo; // Singular Myo
 
 $(document).ready(function () {
 
-  var Myo = require('myo');
+  Myo = require('myo');
 
   // Connection error
   Myo.onError = function () {
@@ -98,7 +102,20 @@ function createTabbedMyoEvents() {
           onMenu = true;
         }
         else {
-          tabbedElts = $('.tabbed').toArray();
+
+          if (page.localeCompare("newDiagram.html") == 0) {
+
+            if (currentMenu == 1) {
+
+              tabbedElts = $('.tabbed').toArray();
+            }
+
+            if (currentMenu == 2) {
+
+              tabbedElts = $('.twoTabbed').toArray();
+            }
+          }
+
           onMenu = false;
         }
 
@@ -113,15 +130,6 @@ function createTabbedMyoEvents() {
 
 //-----CUSTOM MYO GESTURES-----//
 function AddCustomGestures() {
-
-  // This is the only button from New Diagram that
-  // is mapped here for sheer convenience.
-  if (location.href.split("/").slice(-1) == "newDiagram") {
-
-    $("#set_origin").click(function() {
-      Myo.zeroOrientation();
-    });
-  }
 
   // This function registers double fist action
   // to set the custom gesture lock.
@@ -171,17 +179,18 @@ function AddCustomGestures() {
         || tabbedElts[tabIdx].id.localeCompare("rotate_shape_counter_clockwise") == 0)
         && canvas.getActiveObject() && onLock) {
 
+      origAngle = canvas.getActiveObject().getAngle();
       moveObjWithRotation(data);
     }
   });
 }
-// NOT WORKING WITH ARROWS
+
 function moveObjWithMotionTrack(data) {
 
   // Assign current positioning data
   if (myoZ == null || myoY == null) {
-    myoZ = -1*data.z;
-    myoY = -1*data.y;
+    myoZ = data.z;
+    myoY = data.y;
     deltaZ = 0;
     deltaY = 0;
   }
@@ -189,29 +198,28 @@ function moveObjWithMotionTrack(data) {
   else if (Math.abs(myoZ - data.z) > sensThresh ||
             Math.abs(myoY - data.y) > sensThresh) {
 
-    var coordZ = (-1*data.z).toFixed(2);
-    var coordY = (-1*data.y).toFixed(2);
+    var coordZ = (data.z).toFixed(2);
+    var coordY = (data.y).toFixed(2);
 
     deltaZ = +(myoZ - coordZ);
     deltaY = +(myoY - coordY);
     myoZ = +coordZ;
     myoY = +coordY;
-
+    console.log(deltaZ);
     // Scale Myo movement to the dimensions of this canvas.
     // These functions are from modifyElement.js
-    moveHorizontal(canvas, ((deltaZ/1.2) * 760) % 760);
-    moveVertical(canvas, ((deltaY/1.2) * 350) % 760);
+    moveHorizontal(canvas, ((deltaZ/0.7) * 740) % 740);
+    moveVertical(canvas, ((deltaY/0.7) * 500) % 500);
     canvas.renderAll();
   }
 }
 
-// NOT WORKING WITH ARROWS
 function moveObjWithArrowKey(direction, data) {
 
   // Assign current positioning data
   if (myoZ == null || myoY == null) {
-    myoZ = -1*data.z;
-    myoY = -1*data.y;
+    myoZ = data.z;
+    myoY = data.y;
     deltaZ = 0;
     deltaY = 0;
   }
@@ -219,8 +227,8 @@ function moveObjWithArrowKey(direction, data) {
   else if (Math.abs(myoZ - data.z) > sensThresh ||
             Math.abs(myoY - data.y) > sensThresh) {
 
-    var coordZ = (-1*data.z).toFixed(2);
-    var coordY = (-1*data.y).toFixed(2);
+    var coordZ = (data.z).toFixed(2);
+    var coordY = (data.y).toFixed(2);
 
     deltaZ = +(myoZ - coordZ);
     deltaY = +(myoY - coordY);
@@ -231,7 +239,7 @@ function moveObjWithArrowKey(direction, data) {
     if (direction.localeCompare("upArrow") == 0
         || direction.localeCompare("downArrow") == 0) {
       // From modifyElement.js
-      moveVertical(canvas, ((deltaY/1.2) * 350) % 350);
+      moveVertical(canvas, ((deltaY/0.7) * 500) % 500);
     }
 
     // RIGHT & LEFT
@@ -239,7 +247,7 @@ function moveObjWithArrowKey(direction, data) {
         || direction.localeCompare("leftArrow") == 0) {
 
       // From modifyElement.js
-      moveHorizontal(canvas, ((deltaZ/1.2) * 760) % 760);
+      moveHorizontal(canvas, ((deltaZ/0.7) * 740) % 740);
     }
 
     canvas.renderAll();
@@ -284,8 +292,9 @@ function moveObjWithRotation(data) {
     var roll = Math.atan2(2.0 * (data.w * data.x + data.y * data.z),
                           1.0 - 2.0 * (data.x * data.x + data.y * data.y));
 
-    rotate(canvas, roll);
-    canvas.renderAll();
+    roll = roll*(180/Math.PI);
+    console.log(roll);
+    rotateWithGesture(canvas, origAngle, roll);
   }
 }
 
@@ -303,6 +312,13 @@ function checkIsArrowKey(id) {
 
 // Allows clickable navigation between pages
 function createStandardEvents() {
+
+  if (location.href.split("/").slice(-1) == "newDiagram.html") {
+
+    $("#switch_menu").click(function() {
+      currentMenu = switchMenus();
+    });
+  }
 
   // CLICK CONTROL
   $('#home').on('click', function () {
@@ -437,13 +453,42 @@ function makeButtonOnFocus(prevIdx, nextIdx) {
   }
 }
 
-function AddTogglePanelsForDiagram() {
+function switchMenus() {
 
+  if (currentMenu == 1) {
+    $("#createSettings, #loadSaveGroup").hide();
+    $("#modifyContent").show();
+    tabbedElts = $('.twoTabbed').toArray();
+    $("#switch_menu span").text("Create");
+    return 2;
+  }
+
+  if (currentMenu == 2) {
+    $("#modifyContent").hide();
+    $("#createSettings, #loadSaveGroup").show();
+    tabbedElts = $('.tabbed').toArray();
+    $("#switch_menu span").text("Modify");
+    return 1;
+  }
 }
 
 // Calls main process to change window
 function changeWindow(page_url) {
-  if(location.href.split("/").slice(-1) != page_url) {
-    ipcRenderer.send('changeWindow', page_url);
+
+  var thisURL = location.href.split("/").slice(-1);
+
+  if(thisURL != page_url) {
+
+    if (thisURL == "newDiagram.html") {
+      if(confirm("Do you really want to switch pages?")) {
+
+        ipcRenderer.send('changeWindow', page_url);
+      }
+      else return;
+    }
+    else {
+
+      ipcRenderer.send('changeWindow', page_url);
+    }
   }
 }

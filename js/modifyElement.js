@@ -24,7 +24,7 @@ function changeWidth(canvas, val) {
      return;
    }
    var curWidth = selectedObj.getWidth();
-   selectedObj.setWidth(curWidth+val);
+   selectedObj.setWidth(curWidth + val);
 
    // Special handling for arrows
    if (selectedObj.get('type').localeCompare("line") == 0) {
@@ -93,6 +93,38 @@ function rotate(canvas, degree) {
    }
 
    canvas.renderAll();
+}
+
+function rotateWithGesture(canvas, orig, degree) {
+
+  var selectedObj = canvas.getActiveObject();
+  if (!selectedObj) {
+    return;
+  }
+
+  // ARROW: Special handling for arrows
+  if (selectedObj.get('type').localeCompare("line") == 0) {
+
+    // Move triangle and circle too.
+    var arrowIdx = getSelectedIndex(canvas.getObjects(), selectedObj) + 1;
+    var circleIdx = arrowIdx + 1;
+
+    var arrowObj = canvas.item(arrowIdx);
+    var circleObj = canvas.item(circleIdx);
+
+    var newArrowX = arrowObj.getLeft()*Math.cos(degree) + arrowObj.getTop()*Math.sin(degree);
+    var newArrowY = -1*arrowObj.getLeft()*Math.sin(degree) + arrowObj.getTop()*Math.cos(degree);
+    console.log(newArrowX);
+    arrowObj.setLeft(newArrowX);
+    arrowObj.setTop(newArrowY);
+  }
+  else {
+
+    selectedObj.setAngle(orig + degree);
+  }
+
+  canvas.renderAll();
+
 }
 
 function moveLeft(canvas) {
@@ -199,13 +231,13 @@ function restrictBounds(canvas, obj, newX, newY) {
   var width = obj.getWidth();
   var height = obj.getHeight();
 
-  if ((x + newX + width/2) > canvasW
-      || (x + newX - width/2) < 0) {
+  if ((x + newX + width) > canvas.getWidth()
+      || (x + newX) < 0) {
 
     return false;
   }
-  else if ((y + newY + height/2) > canvasH
-           || (y + newY - height/2) < 0) {
+  else if ((y + newY + height) > canvas.getHeight()
+           || (y + newY) < 0) {
 
     return false;
   }
