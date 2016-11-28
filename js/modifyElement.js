@@ -119,7 +119,14 @@ function moveHorizontal(canvas, val) {
    }
 
    var curLeft = selectedObj.getLeft();
-   selectedObj.setLeft(curLeft+val);
+
+   // Check bounds
+   if (!restrictBounds(canvas, selectedObj, val, 0)) {
+
+     return;
+   }
+   console.log(curLeft + val);
+   selectedObj.setLeft(curLeft + val);
 
    // ARROW: Special handling for arrows
    if (selectedObj.get('type').localeCompare("line") == 0) {
@@ -145,6 +152,13 @@ function moveVertical(canvas, val) {
    }
 
    var curTop = selectedObj.getTop();
+
+   // Check bounds
+   if (!restrictBounds(canvas, selectedObj, 0, val)) {
+
+     return;
+   }
+   console.log(curTop + val);
    selectedObj.setTop(curTop + val);
 
    // ARROW: Special handling for arrows
@@ -174,6 +188,30 @@ $(document).ready(function () {
     }
   });
 });
+
+// Makes sure that things aren't moving out of bounds
+function restrictBounds(canvas, obj, newX, newY) {
+
+  var canvasH = 350;
+  var canvasW = 760;
+  var x = obj.getLeft();
+  var y = obj.getTop();
+  var width = obj.getWidth();
+  var height = obj.getHeight();
+
+  if ((x + newX + width/2) > canvasW
+      || (x + newX - width/2) < 0) {
+
+    return false;
+  }
+  else if ((y + newY + height/2) > canvasH
+           || (y + newY - height/2) < 0) {
+
+    return false;
+  }
+
+  return true;
+}
 
 function undo(canvas) {
 

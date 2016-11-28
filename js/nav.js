@@ -114,6 +114,15 @@ function createTabbedMyoEvents() {
 //-----CUSTOM MYO GESTURES-----//
 function AddCustomGestures() {
 
+  // This is the only button from New Diagram that
+  // is mapped here for sheer convenience.
+  if (location.href.split("/").slice(-1) == "newDiagram") {
+
+    $("#set_origin").click(function() {
+      Myo.zeroOrientation();
+    });
+  }
+
   // This function registers double fist action
   // to set the custom gesture lock.
   Myo.on('fingers_spread', function() {
@@ -188,13 +197,10 @@ function moveObjWithMotionTrack(data) {
     myoZ = +coordZ;
     myoY = +coordY;
 
-    selectedObj = canvas.getActiveObject();
-    var currZ = selectedObj.getLeft();
-    var currY = selectedObj.getTop();
-
     // Scale Myo movement to the dimensions of this canvas.
-    selectedObj.setLeft(currZ + ((deltaZ/1.2)*740) % 740);
-    selectedObj.setTop(currY + ((deltaY/1.2)*740) % 740);
+    // These functions are from modifyElement.js
+    moveHorizontal(canvas, ((deltaZ/1.2) * 760) % 760);
+    moveVertical(canvas, ((deltaY/1.2) * 350) % 760);
     canvas.renderAll();
   }
 }
@@ -221,22 +227,19 @@ function moveObjWithArrowKey(direction, data) {
     myoZ = +coordZ;
     myoY = +coordY;
 
-    selectedObj = canvas.getActiveObject();
-    var currZ = selectedObj.getLeft();
-    var currY = selectedObj.getTop();
-
     // UP & DOWN
     if (direction.localeCompare("upArrow") == 0
-        || direction.localeCompare("upArrow") == 0) {
-
-        selectedObj.setTop(currY + ((deltaY/1.2)*740) % 740);
+        || direction.localeCompare("downArrow") == 0) {
+      // From modifyElement.js
+      moveVertical(canvas, ((deltaY/1.2) * 350) % 350);
     }
 
     // RIGHT & LEFT
     if (direction.localeCompare("rightArrow") == 0
         || direction.localeCompare("leftArrow") == 0) {
 
-      selectedObj.setLeft(currZ + ((deltaZ/1.2)*740) % 740);
+      // From modifyElement.js
+      moveHorizontal(canvas, ((deltaZ/1.2) * 760) % 760);
     }
 
     canvas.renderAll();
@@ -258,10 +261,10 @@ function moveObjWithRotation(data) {
     deltaX = 0;
   }
   // If we have moved bigger than the minimum threshold
-  else if (Math.abs(myoZ - data.z) > 0
-           || Math.abs(myoW - data.w) > 0
-           || Math.abs(myoY - data.y) > 0
-           || Math.abs(myoX - data.x) > 0) {
+  else if (Math.abs(myoZ - data.z) > sensThresh
+           || Math.abs(myoW - data.w) > sensThresh
+           || Math.abs(myoY - data.y) > sensThresh
+           || Math.abs(myoX - data.x) > sensThresh) {
 
     var coordZ = (data.z).toFixed(2);
     var coordW = (data.w).toFixed(2);
@@ -281,9 +284,7 @@ function moveObjWithRotation(data) {
     var roll = Math.atan2(2.0 * (data.w * data.x + data.y * data.z),
                           1.0 - 2.0 * (data.x * data.x + data.y * data.y));
 
-    selectedObj = canvas.getActiveObject();
-    var currAng = selectedObj.getAngle();
-    selectedObj.setAngle(currAng + roll);
+    rotate(canvas, roll);
     canvas.renderAll();
   }
 }
@@ -434,6 +435,10 @@ function makeButtonOnFocus(prevIdx, nextIdx) {
 
     $("#" + tabbedElts[tabIdx].id).trigger('focus');
   }
+}
+
+function AddTogglePanelsForDiagram() {
+
 }
 
 // Calls main process to change window
