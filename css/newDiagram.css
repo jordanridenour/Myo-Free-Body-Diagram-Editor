@@ -19,64 +19,71 @@ canvas {
   border-style: inset;
 }
 
-#createSettings {
+.nav_buttons {
+	display: inline-block;
+}
 
+.nav_buttons button {
+	margin: 10px;
+	width: 120px;
+}
+
+#loadSaveCreate {
 	position: fixed;
-	margin-left: 265px;
-	bottom: 5px;
-	left: 0px;
+	text-align: center;
+	top: 0px;
+	right: 0px;
+	margin-top: 74px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#createSettings {
+	text-align: center;
 	border-style: solid;
 	border-width: 2px;
 	border-color: #0073e6;
 }
 
 .createSettingGroup {
-
-	float: left;
 	display: inline-block;
-	margin: 10px;
+	vertical-align: top;
+	margin: 5px;
 	width: 160px;
-	padding: 10px;
 }
 
-.createSettingGroup button {
+#createSettings button {
 	width: 138px;
+	margin: 6px;
+}
+
+#createSettings #labelInput {
+	width: 138px;
+	margin: 6px;
+	margin-left: 11px;
 }
 
 #loadSaveGroup {
-	position: fixed;
-	height: 240px;
-	left: 0px;
-	bottom: 5px;
-	margin-left: 815px;
-	display: inline-block;
+	text-align: center;
 	border-style: solid;
 	border-width: 2px;
 	border-color: #0073e6;
-	padding: 8px;
 }
 
 #loadSaveGroup button {
-	width: 170px;
+	width: 138px;
 	margin: 6px;
 }
 
 #loadInput {
-	bottom: 0px;
-	width: 170px;
+	width: 138px;
+	margin: 6px;
+	margin-left: 11px;
 }
 
 #modifyContent {
-
+	display: none;
 	float: left;
-	width: 300px;
-	height: 370px;
-	position: fixed;
-	top: 0px;
-	right: 0px;
-	margin-top: 84px;
-	margin-left: 10px;
-	margin-right: 10px;
 	border-style: solid;
 	border-width: 2px;
 	border-color: #0073e6;
@@ -117,7 +124,7 @@ canvas {
 
 .modSelect button {
 	width: 225px;
-	margin-top: 15px;
+	margin-bottom: 10px;
 }
 
 .canvasDiv {
@@ -126,7 +133,6 @@ canvas {
 }
 
 #outer-gallery {
-
 	height: 200px;
 	width: 160px;
 	position: absolute;

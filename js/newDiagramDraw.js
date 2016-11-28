@@ -1,3 +1,5 @@
+
+
 var canvas = new fabric.Canvas("fbdCanvas");
 var center = getCanvasCenter(canvas);
 
@@ -39,6 +41,7 @@ $(document).keyup(keyEvents);
 undoButton.click(function() {
   undo(canvas);
 });
+
 loadJSONButton.click(function() {
     JSONTextToCanvas(canvas);
 });

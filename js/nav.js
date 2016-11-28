@@ -7,6 +7,8 @@ var tabIdx = 0;
 var tabbedElts;
 var onMenu = true;
 var onLock = false;
+// 1 for load/save/create, 2 for modify
+var currentMenu = 1;
 
 // Global Position variables
 var myoZ = null;
@@ -18,16 +20,18 @@ var deltaZ = null;
 var deltaW = null;
 var deltaY = null;
 var deltaX = null;
+var origAngle = null;
 
 // Sensitivity Threshold
 var sensThresh = 0.01;
 
 // Establish Myo Connection
-var myMyo;
+var Myo; // Global
+var myMyo; // Singular Myo
 
 $(document).ready(function () {
 
-  var Myo = require('myo');
+  Myo = require('myo');
 
   // Connection error
   Myo.onError = function () {
@@ -98,7 +102,20 @@ function createTabbedMyoEvents() {
           onMenu = true;
         }
         else {
-          tabbedElts = $('.tabbed').toArray();
+
+          if (page.localeCompare("newDiagram.html") == 0) {
+
+            if (currentMenu == 1) {
+
+              tabbedElts = $('.tabbed').toArray();
+            }
+
+            if (currentMenu == 2) {
+
+              tabbedElts = $('.twoTabbed').toArray();
+            }
+          }
+
           onMenu = false;
         }
 
@@ -162,17 +179,18 @@ function AddCustomGestures() {
         || tabbedElts[tabIdx].id.localeCompare("rotate_shape_counter_clockwise") == 0)
         && canvas.getActiveObject() && onLock) {
 
+      origAngle = canvas.getActiveObject().getAngle();
       moveObjWithRotation(data);
     }
   });
 }
-// NOT WORKING WITH ARROWS
+
 function moveObjWithMotionTrack(data) {
 
   // Assign current positioning data
   if (myoZ == null || myoY == null) {
-    myoZ = -1*data.z;
-    myoY = -1*data.y;
+    myoZ = data.z;
+    myoY = data.y;
     deltaZ = 0;
     deltaY = 0;
   }
@@ -180,32 +198,28 @@ function moveObjWithMotionTrack(data) {
   else if (Math.abs(myoZ - data.z) > sensThresh ||
             Math.abs(myoY - data.y) > sensThresh) {
 
-    var coordZ = (-1*data.z).toFixed(2);
-    var coordY = (-1*data.y).toFixed(2);
+    var coordZ = (data.z).toFixed(2);
+    var coordY = (data.y).toFixed(2);
 
     deltaZ = +(myoZ - coordZ);
     deltaY = +(myoY - coordY);
     myoZ = +coordZ;
     myoY = +coordY;
-
-    selectedObj = canvas.getActiveObject();
-    var currZ = selectedObj.getLeft();
-    var currY = selectedObj.getTop();
-
+    console.log(deltaZ);
     // Scale Myo movement to the dimensions of this canvas.
-    selectedObj.setLeft(currZ + ((deltaZ/1.2)*740) % 740);
-    selectedObj.setTop(currY + ((deltaY/1.2)*740) % 740);
+    // These functions are from modifyElement.js
+    moveHorizontal(canvas, ((deltaZ/0.7) * 740) % 740);
+    moveVertical(canvas, ((deltaY/0.7) * 500) % 500);
     canvas.renderAll();
   }
 }
 
-// NOT WORKING WITH ARROWS
 function moveObjWithArrowKey(direction, data) {
 
   // Assign current positioning data
   if (myoZ == null || myoY == null) {
-    myoZ = -1*data.z;
-    myoY = -1*data.y;
+    myoZ = data.z;
+    myoY = data.y;
     deltaZ = 0;
     deltaY = 0;
   }
@@ -213,30 +227,27 @@ function moveObjWithArrowKey(direction, data) {
   else if (Math.abs(myoZ - data.z) > sensThresh ||
             Math.abs(myoY - data.y) > sensThresh) {
 
-    var coordZ = (-1*data.z).toFixed(2);
-    var coordY = (-1*data.y).toFixed(2);
+    var coordZ = (data.z).toFixed(2);
+    var coordY = (data.y).toFixed(2);
 
     deltaZ = +(myoZ - coordZ);
     deltaY = +(myoY - coordY);
     myoZ = +coordZ;
     myoY = +coordY;
 
-    selectedObj = canvas.getActiveObject();
-    var currZ = selectedObj.getLeft();
-    var currY = selectedObj.getTop();
-
     // UP & DOWN
     if (direction.localeCompare("upArrow") == 0
-        || direction.localeCompare("upArrow") == 0) {
-
-        selectedObj.setTop(currY + ((deltaY/1.2)*740) % 740);
+        || direction.localeCompare("downArrow") == 0) {
+      // From modifyElement.js
+      moveVertical(canvas, ((deltaY/0.7) * 500) % 500);
     }
 
     // RIGHT & LEFT
     if (direction.localeCompare("rightArrow") == 0
         || direction.localeCompare("leftArrow") == 0) {
 
-      selectedObj.setLeft(currZ + ((deltaZ/1.2)*740) % 740);
+      // From modifyElement.js
+      moveHorizontal(canvas, ((deltaZ/0.7) * 740) % 740);
     }
 
     canvas.renderAll();
@@ -258,10 +269,10 @@ function moveObjWithRotation(data) {
     deltaX = 0;
   }
   // If we have moved bigger than the minimum threshold
-  else if (Math.abs(myoZ - data.z) > 0
-           || Math.abs(myoW - data.w) > 0
-           || Math.abs(myoY - data.y) > 0
-           || Math.abs(myoX - data.x) > 0) {
+  else if (Math.abs(myoZ - data.z) > sensThresh
+           || Math.abs(myoW - data.w) > sensThresh
+           || Math.abs(myoY - data.y) > sensThresh
+           || Math.abs(myoX - data.x) > sensThresh) {
 
     var coordZ = (data.z).toFixed(2);
     var coordW = (data.w).toFixed(2);
@@ -281,10 +292,9 @@ function moveObjWithRotation(data) {
     var roll = Math.atan2(2.0 * (data.w * data.x + data.y * data.z),
                           1.0 - 2.0 * (data.x * data.x + data.y * data.y));
 
-    selectedObj = canvas.getActiveObject();
-    var currAng = selectedObj.getAngle();
-    selectedObj.setAngle(currAng + roll);
-    canvas.renderAll();
+    roll = roll*(180/Math.PI);
+    console.log(roll);
+    rotateWithGesture(canvas, origAngle, roll);
   }
 }
 
@@ -302,6 +312,13 @@ function checkIsArrowKey(id) {
 
 // Allows clickable navigation between pages
 function createStandardEvents() {
+
+  if (location.href.split("/").slice(-1) == "newDiagram.html") {
+
+    $("#switch_menu").click(function() {
+      currentMenu = switchMenus();
+    });
+  }
 
   // CLICK CONTROL
   $('#home').on('click', function () {
@@ -426,6 +443,7 @@ function makeButtonOnFocus(prevIdx, nextIdx) {
     }
     // Tooltips for regular gestures
     else {
+
       $("#" + tabbedElts[tabIdx].id).tooltip(
         {title: "Wave In: " + $('#' + tabbedElts[prevIdx].id).attr('placeholder')
          + "\nWave Out: " + $('#' + tabbedElts[nextIdx].id).attr('placeholder'),  trigger: "focus"});
@@ -435,9 +453,42 @@ function makeButtonOnFocus(prevIdx, nextIdx) {
   }
 }
 
+function switchMenus() {
+
+  if (currentMenu == 1) {
+    $("#createSettings, #loadSaveGroup").hide();
+    $("#modifyContent").show();
+    tabbedElts = $('.twoTabbed').toArray();
+    $("#switch_menu span").text("Create");
+    return 2;
+  }
+
+  if (currentMenu == 2) {
+    $("#modifyContent").hide();
+    $("#createSettings, #loadSaveGroup").show();
+    tabbedElts = $('.tabbed').toArray();
+    $("#switch_menu span").text("Modify");
+    return 1;
+  }
+}
+
 // Calls main process to change window
 function changeWindow(page_url) {
-  if(location.href.split("/").slice(-1) != page_url) {
-    ipcRenderer.send('changeWindow', page_url);
+
+  var thisURL = location.href.split("/").slice(-1);
+
+  if(thisURL != page_url) {
+
+    if (thisURL == "newDiagram.html") {
+      if(confirm("Do you really want to switch pages?")) {
+
+        ipcRenderer.send('changeWindow', page_url);
+      }
+      else return;
+    }
+    else {
+
+      ipcRenderer.send('changeWindow', page_url);
+    }
   }
 }

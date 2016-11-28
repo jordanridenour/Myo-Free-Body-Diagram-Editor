@@ -24,7 +24,7 @@ function changeWidth(canvas, val) {
      return;
    }
    var curWidth = selectedObj.getWidth();
-   selectedObj.setWidth(curWidth+val);
+   selectedObj.setWidth(curWidth + val);
 
    // Special handling for arrows
    if (selectedObj.get('type').localeCompare("line") == 0) {
@@ -95,6 +95,38 @@ function rotate(canvas, degree) {
    canvas.renderAll();
 }
 
+function rotateWithGesture(canvas, orig, degree) {
+
+  var selectedObj = canvas.getActiveObject();
+  if (!selectedObj) {
+    return;
+  }
+
+  // ARROW: Special handling for arrows
+  if (selectedObj.get('type').localeCompare("line") == 0) {
+
+    // Move triangle and circle too.
+    var arrowIdx = getSelectedIndex(canvas.getObjects(), selectedObj) + 1;
+    var circleIdx = arrowIdx + 1;
+
+    var arrowObj = canvas.item(arrowIdx);
+    var circleObj = canvas.item(circleIdx);
+
+    var newArrowX = arrowObj.getLeft()*Math.cos(degree) + arrowObj.getTop()*Math.sin(degree);
+    var newArrowY = -1*arrowObj.getLeft()*Math.sin(degree) + arrowObj.getTop()*Math.cos(degree);
+    console.log(newArrowX);
+    arrowObj.setLeft(newArrowX);
+    arrowObj.setTop(newArrowY);
+  }
+  else {
+
+    selectedObj.setAngle(orig + degree);
+  }
+
+  canvas.renderAll();
+
+}
+
 function moveLeft(canvas) {
    moveHorizontal(canvas, -5)
 }
@@ -119,7 +151,14 @@ function moveHorizontal(canvas, val) {
    }
 
    var curLeft = selectedObj.getLeft();
-   selectedObj.setLeft(curLeft+val);
+
+   // Check bounds
+   if (!restrictBounds(canvas, selectedObj, val, 0)) {
+
+     return;
+   }
+   console.log(curLeft + val);
+   selectedObj.setLeft(curLeft + val);
 
    // ARROW: Special handling for arrows
    if (selectedObj.get('type').localeCompare("line") == 0) {
@@ -145,6 +184,13 @@ function moveVertical(canvas, val) {
    }
 
    var curTop = selectedObj.getTop();
+
+   // Check bounds
+   if (!restrictBounds(canvas, selectedObj, 0, val)) {
+
+     return;
+   }
+   console.log(curTop + val);
    selectedObj.setTop(curTop + val);
 
    // ARROW: Special handling for arrows
@@ -174,6 +220,30 @@ $(document).ready(function () {
     }
   });
 });
+
+// Makes sure that things aren't moving out of bounds
+function restrictBounds(canvas, obj, newX, newY) {
+
+  var canvasH = 350;
+  var canvasW = 760;
+  var x = obj.getLeft();
+  var y = obj.getTop();
+  var width = obj.getWidth();
+  var height = obj.getHeight();
+
+  if ((x + newX + width) > canvas.getWidth()
+      || (x + newX) < 0) {
+
+    return false;
+  }
+  else if ((y + newY + height) > canvas.getHeight()
+           || (y + newY) < 0) {
+
+    return false;
+  }
+
+  return true;
+}
 
 function undo(canvas) {
 
