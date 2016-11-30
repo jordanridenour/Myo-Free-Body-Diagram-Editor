@@ -210,6 +210,7 @@ function moveVertical(canvas, val) {
 }
 
 $(document).ready(function () {
+
   // Adds a copy of canvas on any click
   $('button').on('click', function(evt) {
 
