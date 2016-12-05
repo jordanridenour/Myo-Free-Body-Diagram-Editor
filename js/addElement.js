@@ -214,10 +214,22 @@ function addLabel(canvas, textInput, center) {
    canvas.add(label);
 }
 
-function addImage(img, center) {
-    var imgInstance = new fabric.Image(img, {
+// Adds image on click to canvas
+function addImageToCanvas(img, center) {
+
+    var imgObj = new Image();
+    imgObj.src = img;
+    imgObj.onload = function() {
+
+      var fabImage = new fabric.Image(imgObj);
+      fabImage.set({
         left: center.x,
-        top: center.y
-    });
-    canvas.add(imgInstance);
+        top: center.y,
+        height: 150,
+        width: 150
+      });
+
+      canvas.add(fabImage);
+      canvas.renderAll();
+    }
 }

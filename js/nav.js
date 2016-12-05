@@ -103,8 +103,6 @@ function createTabbedMyoEvents() {
         }
         else {
 
-          if (page.localeCompare("newDiagram.html") == 0) {
-
             if (currentMenu == 1) {
 
               tabbedElts = $('.tabbed').toArray();
@@ -114,7 +112,6 @@ function createTabbedMyoEvents() {
 
               tabbedElts = $('.twoTabbed').toArray();
             }
-          }
 
           onMenu = false;
         }
@@ -148,7 +145,7 @@ function AddCustomGestures() {
         onLock = true;
       }
       else {
-        $('#' + tabbedElts[tabIdx].id).css('border-color', 'pink');
+        $('#' + tabbedElts[tabIdx].id).css('border-color', '#e3730d');
         onLock = false;
       }
     }
@@ -425,7 +422,7 @@ function makeButtonOnFocus(prevIdx, nextIdx) {
   $('#' + tabbedElts[tabIdx].id).css('border-style', 'solid');
   $('#' + tabbedElts[tabIdx].id).css('border-width', '4px');
   $('#' + tabbedElts[tabIdx].id).css('border-radius', '2px');
-  $('#' + tabbedElts[tabIdx].id).css('border-color', 'pink');
+  $('#' + tabbedElts[tabIdx].id).css('border-color', '#e3730d');
 
   // Add gesture help Label
   if(remote.getGlobal('gestureLabelsOn')) {
