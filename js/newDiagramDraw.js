@@ -1,5 +1,3 @@
-
-
 var canvas = new fabric.Canvas("fbdCanvas");
 var center = getCanvasCenter(canvas);
 
@@ -43,7 +41,8 @@ undoButton.click(function() {
 });
 
 loadJSONButton.click(function() {
-    JSONTextToCanvas(canvas);
+    //JSONTextToCanvas(canvas);
+    loadFromJSONFile(canvas);
 });
 
 selectShapeButton.click(function() {
@@ -133,7 +132,7 @@ clearButton.click(function() {
 
 imageInput.dblclick(function(e) {
     e.preventDefault();
-    addImage(this, center);
+    addImageToCanvas(this.src, center);
 });
 
 canvas.on('object:added', function(e) {

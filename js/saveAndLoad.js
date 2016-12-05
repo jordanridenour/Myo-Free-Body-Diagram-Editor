@@ -41,6 +41,34 @@ function JSONTextToCanvas(canvas) {
 	// }
 }
 
+// This is an attempt to load json with prompt.
+function loadFromJSONFile() {
+
+	var remote = require('electron').remote;
+	var dialog = remote.dialog;
+	var fs = require('fs');
+
+	dialog.showOpenDialog(function (fileNames) {
+		// fileNames is an array that contains all the selected
+		if(fileNames === undefined){
+
+			console.log("No file selected");
+		}
+		else {
+
+			try {
+
+				var json = JSON.parse(fs.readFileSync(fileNames[0]));
+				canvas.loadFromDatalessJSON(json, canvas.renderAll.bind(canvas));
+			}
+			catch(err) {
+
+				alert("There was an error opening the selected file.\nIt may be invalid.");
+			}
+		}
+	});
+}
+
 function addArrowFromJSON(canvas, inputLine) {
 	//							x1, y1, x2, y2
   var line = new fabric.Line([inputLine['x1'], inputLine['y1'], inputLine['x2'], inputLine['y2']], {
@@ -214,6 +242,7 @@ function downloadCanvasAsPNG(link) {
    link.download = "canvas_image";
 }
 
+
 function uploadImage() {
 	var remote = require('electron').remote;
 	var dialog = remote.dialog;
@@ -243,29 +272,13 @@ function uploadImage() {
 	}
 
 	function writeFile(name, data) {
-	 var directory = './images/';
-	 fs.writeFile(directory+name, data, function(err) {});
-	 //   var base64Image = data.toString('base64');
-	 //   var decodedImage = new Buffer(base64Image, 'base64');
-	 //   fs.writeFile(directory+'_default'+name, decodedImage, function(err) {});
+		var directory = './images/';
+		fs.writeFile(directory+name, data, function(err) {});
+
 		fs.writeFile(directory+name, data, 'base64', function(err){
-         if (err) throw err;
-         console.log('File saved.');
-      });
-		addImage(name);
+				if (err) throw err;
+		  console.log('File saved.');
+		});
+		loadImageFromDisk(name);
 	}
-
-	/*
-	//	For multiple files use this function
-	dialog.showOpenDialog({ 
-		properties: [ 
-			'openFile', 
-			'multiSelections',
-			function(fileNames) {
-		  		console.log(fileNames);
-		  	}
-	  	]
-	 });
-	 */
 }
-

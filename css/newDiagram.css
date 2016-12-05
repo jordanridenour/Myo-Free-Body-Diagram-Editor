@@ -132,31 +132,38 @@ canvas {
 	margin: 15px;
 }
 
-#outer-gallery {
-	height: 200px;
-	width: 160px;
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	margin: 10px;
-	border-style: solid;
-	border-radius: 2px;
-	border-width: 2px;
-	overflow-x: hidden;
-	overflow-y: scroll;
+#img_selector {
+	text-align: center;
+	margin: 20px;
 }
 
-#inner-gallery {
-	height: auto;
-	width: auto;
-	position: relative;
-	background-color: #849eb8;
+#img_buttons {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#img_buttons button {
+	width: 150px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+}
+
+#img_buttons #prevImg {
+
+	margin-left: 14px;
+}
+
+#outer-gallery {
+	display: inline-block;
+	height: 150px;
+	width: 150px;
+	border-style: solid;
+	border-color: #0073e6;
+	border-radius: 2px;
+	border-width: 2px;
 }
 
 .def_img {
-	height: 120px;
-	width: 120px;
-	position: relative;
-	display: inline-block;
-	float: top;
+	height: 150px;
+	width: 150px;
 }
