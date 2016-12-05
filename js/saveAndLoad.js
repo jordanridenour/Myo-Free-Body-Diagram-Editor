@@ -251,9 +251,17 @@ function uploadImage() {
 	dialog.showOpenDialog(function (fileNames) {
         // fileNames is an array that contains all the selected
        if(fileNames === undefined){
-            console.log("No file selected");
-       }else{
-            readFile(fileNames[0]);
+
+						console.log("No file selected");
+       }
+			 else if (fileNames[0].substr(-4, 4).localeCompare(".png") != 0) {
+
+				 alert("Invalid file format. Please load only .png images");
+				 return;
+			 }
+			 else {
+
+						readFile(fileNames[0]);
        }
 	});
 
