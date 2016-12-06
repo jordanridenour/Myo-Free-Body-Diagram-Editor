@@ -33,6 +33,7 @@ var savePNGLink = $("#savePNGLink");
 var savePNGButton = $("#savePNGButton");
 var loadJSONButton = $("#submitLoad");
 
+const TIMEOUT_DURATION = 500;
 var timeout = null;
 $(document).mouseup(intervalClear);
 $(document).mouseout(intervalClear);
@@ -198,7 +199,7 @@ function interval(action) {
     action();
     timeout = setInterval(function(){
         action(); 
-    }, 500);
+    }, TIMEOUT_DURATION);
 
     return false;
 }
