@@ -195,6 +195,7 @@ function getCanvasCenter(canvas) {
 }
 
 function interval(action) {
+    action();
     timeout = setInterval(function(){
         action(); 
     }, 500);
