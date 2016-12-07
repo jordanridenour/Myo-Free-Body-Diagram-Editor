@@ -8,14 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/alexander-r-arnold/eecs481-myo-fbd"
   },
   "keywords": [
     "Electron",
     "myo",
     "free",
     "body",
-    "diagram"
+    "diagram",
+    "creator"
   ],
   "author": "Alex Arnold, Andrew Chen, Jordan Ridenour, Ryan Jackson",
   "license": "",
