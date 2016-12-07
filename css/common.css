@@ -2,6 +2,10 @@
 	cursor: url("../images/cursor.png"), auto;
 }
 
+button:hover {
+	cursor: url("../images/pointer.jpg"), auto;
+}
+
 body {
 	font-family: "Arial", Arial, sans-serif;
 }
