@@ -48,11 +48,15 @@ function loadImages() {
   fs.readdir(testFolder, (err, files) => {
     if (err) {
       console.log('Error');
-    } else {
+    }
+    else {
       var count = 0;
+
       files.forEach(file => {
 
-          if (file[0] != '.') {
+          console.log(file);
+          if (file[0] != '.' && file.substr(-4, 4).localeCompare(".png") == 0) {
+
             var photo = "../images/" + file;
             imgList.push(photo);
             count++;
@@ -65,12 +69,14 @@ function loadImages() {
   });
 }
 
+// For loading an image with UI. See saveAndLoad.js
 function loadImageFromDisk(file) {
   const fs = require('fs');
   const testFolder = './images/';
   fs.readdir(testFolder, (err, files) => {
     if (err) {
       console.log('Error');
+
     } else {
       var count = files.length - 1;
       var photo = "../images/" + file;
