@@ -2,8 +2,12 @@
 	cursor: url("../images/cursor.png"), auto;
 }
 
-button:hover {
-	cursor: url("../images/pointer.jpg"), auto;
+.canvas-container:hover {
+	cursor: url("../images/cursor.png"), auto;
+}
+
+button:hover, button > span {
+	cursor: url("../images/pointer.png"), auto;
 }
 
 body {
