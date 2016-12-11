@@ -1,20 +1,21 @@
 // Global array of undo/redo states
 canvasStates = [];
+var modifyFactor = 2.5;
 
 function decreaseWidth(canvas) {
-   changeWidth(canvas, -5);
+   changeWidth(canvas, -modifyFactor);
 }
 
 function increaseWidth(canvas) {
-   changeWidth(canvas, 5);
+   changeWidth(canvas, modifyFactor);
 }
 
 function decreaseHeight(canvas) {
-   changeHeight(canvas, -5);
+   changeHeight(canvas, -modifyFactor);
 }
 
 function increaseHeight(canvas) {
-   changeHeight(canvas, 5);
+   changeHeight(canvas, modifyFactor);
 }
 
 function changeWidth(canvas, val) {
@@ -31,7 +32,7 @@ function changeWidth(canvas, val) {
      return;
    }
 
-   canvas.renderAll();
+   fireEventAndRender(selectedObj, canvas);
 }
 
 function changeHeight(canvas, val) {
@@ -49,15 +50,15 @@ function changeHeight(canvas, val) {
      return;
    }
 
-   canvas.renderAll();
+   fireEventAndRender(selectedObj, canvas);
 }
 
 function rotateClockwise(canvas) {
-   rotate(canvas, 5);
+   rotate(canvas, modifyFactor);
 }
 
 function rotateCounterClockwise(canvas) {
-   rotate(canvas, -5);
+   rotate(canvas, -modifyFactor);
 }
 
 function rotate(canvas, degree) {
@@ -92,7 +93,7 @@ function rotate(canvas, degree) {
      selectedObj.setAngle(curAngle + degree);
    }
 
-   canvas.renderAll();
+   fireEventAndRender(selectedObj, canvas);
 }
 
 function rotateWithGesture(canvas, orig, degree) {
@@ -123,24 +124,24 @@ function rotateWithGesture(canvas, orig, degree) {
     selectedObj.setAngle(orig + degree);
   }
 
-  canvas.renderAll();
+  fireEventAndRender(selectedObj, canvas);
 
 }
 
 function moveLeft(canvas) {
-   moveHorizontal(canvas, -5)
+   moveHorizontal(canvas, -modifyFactor)
 }
 
 function moveRight(canvas) {
-   moveHorizontal(canvas, 5)
+   moveHorizontal(canvas, modifyFactor)
 }
 
 function moveUp(canvas) {
-   moveVertical(canvas, -5)
+   moveVertical(canvas, -modifyFactor)
 }
 
 function moveDown(canvas) {
-   moveVertical(canvas, 5)
+   moveVertical(canvas, modifyFactor)
 }
 
 function moveHorizontal(canvas, val) {
@@ -173,7 +174,7 @@ function moveHorizontal(canvas, val) {
      arrowObj.setLeft(arrowObj.getLeft() + val);
      circleObj.setLeft(circleObj.getLeft() + val);
    }
-   canvas.renderAll();
+   fireEventAndRender(selectedObj, canvas);
 }
 
 function moveVertical(canvas, val) {
@@ -206,7 +207,7 @@ function moveVertical(canvas, val) {
      arrowObj.setTop(arrowObj.getTop() + val);
      circleObj.setTop(circleObj.getTop() + val);
    }
-   canvas.renderAll();
+   fireEventAndRender(selectedObj, canvas);
 }
 
 $(document).ready(function () {
@@ -253,7 +254,7 @@ function undo(canvas) {
 
     console.log(canvasStates);
     var json = canvasStates[0];
-    canvas.loadFromJSON(json, canvas.renderAll());
+    canvas.loadFromJSON(json, fireEventAndRender(selectedObj, canvas));
     canvasStates.shift();
   }
 };
@@ -261,4 +262,11 @@ function undo(canvas) {
 function getSelectedIndex(objs, target) {
     var index = objs.map(function(x) { return x }).indexOf(target);
     return index;
+}
+
+function fireEventAndRender(obj, canvas) {
+  if (obj.customType === 'arrow_line') {
+    obj.trigger('modified');
+  }
+  canvas.renderAll();
 }

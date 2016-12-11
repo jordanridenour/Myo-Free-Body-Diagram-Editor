@@ -45,11 +45,41 @@ function addLine(canvas, center) {
         angle: 45,
         cornerSize: 5
     });
+    line.customType = 'arrow_line';
+
+    var triangle = new fabric.Triangle({
+        left: line.getLeft(),
+        top: line.getTop(),
+        originX: 'center',
+        originY: 'center',
+        hasBorders: false,
+        hasControls: false,
+        lockScalingX: true,
+        lockScalingY: true,
+        lockRotation: true,
+        pointType: 'arrow_start',
+        angle: line.getAngle() - 90,
+        width: 15,
+        height: 15,
+        fill: 'black'
+    });
+
+    triangle.line = line;
+    line.triangle = triangle;
+    
+    canvas.add(line, triangle);
+
     line.on('modified', function() {
+        var top = line.getTop();
+        var left = line.getLeft();
+        var angle = line.getAngle() - 90;
+        triangle.setTop(top);
+        triangle.setLeft(left);
+        triangle.setAngle(angle);
+        console.log('Top: ', top);
+        console.log('Left: ', left);
         line.setHeight(height);
     });
-    // line.customLine = true;
-    canvas.add(line);
 }
 
 // ARROW
