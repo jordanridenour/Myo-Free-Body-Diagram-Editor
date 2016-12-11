@@ -33,7 +33,7 @@ var savePNGLink = $("#savePNGLink");
 var savePNGButton = $("#savePNGButton");
 var loadJSONButton = $("#submitLoad");
 
-const TIMEOUT_DURATION = 500;
+const TIMEOUT_DURATION = 50;
 var timeout = null;
 $(document).mouseup(intervalClear);
 $(document).mouseout(intervalClear);
@@ -130,8 +130,8 @@ addRectButton.mousedown(function() {
 });
 
 addArrowButton.mousedown(function() {
-    addArrow(canvas, center);
-    //addLine(canvas, center);
+    //addArrow(canvas, center);
+    addLine(canvas, center);
 });
 
 addLabelButton.mousedown(function() {
