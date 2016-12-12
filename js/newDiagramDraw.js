@@ -44,7 +44,6 @@ undoButton.mousedown(function() {
 });
 
 loadJSONButton.mousedown(function() {
-    //JSONTextToCanvas(canvas);
     loadFromJSONFile(canvas);
 });
 
