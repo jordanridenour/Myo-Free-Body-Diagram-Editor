@@ -1,3 +1,5 @@
+var remote = require('electron').remote;
+
 var canvas = new fabric.Canvas("fbdCanvas");
 var center = getCanvasCenter(canvas);
 
@@ -11,6 +13,7 @@ var increaseWidthButton = $("#width_plus");
 var decreaseHeightButton = $("#height_minus");
 var increaseHeightButton = $("#height_plus");
 
+var selectShapeOneButton = $("#select_shape_one");
 var selectShapeButton = $("#select_shape");
 var undoButton = $("#undo_action");
 var rotateShapeClockwiseButton = $("#rotate_shape_clockwise");
@@ -29,7 +32,7 @@ var imageInput = $(".def_img");
 
 var loadButton = $("#loadPic");
 var saveButton = $("#saveBtn");
-var savePNGLink = $("#savePNGLink");
+var savePNGLink = $("#savePNGAnchor");
 var savePNGButton = $("#savePNGButton");
 var loadJSONButton = $("#submitLoad");
 
@@ -39,16 +42,20 @@ $(document).mouseup(intervalClear);
 $(document).mouseout(intervalClear);
 $(document).keyup(keyEvents);
 
-undoButton.mousedown(function() {
-  undo(canvas);
+loadJSONButton.click(function() {
+  loadFromJSONFile(canvas);
 });
 
-loadJSONButton.mousedown(function() {
-    loadFromJSONFile(canvas);
+selectShapeOneButton.click(function() {
+  selectNext(canvas);
 });
 
-selectShapeButton.mousedown(function() {
-    selectNext(canvas);
+selectShapeButton.click(function() {
+  selectNext(canvas);
+});
+
+decreaseWidthButton.click(function() {
+    decreaseWidth(canvas);
 });
 
 decreaseWidthButton.mousedown(function() {
@@ -57,10 +64,18 @@ decreaseWidthButton.mousedown(function() {
     });
 });
 
+increaseWidthButton.click(function() {
+    increaseWidth(canvas);
+});
+
 increaseWidthButton.mousedown(function() {
     return interval(function() {
         increaseWidth(canvas);
     });
+});
+
+decreaseHeightButton.click(function() {
+    decreaseHeight(canvas);
 });
 
 decreaseHeightButton.mousedown(function() {
@@ -69,10 +84,18 @@ decreaseHeightButton.mousedown(function() {
     });
 });
 
+increaseHeightButton.click(function() {
+    increaseHeight(canvas);
+});
+
 increaseHeightButton.mousedown(function() {
     return interval(function() {
         increaseHeight(canvas);
     });
+});
+
+moveUpButton.click(function() {
+    moveUp(canvas);
 });
 
 moveUpButton.mousedown(function() {
@@ -81,10 +104,18 @@ moveUpButton.mousedown(function() {
     });
 });
 
+moveDownButton.click(function() {
+    moveDown(canvas);
+});
+
 moveDownButton.mousedown(function() {
     return interval(function() {
         moveDown(canvas);
     });
+});
+
+moveLeftButton.click(function() {
+    moveLeft(canvas);
 });
 
 moveLeftButton.mousedown(function() {
@@ -93,10 +124,18 @@ moveLeftButton.mousedown(function() {
     });
 });
 
+moveRightButton.click(function() {
+    moveRight(canvas);
+});
+
 moveRightButton.mousedown(function() {
     return interval(function() {
         moveRight(canvas);
     });
+});
+
+rotateShapeClockwiseButton.click(function() {
+    rotateClockwise(canvas);
 });
 
 rotateShapeClockwiseButton.mousedown(function() {
@@ -105,53 +144,57 @@ rotateShapeClockwiseButton.mousedown(function() {
     });
 });
 
+rotateShapeCounterclockwiseButton.click(function() {
+    rotateCounterClockwise(canvas);
+});
+
 rotateShapeCounterclockwiseButton.mousedown(function() {
     return interval(function() {
         rotateCounterClockwise(canvas);
     });
 });
 
-loadButton.mousedown(function() {
+loadButton.click(function() {
     uploadImage();
 });
 
-savePNGLink.mousedown(function() {
+savePNGButton.click(function() {
     canvas.deactivateAll().renderAll();
-    downloadCanvasAsPNG(this);
+    downloadCanvasAsPNG(savePNGLink);
 });
 
-saveButton.mousedown(function() {
+saveButton.click(function() {
     writeDiagramToJson(canvas);
 });
 
-addRectButton.mousedown(function() {
+addRectButton.click(function() {
     addRect(canvas, 50, 50);
 });
 
-addArrowButton.mousedown(function() {
+addArrowButton.click(function() {
     //addArrow(canvas, center);
     addLine(canvas, center);
 });
 
-addLabelButton.mousedown(function() {
+addLabelButton.click(function() {
     addLabel(canvas, labelTextInput, center);
 });
 
-addCircleButton.mousedown(function() {
+addCircleButton.click(function() {
     addCircle(canvas, 50);
 });
 
-addTriangleButton.mousedown(function() {
+addTriangleButton.click(function() {
     addTriangle(canvas, 50, 50);
 });
 
-deleteButton.mousedown(function() {
+deleteButton.click(function() {
   if(confirm("Are you sure you want to delete the selected object?")) {
     deleteSelected(canvas);
   }
 });
 
-clearButton.mousedown(function() {
+clearButton.click(function() {
 
   if(confirm("Are you sure you want to clear the whole canvas?")) {
     canvas.clear();

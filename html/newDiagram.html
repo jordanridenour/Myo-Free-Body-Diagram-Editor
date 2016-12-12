@@ -89,17 +89,16 @@
               <span>Rotate CCW</span>
             </button>
           </div>
-
-          <!--<div style="text-align: center;" class="modSelect">
-            <button type="button" class="btn btn-danger tabbed"
-              placeholder="select Shape" id="undo_action">
-              <span> Undo </span>
-          </button>
-          </div>-->
         </div>
       </div>
 
       <div id = "createSettings">
+        <div style="text-align: center;" class="modSelect">
+          <button type="button" class="btn btn-warning tabbed"
+            placeholder="Select Shape" id="select_shape_one">
+            <span>Select Shape</span>
+          </button>
+        </div>
         <div class="createSettingGroup">
           <div id="label-input">
             <input type="text" class="form-control input-number tabbed"
@@ -133,11 +132,11 @@
       <div id="loadSaveGroup">
         <div class="createSettingGroup">
           <div class="loadSaveElt">
-            <a id="savePNGLink">
-              <button type="button" id="savePNGButton" placeholder="Save as PNG" class="tabbed btn btn-warning">
-                <span>Save as PNG</span>
-              </button>
-            </a>
+            <a id="savePNGAnchor"></a>
+            <button type="button" id="savePNGButton" placeholder="Save as PNG" class="tabbed btn btn-warning">
+              <span>Save as PNG</span>
+            </button>
+
           </div>
           <div class="loadSaveElt">
             <button type="button" id="loadPic" placeholder="Load Picture" class="tabbed btn btn-primary">
@@ -182,7 +181,6 @@
     </div>
   </div>
 </body>
-
 
 <script type="text/javascript" src="../packages/fabric.min.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>

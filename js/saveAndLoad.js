@@ -51,10 +51,11 @@ function loadFromJSONFile() {
 }
 
 function downloadCanvasAsPNG(link) {
-   link.href = document.getElementById("fbdCanvas").toDataURL();
-   link.download = "canvas_image";
-}
 
+ 	 link.attr("href", document.getElementById("fbdCanvas").toDataURL());
+	 link.attr("download", "canvas_img.png");
+	 link.get(0).click();
+}
 
 function uploadImage() {
 	var remote = require('electron').remote;

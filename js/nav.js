@@ -135,18 +135,18 @@ function AddCustomGestures() {
 
     // Make sure focus is on valid custom gesture key
     if (tabbedElts[tabIdx].id.localeCompare("select_shape") == 0
+        || tabbedElts[tabIdx].id.localeCompare("select_shape_one") == 0
         || checkIsArrowKey(tabbedElts[tabIdx].id)
         || tabbedElts[tabIdx].id.localeCompare("rotate_shape_clockwise") == 0
         || tabbedElts[tabIdx].id.localeCompare("rotate_shape_counter_clockwise") == 0) {
 
-      console.log("ready to lock");
       if (!onLock) {
         // Indicate lock on this button
         $('#' + tabbedElts[tabIdx].id).css('border-color', 'red');
         onLock = true;
       }
       else {
-        $('#' + tabbedElts[tabIdx].id).css('border-color', '#e3730d');
+        $('#' + tabbedElts[tabIdx].id).css('border-color', '#000000');
         onLock = false;
       }
     }
@@ -157,7 +157,8 @@ function AddCustomGestures() {
 
     // Motion track object
     if (remote.getGlobal("gestureControlOn")
-        && tabbedElts[tabIdx].id.localeCompare("select_shape") == 0
+        && (tabbedElts[tabIdx].id.localeCompare("select_shape") == 0
+        || tabbedElts[tabIdx].id.localeCompare("select_shape_one") == 0)
         && canvas.getActiveObject() && onLock) {
 
       moveObjWithMotionTrack(data);
@@ -204,7 +205,6 @@ function moveObjWithMotionTrack(data) {
     deltaY = +(myoY - coordY);
     myoZ = +coordZ;
     myoY = +coordY;
-    console.log(deltaZ);
 
     // Scale Myo movement to the dimensions of this canvas.
     // These functions are from modifyElement.js
