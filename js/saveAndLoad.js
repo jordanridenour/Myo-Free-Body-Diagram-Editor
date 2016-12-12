@@ -52,9 +52,14 @@ function loadFromJSONFile() {
 
 function downloadCanvasAsPNG(link) {
 
- 	 link.attr("href", document.getElementById("fbdCanvas").toDataURL());
-	 link.attr("download", "canvas_img.png");
-	 link.get(0).click();
+	 var canvasElt = document.getElementById("fbdCanvas");
+	 canvasElt.toBlob(function(blob) {
+
+		 var url = URL.createObjectURL(blob);
+		 link.attr("href", url);
+		 link.attr("download", "canvas_img.png");
+		 link.get(0).click();
+	 });
 }
 
 function uploadImage() {
