@@ -12,11 +12,7 @@ h1 {
 	font-weight: 100;
 	text-align: center;
 	white-space: nowrap;
-}
-
-canvas {
-	display: inline;
-  border-style: inset;
+	overflow: hidden;
 }
 
 .nav_buttons {
@@ -28,21 +24,38 @@ canvas {
 	width: 120px;
 }
 
-#loadSaveCreate {
-	position: fixed;
+#FBDEditor {
+	margin-left: 250px;
 	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.canvasDiv {
+	margin: 10px;
+	display: inline-block;
+}
+
+canvas {
+  border-style: inset;
+}
+
+#loadSaveCreate {
+	display: inline-block;
+	vertical-align: top;
 	top: 0px;
 	right: 0px;
-	margin-top: 74px;
 	margin-left: 10px;
 	margin-right: 10px;
 }
 
+/* Create Content Controls */
 #createSettings {
 	text-align: center;
 	border-style: solid;
 	border-width: 2px;
 	border-color: #0073e6;
+	white-space: normal;
 }
 
 .createSettingGroup {
@@ -81,9 +94,9 @@ canvas {
 	margin-left: 11px;
 }
 
+/* Modify Content Controls */
 #modifyContent {
 	display: none;
-	float: left;
 	border-style: solid;
 	border-width: 2px;
 	border-color: #0073e6;
@@ -92,15 +105,14 @@ canvas {
 
 .modifyElt {
 	height: 30px;
-	margin-left: 10px;
-	margin-right: 10px;
+	margin-left: 40px;
+	margin-right: 40px;
 	margin-bottom: 5px;
 }
 .modifyElt .buttonLabel {
 	float: left;
 	height: 30px;
 	line-height: 30px;
-	padding: 0px;
 }
 
 .modifyElt .btn {
@@ -127,11 +139,7 @@ canvas {
 	margin-bottom: 10px;
 }
 
-.canvasDiv {
-	float: left;
-	margin: 15px;
-}
-
+/* Image Gallery */
 #img_selector {
 	text-align: center;
 	margin: 20px;
@@ -149,7 +157,6 @@ canvas {
 }
 
 #img_buttons #prevImg {
-
 	margin-left: 14px;
 }
 
@@ -164,6 +171,6 @@ canvas {
 }
 
 .def_img {
-	height: 150px;
-	width: 150px;
+	height: 140px;
+	width: 140px;
 }

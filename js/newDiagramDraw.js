@@ -123,14 +123,20 @@ addTriangleButton.click(function() {
 });
 
 deleteButton.click(function() {
+
+  if(confirm("Are you sure you want to delete the selected object?")) {
     deleteSelected(canvas);
+  }
 });
 
 clearButton.click(function() {
-  canvas.clear();
+
+  if(confirm("Are you sure you want to clear the whole canvas?")) {
+    canvas.clear();
+  }
 });
 
-imageInput.dblclick(function(e) {
+imageInput.click(function(e) {
     e.preventDefault();
     addImageToCanvas(this.src, center);
 });

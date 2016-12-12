@@ -23,7 +23,7 @@ var deltaX = null;
 var origAngle = null;
 
 // Sensitivity Threshold
-var sensThresh = 0.01;
+var sensThresh = remote.getGlobal('sensThresh');
 
 // Establish Myo Connection
 var Myo; // Global
@@ -80,7 +80,7 @@ function createTabbedMyoEvents() {
 
     if(remote.getGlobal('gestureControlOn') && !onLock) {
       console.log("Clicking " + tabbedElts[tabIdx].id + "!");
-      $('#' + tabbedElts[tabIdx].id).trigger('click');
+      $('#' + tabbedElts[tabIdx].id).click();
     }
   });
 
@@ -96,6 +96,7 @@ function createTabbedMyoEvents() {
       // If this is a page with other menu zones
       if(valid) {
         $('#' + tabbedElts[tabIdx].id).css('border-style', 'none');
+        $('#' + tabbedElts[tabIdx].id).tooltip('destroy');
 
         if (!onMenu) {
           tabbedElts = $('.menutabbed').toArray();
@@ -191,6 +192,7 @@ function moveObjWithMotionTrack(data) {
     deltaZ = 0;
     deltaY = 0;
   }
+
   // If we have moved bigger than the minimum threshold
   else if (Math.abs(myoZ - data.z) > sensThresh ||
             Math.abs(myoY - data.y) > sensThresh) {
@@ -203,10 +205,11 @@ function moveObjWithMotionTrack(data) {
     myoZ = +coordZ;
     myoY = +coordY;
     console.log(deltaZ);
+
     // Scale Myo movement to the dimensions of this canvas.
     // These functions are from modifyElement.js
-    moveHorizontal(canvas, ((deltaZ/0.7) * 740) % 740);
-    moveVertical(canvas, ((deltaY/0.7) * 500) % 500);
+    moveHorizontal(canvas, ((deltaZ/0.7) * canvas.width) % canvas.width);
+    moveVertical(canvas, ((deltaY/0.7) * canvas.height) % canvas.height);
     canvas.renderAll();
   }
 }
@@ -236,7 +239,7 @@ function moveObjWithArrowKey(direction, data) {
     if (direction.localeCompare("upArrow") == 0
         || direction.localeCompare("downArrow") == 0) {
       // From modifyElement.js
-      moveVertical(canvas, ((deltaY/0.7) * 500) % 500);
+      moveVertical(canvas, ((deltaY/0.7) * canvas.height) % canvas.height);
     }
 
     // RIGHT & LEFT
@@ -244,7 +247,7 @@ function moveObjWithArrowKey(direction, data) {
         || direction.localeCompare("leftArrow") == 0) {
 
       // From modifyElement.js
-      moveHorizontal(canvas, ((deltaZ/0.7) * 740) % 740);
+      moveHorizontal(canvas, ((deltaZ/0.7) * canvas.width) % canvas.width);
     }
 
     canvas.renderAll();
@@ -422,7 +425,7 @@ function makeButtonOnFocus(prevIdx, nextIdx) {
   $('#' + tabbedElts[tabIdx].id).css('border-style', 'solid');
   $('#' + tabbedElts[tabIdx].id).css('border-width', '4px');
   $('#' + tabbedElts[tabIdx].id).css('border-radius', '2px');
-  $('#' + tabbedElts[tabIdx].id).css('border-color', '#e3730d');
+  $('#' + tabbedElts[tabIdx].id).css('border-color', '#000000');
 
   // Add gesture help Label
   if(remote.getGlobal('gestureLabelsOn')) {
@@ -432,21 +435,19 @@ function makeButtonOnFocus(prevIdx, nextIdx) {
     // Tooltips for custom gestures
     if(currElt.localeCompare("rotate_shape_clockwise") == 0) {
       $("#" + tabbedElts[tabIdx].id).tooltip(
-        {title: "Rotate Wrist CW", trigger: "focus"});
+        {title: "Rotate Wrist CW", placement: "auto"}).tooltip("show");
     }
     else if(currElt.localeCompare("rotate_shape_counter_clockwise") == 0) {
       $("#" + tabbedElts[tabIdx].id).tooltip(
-        {title: "Rotate Wrist CCW", trigger: "focus"});
+        {title: "Rotate Wrist CCW", placement: "auto"}).tooltip("show");
     }
-    // Tooltips for regular gestures
     else {
 
       $("#" + tabbedElts[tabIdx].id).tooltip(
         {title: "Wave In: " + $('#' + tabbedElts[prevIdx].id).attr('placeholder')
-         + "\nWave Out: " + $('#' + tabbedElts[nextIdx].id).attr('placeholder'),  trigger: "focus"});
+         + "\nWave Out: " + $('#' + tabbedElts[nextIdx].id).attr('placeholder'),
+         placement: "auto"}).tooltip("show");
     }
-
-    $("#" + tabbedElts[tabIdx].id).trigger('focus');
   }
 }
 

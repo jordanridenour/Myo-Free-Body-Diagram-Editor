@@ -15,10 +15,10 @@
 
   <div id="menuSideNav">
     <button id='home' class="menutabbed" placeholder="Home"> Home </button>
-    <button id='about' class="menutabbed" placeholder="About"> About </button>
-    <button id='help' class="menutabbed" placeholder="Help"> Help </button>
+    <button id='newDiagram' class="menutabbed" placeholder="Edit Diagram"> Edit Diagram </button>
     <button id='settings' class="menutabbed" placeholder="Settings"> Settings </button>
-    <button id='newDiagram' class="menutabbed" placeholder="New Diagram"> New Diagram </button>
+    <button id='help' class="menutabbed" placeholder="Help"> Help </button>
+    <button id='about' class="menutabbed" placeholder="About"> About </button>
   </div>
 
   <body>
@@ -38,6 +38,24 @@
           <button class="btn btn-success settingButt tabbed" type="radio"
             placeholder="Toggle Labels" name="options"
             id="gestureLabel"> On </button>
+        </div>
+        <br>
+        <div class="settingItem">
+          <label class="settingLabel"> Myo Sensitivity Level <br> (lower is more sensitive) </label>
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button type="button" id="sensDown" class="btn btn-danger btn-number tabbed"  data-type="minus" data-field="quant[2]">
+                <span class="glyphicon glyphicon-minus"></span>
+              </button>
+            </span>
+            <input type="text" id="sensVal" name="quant[2]" class="form-control input-number" value="1" min="1" max="10">
+            <span class="input-group-btn">
+              <button type="button" id="sensUp" class="btn btn-success btn-number tabbed" data-type="plus" data-field="quant[2]">
+                <span class="glyphicon glyphicon-plus"></span>
+              </button>
+            </span>
+          </div>
+  	      <p></p>
         </div>
       </div>
     </div>

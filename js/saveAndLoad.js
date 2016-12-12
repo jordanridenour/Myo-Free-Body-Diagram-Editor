@@ -1,8 +1,8 @@
 function writeDiagramToJson(canvas) {
 	const fs = require('fs');
-	var json = JSON.stringify(canvas.toDatalessJSON());
+	var json = JSON.stringify(canvas.toDatalessJSON()) + '\n';
 	const fileWrite = './js/downloads/download.txt';
-	fs.writeFileSync(fileWrite, json);
+	fs.appendFile(fileWrite, json);
 	var downloadButton = $("#link");
 	downloadButton.click();
 }

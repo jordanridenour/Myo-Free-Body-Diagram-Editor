@@ -15,32 +15,25 @@
 
 <div id="menuSideNav">
   <button id='home' class="menutabbed" placeholder="Home"> Home </button>
-  <button id='about' class="menutabbed" placeholder="About"> About </button>
-  <button id='help' class="menutabbed" placeholder="Help"> Help </button>
+  <button id='newDiagram' class="menutabbed" placeholder="Edit Diagram"> Edit Diagram </button>
   <button id='settings' class="menutabbed" placeholder="Settings"> Settings </button>
-  <button id='newDiagram' class="menutabbed" placeholder="New Diagram"> New Diagram </button>
+  <button id='help' class="menutabbed" placeholder="Help"> Help </button>
+  <button id='about' class="menutabbed" placeholder="About"> About </button>
 </div>
 
 <body>
-  <div id = "mainContent">
+  <div id = "FBDEditor">
     <h1> Free Body Diagram Creator </h1>
     <div class="canvasDiv">
-      <canvas id="fbdCanvas" width="740" height="500"></canvas>
+      <canvas id="fbdCanvas" width="670px" height="550px"></canvas>
     </div>
-
     <div id="loadSaveCreate">
       <div class="nav_buttons">
-        <button type="button" class="btn btn-success tabbed twoTabbed"
+        <button type="button" class="btn btn-info tabbed twoTabbed"
           placeholder="Switch Menu" id="switch_menu">
           <span>Modify</span>
         </button>
       </div>
-      <!--<div class="nav_buttons">
-        <button type="button" class="btn btn-success menutabbed tabbed twoTabbed"
-          placeholder="Switch to Nav" id="switch_nav">
-          <span>Switch to Nav</span>
-        </button>
-      </div>-->
       <br>
       <div id="modifyContent">
         <div style="text-align: center;" class="modSelect">
@@ -112,9 +105,9 @@
             <input type="text" class="form-control input-number tabbed"
               placeholder="Label Textbox" id="labelInput">
           </div>
-          <button type="button" class="btn btn-warning tabbed"
-            placeholder="Insert Arrow" id="l_confirm">
-            <span>Insert Arrow</span>
+          <button type="button" class="btn btn-success tabbed"
+            placeholder="Add Label" id="labelButton">
+            <span>Insert Label</span>
           </button>
           <button type="button" class="btn btn-danger tabbed"
             placeholder="Clear Canvas" id="clearButton">
@@ -122,9 +115,9 @@
           </button>
         </div>
         <div class="createSettingGroup">
-          <button type="button" class="btn btn-primary tabbed"
-            placeholder="Add Label" id="labelButton">
-            <span>Insert Label</span>
+          <button type="button" class="btn btn-success tabbed"
+            placeholder="Insert Arrow" id="l_confirm">
+            <span>Insert Arrow</span>
           </button>
           <button type="button" class="btn btn-success tabbed"
             placeholder="Insert Rectangle" id="r_confirm">
@@ -141,7 +134,7 @@
         <div class="createSettingGroup">
           <div class="loadSaveElt">
             <a id="savePNGLink">
-              <button type="button" id="savePNGButton" placeholder="Save as PNG" class="tabbed btn btn-primary">
+              <button type="button" id="savePNGButton" placeholder="Save as PNG" class="tabbed btn btn-warning">
                 <span>Save as PNG</span>
               </button>
             </a>
@@ -155,15 +148,15 @@
         <div class="createSettingGroup">
           <div class="loadSaveElt">
             <button type="button" class="tabbed btn btn-warning"
-              placeholder="Save Canvas" id="saveBtn">
-              <span>Save Diagram</span>
+              placeholder="Save Project File" id="saveBtn">
+              <span>Save Project File</span>
             </button>
             <a id="downloadAnchor" href="../js/downloads/download.txt" download="diagram.json">
             <button id="link" style="display:none;">Download</button></a>
           </div>
           <div class="loadSaveElt">
-            <button type="button" id="submitLoad" placeholder="Save file" class="tabbed btn btn-success">
-              <span>Save Project File</span>
+            <button type="button" id="submitLoad" placeholder="Load file" class="tabbed btn btn-primary">
+              <span>Load Project File</span>
             </button>
           </div>
         </div>
@@ -175,12 +168,12 @@
         </div>
 
         <div id="img_buttons">
-          <button type="button" class="tabbed btn btn-warning"
+          <button type="button" class="tabbed twoTabbed btn btn-warning"
             placeholder="Previous Image" id="prevImg">
             <span>Previous</span>
           </button>
           <br>
-          <button type="button" class="tabbed btn btn-warning"
+          <button type="button" class="tabbed twoTabbed btn btn-warning"
             placeholder="Next Image" id="nextImg">
             <span>Next</span>
           </button>
