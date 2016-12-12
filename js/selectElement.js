@@ -7,10 +7,10 @@ function selectNext(canvas) {
 
   // ARROW: Special Handling for arrows
   if (selectedObj && selectedObj['customType']
-      && selectedObj['customType'].localeCompare("arrow") == 0) {
+      && selectedObj['customType'].localeCompare('arrow_line') == 0) {
 
     var currIndex = getSelectedIndex(objs, selectedObj);
-    nextIndex = currIndex + 3;
+    nextIndex = currIndex + 2;
 
     if (nextIndex === objs.length) nextIndex = 0;
 
@@ -31,7 +31,7 @@ function selectNext(canvas) {
   // ARROW: Highlight if arrow
   var nowObj = canvas.item(nextIndex);
   if (nowObj && nowObj['customType']
-      && nowObj['customType'].localeCompare("arrow") == 0) {
+      && nowObj['customType'].localeCompare("line_arrow") == 0) {
 
     nowObj.stroke = '#4372B6';
     objs[nextIndex + 1].stroke = '#4372B6';

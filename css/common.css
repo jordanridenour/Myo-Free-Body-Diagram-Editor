@@ -2,8 +2,16 @@
 	cursor: url("../images/cursor.png"), auto;
 }
 
+.canvas-container:hover {
+	cursor: url("../images/cursor.png"), auto;
+}
+
+button:hover, button > span {
+	cursor: url("../images/pointer.png"), auto;
+}
+
 body {
-	font-family: "Arial", Arial, sans-serif;
+	font-family: "Times New Roman", Times, serif;
 }
 
 .tooltip .tooltip-inner {

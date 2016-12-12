@@ -33,7 +33,57 @@ function addTriangle(canvas, widthInput, heightInput) {
     canvas.add(triangle)
 }
 
+function addLine(canvas, center) {
+  var height = 2;
+  var line = new fabric.Rect({
+        left: center.x,
+        top: center.y,
+        fill: 'black',
+        lockScalingY: true,
+        width: 100,
+        height: height,
+        angle: 45,
+        cornerSize: 5
+    });
+    line.customType = 'arrow_line';
+
+    var triangle = new fabric.Triangle({
+        left: line.getLeft(),
+        top: line.getTop(),
+        originX: 'center',
+        originY: 'center',
+        hasBorders: false,
+        hasControls: false,
+        lockScalingX: true,
+        lockScalingY: true,
+        lockRotation: true,
+        pointType: 'arrow_start',
+        angle: line.getAngle() - 90,
+        width: 15,
+        height: 15,
+        fill: 'black'
+    });
+
+    triangle.line = line;
+    line.triangle = triangle;
+    
+    canvas.add(line, triangle);
+
+    line.on('modified', function() {
+        var top = line.getTop();
+        var left = line.getLeft();
+        var angle = line.getAngle() - 90;
+        triangle.setTop(top);
+        triangle.setLeft(left);
+        triangle.setAngle(angle);
+        console.log('Top: ', top);
+        console.log('Left: ', left);
+        line.setHeight(height);
+    });
+}
+
 // ARROW
+
 function addArrow(canvas, center) {
 
   var line = new fabric.Line([50, 50, 100, 100], {
@@ -179,6 +229,7 @@ function addArrow(canvas, center) {
   });
 
   line.on('moving', function() {
+    console.log('Line moving');
     moveLine();
   });
 }
