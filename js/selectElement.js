@@ -14,11 +14,6 @@ function selectNext(canvas) {
 
     if (nextIndex === objs.length) nextIndex = 0;
 
-    // Unhighlight arrow
-    selectedObj.stroke = '#000';
-    objs[currIndex + 1].stroke = '#000';
-    objs[currIndex + 2].stroke = '#000';
-    objs[currIndex + 2].fill = '#000';
   }
   else if (selectedObj) {
       nextIndex = getSelectedIndex(objs, selectedObj) + 1;
@@ -55,17 +50,15 @@ function deleteSelected(canvas) {
     if (selectedObj) {
 
       // ARROW: Special handling for arrows
-      if (selectedObj.get('type').localeCompare("line") == 0) {
+      if (selectedObj && selectedObj['customType']
+          && selectedObj['customType'].localeCompare('arrow_line') == 0) {
 
         // Move triangle and circle too.
         var arrowIdx = getSelectedIndex(canvas.getObjects(), selectedObj) + 1;
-        var circleIdx = arrowIdx + 1;
 
         var arrowObj = canvas.item(arrowIdx);
-        var circleObj = canvas.item(circleIdx);
 
         canvas.remove(arrowObj);
-        canvas.remove(circleObj);
       }
 
       canvas.remove(selectedObj);
