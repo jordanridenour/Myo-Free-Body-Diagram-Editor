@@ -10,6 +10,7 @@ const BrowserWindow = electron.BrowserWindow
 // Other global variables
 global.gestureLabelsOn = true;
 global.gestureControlOn = true;
+global.sensThresh = 0.01;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -20,9 +21,7 @@ function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1300,
-    height: 760,
-    'minWidth': 1300,
-    'minHeight': 760,
+    height: 740,
     resizable: true
   });
 
@@ -82,5 +81,9 @@ ipcMain.on('changeGlobal', function(event, varName, setting) {
 
   if(varName.localeCompare("gestureControlOn") == 0) {
     global.gestureControlOn = setting;
+  }
+
+  if(varName.localeCompare("sensThresh") == 0) {
+    global.sensThresh = setting*0.01;
   }
 });

@@ -1,5 +1,4 @@
 
-
 .settingItem {
   padding: 20px;
   margin: 10px;
@@ -20,6 +19,11 @@
 }
 
 .settingButt span {
-
   font-size: 20px;
+}
+
+.input-group {
+  float: right;
+  width: 140px;
+  margin-right: 135px;
 }

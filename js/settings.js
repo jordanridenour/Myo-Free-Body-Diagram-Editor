@@ -4,6 +4,7 @@ const {ipcRenderer} = require('electron');
 // Button events
 $(document).ready(function() {
 
+  $("#sensVal").val(remote.getGlobal("sensThresh")*100);
   var gestureLabelsOn = remote.getGlobal("gestureLabelsOn");
   var gestureControlsOn = remote.getGlobal("gestureControlOn");
 
@@ -57,6 +58,29 @@ $(document).ready(function() {
 
     ipcRenderer.send('changeGlobal', "gestureControlOn",
                       !remote.getGlobal("gestureControlOn"));
+  });
+
+  // Sensitivity threshold
+  $("#sensDown").click(function() {
+
+    var sensVal = parseInt($("#sensVal").val());
+
+    if (sensVal > 1) {
+
+      $("#sensVal").val(sensVal - 1);
+      ipcRenderer.send('changeGlobal', "sensThresh", sensVal - 1);
+    }
+  });
+
+  $("#sensUp").click(function() {
+
+    var sensVal = parseFloat($("#sensVal").val());
+
+    if (sensVal < 10) {
+
+      $("#sensVal").val(sensVal + 1);
+      ipcRenderer.send('changeGlobal', "sensThresh", sensVal + 1);
+    }
   });
 });
 
