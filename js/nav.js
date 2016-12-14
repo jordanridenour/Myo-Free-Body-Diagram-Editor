@@ -23,7 +23,9 @@ var deltaX = null;
 var origAngle = null;
 
 // Sensitivity Threshold
-var sensThresh = remote.getGlobal('sensThresh');
+var sensThresh = 0.01;
+// Measures the power of each movement
+var moveScale = remote.getGlobal('moveScale');
 
 // Establish Myo Connection
 var Myo; // Global
@@ -146,6 +148,7 @@ function AddCustomGestures() {
         onLock = true;
       }
       else {
+        // Unlock button
         $('#' + tabbedElts[tabIdx].id).css('border-color', '#000000');
         onLock = false;
       }
@@ -187,29 +190,29 @@ function AddCustomGestures() {
 function moveObjWithMotionTrack(data) {
 
   // Assign current positioning data
-  if (myoZ == null || myoY == null) {
-    myoZ = data.z;
-    myoY = data.y;
-    deltaZ = 0;
-    deltaY = 0;
+  if (myoW == null || myoX == null) {
+    myoW = data.w;
+    myoX = data.x;
+    deltaW = 0;
+    deltaX = 0;
   }
 
   // If we have moved bigger than the minimum threshold
-  else if (Math.abs(myoZ - data.z) > sensThresh ||
-            Math.abs(myoY - data.y) > sensThresh) {
+  else if (Math.abs(myoW - data.w) > sensThresh ||
+            Math.abs(myoX - data.x) > sensThresh) {
 
-    var coordZ = (data.z).toFixed(2);
-    var coordY = (data.y).toFixed(2);
+    var coordW = (data.w).toFixed(2);
+    var coordX = (data.x).toFixed(2);
 
-    deltaZ = +(myoZ - coordZ);
-    deltaY = +(myoY - coordY);
-    myoZ = +coordZ;
-    myoY = +coordY;
+    deltaW = +(myoW - coordW);
+    deltaX = +(myoX - coordX);
+    myoW = +coordW;
+    myoX = +coordX;
 
     // Scale Myo movement to the dimensions of this canvas.
     // These functions are from modifyElement.js
-    moveHorizontal(canvas, ((deltaZ/0.7) * canvas.width) % canvas.width);
-    moveVertical(canvas, ((deltaY/0.7) * canvas.height) % canvas.height);
+    moveHorizontal(canvas, ((-1*deltaW/0.7) * canvas.width * moveScale) % canvas.width);
+    moveVertical(canvas, ((-1*deltaX/0.7) * canvas.height * moveScale) % canvas.height);
     canvas.renderAll();
   }
 }
@@ -217,44 +220,42 @@ function moveObjWithMotionTrack(data) {
 function moveObjWithArrowKey(direction, data) {
 
   // Assign current positioning data
-  if (myoZ == null || myoY == null) {
-    myoZ = data.z;
-    myoY = data.y;
-    deltaZ = 0;
-    deltaY = 0;
+  if (myoW == null || myoX == null) {
+    myoW = data.w;
+    myoX = data.x;
+    deltaW = 0;
+    deltaX = 0;
   }
   // If we have moved bigger than the minimum threshold
-  else if (Math.abs(myoZ - data.z) > sensThresh ||
-            Math.abs(myoY - data.y) > sensThresh) {
+  else if (Math.abs(myoW - data.w) > sensThresh ||
+            Math.abs(myoX - data.x) > sensThresh) {
 
-    var coordZ = (data.z).toFixed(2);
-    var coordY = (data.y).toFixed(2);
+    var coordW = (data.w).toFixed(2);
+    var coordX = (data.x).toFixed(2);
 
-    deltaZ = +(myoZ - coordZ);
-    deltaY = +(myoY - coordY);
-    myoZ = +coordZ;
-    myoY = +coordY;
+    deltaW = +(myoW - coordW);
+    deltaX = +(myoX - coordX);
+    myoW = +coordW;
+    myoX = +coordX;
 
     // UP & DOWN
     if (direction.localeCompare("upArrow") == 0
         || direction.localeCompare("downArrow") == 0) {
       // From modifyElement.js
-      moveVertical(canvas, ((deltaY/0.7) * canvas.height) % canvas.height);
+      moveVertical(canvas, ((-1*deltaX/0.7) * canvas.height * moveScale) % canvas.height);
     }
 
     // RIGHT & LEFT
     if (direction.localeCompare("rightArrow") == 0
         || direction.localeCompare("leftArrow") == 0) {
-
       // From modifyElement.js
-      moveHorizontal(canvas, ((deltaZ/0.7) * canvas.width) % canvas.width);
+      moveHorizontal(canvas, ((-1*deltaW/0.7) * canvas.width * moveScale) % canvas.width);
     }
 
     canvas.renderAll();
   }
 }
 
-// NOT WORKING WITH ARROWS
 function moveObjWithRotation(data) {
 
   // Assign current positioning data

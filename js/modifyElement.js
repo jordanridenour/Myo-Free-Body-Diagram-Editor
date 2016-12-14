@@ -1,6 +1,6 @@
 // Global array of undo/redo states
 canvasStates = [];
-var modifyFactor = 2.5;
+var modifyFactor = 5;
 
 function decreaseWidth(canvas) {
    changeWidth(canvas, -modifyFactor);

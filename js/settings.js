@@ -4,7 +4,7 @@ const {ipcRenderer} = require('electron');
 // Button events
 $(document).ready(function() {
 
-  $("#sensVal").val(remote.getGlobal("sensThresh")*100);
+  $("#sensVal").val(remote.getGlobal("moveScale"));
   var gestureLabelsOn = remote.getGlobal("gestureLabelsOn");
   var gestureControlsOn = remote.getGlobal("gestureControlOn");
 
@@ -68,7 +68,7 @@ $(document).ready(function() {
     if (sensVal > 1) {
 
       $("#sensVal").val(sensVal - 1);
-      ipcRenderer.send('changeGlobal', "sensThresh", sensVal - 1);
+      ipcRenderer.send('changeGlobal', "moveScale", sensVal - 1);
     }
   });
 
@@ -79,7 +79,7 @@ $(document).ready(function() {
     if (sensVal < 10) {
 
       $("#sensVal").val(sensVal + 1);
-      ipcRenderer.send('changeGlobal', "sensThresh", sensVal + 1);
+      ipcRenderer.send('changeGlobal', "moveScale", sensVal + 1);
     }
   });
 });
